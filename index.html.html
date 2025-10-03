@@ -1,0 +1,3932 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>境外主要经济体信用环境比较研究报告 2024-2025</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Microsoft YaHei', 'Segoe UI', Arial, sans-serif; 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%); 
+            min-height: 100vh; 
+            padding: 20px 20px 100px; 
+        }
+        
+        .presentation { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            background: white; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); 
+            padding: 50px; 
+            min-height: 600px; 
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .slide { 
+            display: none; 
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        .slide.active { 
+            display: block; 
+        }
+        
+        @keyframes slideIn { 
+            from { 
+                opacity: 0; 
+                transform: translateX(30px); 
+            } 
+            to { 
+                opacity: 1; 
+                transform: translateX(0); 
+            } 
+        }
+        
+        .counter {
+            display: inline-block;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        h1 { 
+            color: #1e3c72; 
+            font-size: 2.2em; 
+            margin-bottom: 20px; 
+            border-bottom: 3px solid #667eea; 
+            padding-bottom: 12px;
+            position: relative;
+        }
+        
+        h1::before {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #764ba2;
+        }
+        
+        h2 { 
+            color: #2a5298; 
+            font-size: 1.6em; 
+            margin: 20px 0 12px 0; 
+        }
+        
+        h3 { 
+            color: #667eea; 
+            font-size: 1.2em; 
+            margin: 12px 0 8px 0; 
+        }
+        
+        .subtitle { 
+            font-size: 1.1em; 
+            color: #666; 
+            margin-bottom: 25px; 
+        }
+        
+        ul, ol { 
+            margin-left: 22px; 
+            line-height: 1.7; 
+        }
+        
+        li { 
+            margin-bottom: 8px; 
+            color: #333; 
+            font-size: 0.95em;
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        li:nth-child(1) { animation-delay: 0.1s; }
+        li:nth-child(2) { animation-delay: 0.2s; }
+        li:nth-child(3) { animation-delay: 0.3s; }
+        li:nth-child(4) { animation-delay: 0.4s; }
+        li:nth-child(5) { animation-delay: 0.5s; }
+        li:nth-child(6) { animation-delay: 0.6s; }
+        li:nth-child(7) { animation-delay: 0.7s; }
+        li:nth-child(8) { animation-delay: 0.8s; }
+        
+        .metric-box { 
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); 
+            border-left: 4px solid #667eea; 
+            padding: 16px; 
+            margin: 12px 0; 
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .metric-box:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        
+        .swot-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; 
+            margin: 15px 0; 
+        }
+        
+        .swot-box { 
+            padding: 15px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .swot-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+        .strengths { 
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); 
+            border-left: 4px solid #28a745; 
+        }
+        
+        .weaknesses { 
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%); 
+            border-left: 4px solid #dc3545; 
+        }
+        
+        .opportunities { 
+            background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%); 
+            border-left: 4px solid #17a2b8; 
+        }
+        
+        .threats { 
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); 
+            border-left: 4px solid #ffc107; 
+        }
+        
+        .ranking-bar {
+            margin: 10px 0;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .ranking-bar:hover {
+            background: #e9ecef;
+            transform: scale(1.02);
+        }
+        
+        .ranking-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .ranking-progress {
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .ranking-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
+            transition: width 1s ease-out;
+            width: 0;
+        }
+        
+        .slide.active .ranking-fill {
+            width: var(--progress);
+        }
+        
+        .ranking-details {
+            display: none;
+            margin-top: 10px;
+            padding: 12px;
+            background: white;
+            border-radius: 5px;
+            border-left: 3px solid #667eea;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .navigation { 
+            position: fixed; 
+            bottom: 20px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            display: flex; 
+            gap: 12px; 
+            background: white; 
+            padding: 12px 25px; 
+            border-radius: 40px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3); 
+            z-index: 1000; 
+        }
+        
+        .nav-btn { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            font-size: 15px; 
+            transition: all 0.3s; 
+            font-family: 'Microsoft YaHei';
+        }
+        
+        .nav-btn:hover:not(:disabled) { 
+            transform: scale(1.05); 
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .nav-btn:disabled { 
+            background: #ccc; 
+            cursor: not-allowed; 
+        }
+        
+        .slide-number { 
+            color: #333; 
+            font-size: 15px; 
+            padding: 10px 18px; 
+            font-weight: bold; 
+        }
+        
+        .quick-nav {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 999;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .quick-nav-item {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ddd;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .quick-nav-item.active {
+            background: #667eea;
+            transform: scale(1.5);
+        }
+        
+        .quick-nav-item:hover {
+            background: #764ba2;
+        }
+        
+        .table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 15px 0; 
+            font-size: 0.85em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .table th { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 12px; 
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .table td { 
+            padding: 10px; 
+            border-bottom: 1px solid #e9ecef;
+            transition: background 0.2s ease;
+        }
+        
+        .table tr:hover { 
+            background: #f8f9fa; 
+        }
+        
+        .key-point { 
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); 
+            border-left: 4px solid #ffc107; 
+            padding: 14px; 
+            margin: 12px 0; 
+            border-radius: 5px; 
+            font-weight: 500;
+        }
+        
+        .score-badge { 
+            display: inline-block; 
+            padding: 4px 12px; 
+            border-radius: 15px; 
+            font-weight: bold; 
+            margin: 3px; 
+            font-size: 0.9em;
+            transition: transform 0.2s ease;
+        }
+        
+        .score-badge:hover {
+            transform: scale(1.1);
+        }
+        
+        .score-high { 
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%); 
+            color: white; 
+        }
+        
+        .score-medium { 
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%); 
+            color: #333; 
+        }
+        
+        .score-low { 
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); 
+            color: white; 
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .fullscreen-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 999;
+            transition: all 0.3s;
+            font-family: 'Microsoft YaHei';
+        }
+        
+        .fullscreen-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        p { 
+            margin: 8px 0; 
+            line-height: 1.6; 
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        @media (max-width: 768px) {
+            .presentation {
+                padding: 30px 20px;
+            }
+            
+            .swot-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .quick-nav {
+                display: none;
+            }
+            
+            .navigation {
+                flex-wrap: wrap;
+                padding: 10px 15px;
+            }
+            
+            .nav-btn {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ 全屏</button>
+    
+    <div class="quick-nav" id="quickNav"></div>
+    
+    <div class="presentation">
+        <div class="progress-bar" id="progressBar"></div>
+        
+        <!-- 幻灯片 1: 封面 -->
+        <div class="slide active">
+            <h1 style="text-align: center; font-size: 2.8em; margin-top: 80px;">境外主要经济体信用环境比较研究报告</h1>
+            <div class="subtitle" style="text-align: center; font-size: 1.4em; margin-top: 30px;">2024-2025年度</div>
+            
+            <div style="display: flex; justify-content: space-around; margin-top: 60px; flex-wrap: wrap;">
+                <div class="stat-card" style="flex: 1; margin: 10px; min-width: 150px;">
+                    <div class="stat-number" style="color: #667eea;"><span class="counter" data-target="7">0</span></div>
+                    <div class="stat-label">覆盖经济体</div>
+                </div>
+                <div class="stat-card" style="flex: 1; margin: 10px; min-width: 150px;">
+                    <div class="stat-number" style="color: #28a745;"><span class="counter" data-target="8">0</span></div>
+                    <div class="stat-label">定量评估维度</div>
+                </div>
+                <div class="stat-card" style="flex: 1; margin: 10px; min-width: 150px;">
+                    <div class="stat-number" style="color: #764ba2;"><span class="counter" data-target="39">0</span></div>
+                    <div class="stat-label">定量评估指标</div>
+                </div>
+                <div class="stat-card" style="flex: 1; margin: 10px; min-width: 150px;">
+                    <div class="stat-number" style="color: #28a745;"><span class="counter" data-target="5">0</span></div>
+                    <div class="stat-label">定性评估维度</div>
+                </div>
+                <div class="stat-card" style="flex: 1; margin: 10px; min-width: 150px;">
+                    <div class="stat-number" style="color: #764ba2;"><span class="counter" data-target="20">0</span></div>
+                    <div class="stat-label">定性评估指标</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 60px; color: #666;">
+                <p style="font-size: 1.15em;">招商银行悉尼分行 风险管理部</p>
+            </div>
+        </div>
+
+        <!-- 幻灯片 2: 研究摘要 -->
+        <div class="slide">
+            <h1>研究摘要</h1>
+            <div class="metric-box">
+                <h3>研究目的</h3>
+                <p>为深入掌握境外主要经济体,尤其是招商银行现有及规划设立机构所在国家和地区的信用环境状况, 招商银行悉尼分行持续开展针对境外主要经济体的核心经济变量、监管制度框架及金融市场动态的系统性独立研究,旨在为主要经济体的信贷环境现状及未来趋势提供前瞻性洞察。</p>
+            </div>
+            <div class="metric-box">
+                <h3>覆盖经济体</h3>
+                <ul>
+                    <li><strong>发达经济体:</strong>美国、澳大利亚、英国、卢森堡/欧盟、新加坡</li>
+                    <li><strong>新兴市场:</strong>阿联酋、沙特阿拉伯</li>
+                </ul>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="coverageChart"></canvas>
+            </div>
+            
+            <div class="key-point"><strong>关键创新:</strong>2025年,首次将环境、社会与治理(ESG)这一现代金融分析的核心维度,作为独立因素引入本次评估框架</div>
+            
+            <div class="metric-box">
+                <h3>战略价值</h3>
+                <p>通过将前瞻性指标深度嵌入研究方法论,并结合最新经济数据与宏观趋势, 本次研究显著提升了对招商银行集团管理层在跨境信贷政策制定、国际业务战略规划及风险管理实践的支持力度, 使其能够更精准地服务于跨境信贷政策制定和风险管控实践。</p>
+            </div>
+        </div>
+
+        <!-- 幻灯片 3: 研究框架总览 -->
+        <div class="slide">
+            <h1>研究框架总览</h1>
+            <div class="swot-grid">
+                <div class="strengths"><h3>定量分析(70%)</h3><ol><li>宏观经济 (10%)</li><li>贸易往来 (10%)</li><li>资本市场 (40%)</li><li>人口结构 (10%)</li><li>政府治理 (10%)</li><li>营商环境 (10%)</li><li>资源禀赋 (5%)</li><li><strong>ESG环境(新增) (5%)</strong></li></ol></div>
+                <div class="opportunities"><h3>定性分析(30%)</h3><ol><li>宏观经济稳定性 (20%)</li><li>环境可持续性 (20%)</li><li>社保福利健全性 (20%)</li><li>金融系统韧性 (20%)</li><li>自然资源依赖性 (20%)</li></ol></div>
+            </div>
+            <div class="key-point"><strong>数据来源:</strong>世界银行、IMF、各国官方统计机构</div>
+        </div>
+
+        <!-- 幻灯片 4: 2025年方法论升级(1) -->
+        <div class="slide">
+            <h1>2025年方法论升级(1)</h1>
+            <h2>定量指标优化</h2>
+            <div class="metric-box"><h3>新增ESG环境风险维度</h3><ul><li>从7维度扩展至8维度: 新增了独立的 ESG 环境风险维度 (权重5%), 以响应全球可持续发展理念日益重要地位, 并反映出国际金融业对 ESG 环境风险因素在信用分析中的日益增长的重视。</li><li>定量评估指标总数由上年的30项增至39项</li></ul></div>
+            <div class="metric-box"><h3>宏观经济强化</h3><ul><li>新增:当年实际GDP增长率</li><li>强化对经济体短期经济扩张能力的衡量,用于考察该经济体偿还债务的创收能力</li></ul></div>
+            <div class="metric-box"><h3>人口结构深化</h3><ul><li>新增:人均预期寿命、人口年增长率、劳动力参与率、平均受教育年限</li><li>优化后的指标共同构成了一个综合的评估体系,全面覆盖了经济体的人口数量、劳动力素质、教育水平与健康水平——这些都是驱动长期经济潜力和社会稳定性的根本因素。</li></ul></div>
+            <div class="metric-box"><h3>资本市场完善</h3><ul><li>新增:国家黄金储备</li><li>随着市场对美国财政可持续性的担忧加剧,以及"去美元化"趋势的持续深化,各国央行正加速推进储备资产多元化。欧洲央行2024年度报告显示,全球央行黄金储备占比已达20%,首次超过欧元,成为仅次于美元的第二大储备资产。引入该指标是对"金融市场韧性"这一评估维度的重要完善。</li></ul></div>
+            <div class="metric-box"><h3>资源禀赋优化</h3><ul><li>新增:原始能源生产量、农业年产值</li><li>原始能源生产量直接衡量一个经济体为其工业和民用部门提供动力的能力,较高的国内产量能减少对动荡的国际市场的依赖,并降低地缘政治风险;农业年产值则反映了国家的粮食生产能力,这是国家粮食安全和经济稳定的关键组成部分。</li></ul></div>
+        </div>
+
+        <!-- 幻灯片 5: 2025年方法论升级(2) -->
+        <div class="slide">
+            <h1>2025年方法论升级(2)</h1>
+            <h2>定性指标优化</h2>
+            <div class="metric-box"><h3>金融系统韧性</h3><ul><li>新增:经济复杂程度评估 (引入哈佛经济复杂性指数ECI)</li><li>一国经济体的金融韧性不仅是金融体系和财政实力的体现,更深植于其实体经济的结构之中。较高的ECI排名意味着一个更复杂和多元化的经济体,其在本质上更能抵御特定行业的冲击,从而减少此类冲击演变为系统性金融危机的可能性。这一优化有助于衡量产业多元化与行业集聚风险。</li></ul></div>
+            <div class="metric-box"><h3>环境可持续性</h3><ul><li>新增:灾害管理能力评估、环境风险敞口评估</li><li>更新后的评估框架不再局限于描述各国在能源转型与政策支持层面的宣示,而是更注重国家对突发环境事件的危机处置能力及环境风险基线的实际水平。</li></ul></div>
+            <div class="metric-box"><h3>社保福利健全性</h3><ul><li>新增:社会稳定性评估 (如恐怖事件发生率)、 社会福利分配体系评估 (引入人类发展系数HDI)</li><li>2025评估的相关调整体现了评估体系从"存在性"向"质量性"和"稳定性"迈进的升级,强化了对社会福利公平与韧性的识别能力,更加契合当前复杂多变的宏观经济与信用环境需求。</li></ul></div>
+            <div class="metric-box"><h3>宏观经济稳定性</h3><ul><li>新增:财富分配均衡性 (引入基尼系数)</li><li>将"历史持续正增长"问题调整为"财富分配均衡性" , 体现评估指标由静态历史表现转向动态现实风险。 考虑到显著的财富失衡可能导致社会摩擦、政治不稳定和国内需求波动,对宏观经济框架构成切实的风险,这一调整确保了我们的评估能够保持时效性,更贴合当前宏观经济发展趋势和社会稳定性要求。</li></ul></div>
+        </div>
+
+        <!-- 幻灯片 6: 权重配置调整 -->
+        <div class="slide">
+            <h1>权重配置调整</h1>
+            <h2>定量分析权重</h2>
+            <table class="table"><tr><th>维度</th><th>2024</th><th>2025</th><th>变化</th></tr><tr><td>资本市场</td><td>50%</td><td>40%</td><td style="color:#dc3545;">▼10%</td></tr><tr><td>ESG环境</td><td>0%</td><td>5%</td><td style="color:#28a745;">▲5%</td></tr><tr><td>人口结构</td><td>5%</td><td>10%</td><td style="color:#28a745;">▲5%</td></tr></table>
+            <h2>定性分析权重</h2>
+            <table class="table"><tr><th>维度</th><th>2024</th><th>2025</th><th>变化</th></tr><tr><td>宏观经济稳定性</td><td>30%</td><td>20%</td><td style="color:#dc3545;">▼10%</td></tr><tr><td>环境可持续性</td><td>15%</td><td>20%</td><td style="color:#28a745;">▲5%</td></tr><tr><td>金融系统韧性</td><td>15%</td><td>20%</td><td style="color:#28a745;">▲5%</td></tr></table>
+        </div>
+
+        <!-- 幻灯片 7: 宏观经济维度排名 -->
+        <div class="slide">
+            <h1>宏观经济维度排名</h1>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>1. 新加坡</strong></span>
+                    <span class="score-high">6.663</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 95%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>荣膺榜首,在宏观经济各维度表现均衡且突出。 新加坡在经济增速、财富积累水平(人均GDP 90,674美元)及主权信用评级(顶级AAA评级)三大关键领域均显著优于其他主要经济体。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>2. 阿联酋</strong></span>
+                    <span class="score-high">6.502</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 93%"></div>
+</div>
+                <div class="ranking-details">
+                    <p>2025年,阿联酋在短期经济增长动能(实际GDP增长率)指标在参评经济体中跃居第一;长期经济韧性(十年复合增长率); 维持极低的通胀率1.7%,并在外债可持续性方面表现优异。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>3. 澳大利亚</strong></span>
+                    <span class="score-high">6.383</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 91%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>澳大利亚凭借AAA主权评级和2.4%的稳健年增长率,展现成熟经济体的抗周期韧性。其64,835美元人均GDP居全球前列,外债占比不足100%远低于G20平均水平,通过"矿业+教育+金融"产业组合构建的"高收入、低负债"模式在高利率环境下优势凸显。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>4. 沙特</strong></span>
+                    <span class="score-medium">6.071</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 87%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>沙特成为本年度进步最快经济体。其外债占GDP仅10.3%,居参评国最低水平; 3%的GDP增速彰显"2030愿景"成效,标普已上调评级至A+。然而,35,000美元的人均GDP和产业多元化程度仍存在结构性短板,限制其进一步上升空间。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>5. 美国</strong></span>
+                    <span class="score-medium">5.029</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 72%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>美国虽然经济规模最大,保持85,809美元人均GDP和2.5%十年复合增长率的长期优势,但通胀压力和高外债率拖累表现。穆迪2025年将其评级下调至Aa1,这意味着美国失去了在所有三大国际评级机构中的最高信用评级,正式结束了其长达数十年的"全AAA"时代。美国在债务风险和经济弹性方面与澳新等发达经济体的差距持续扩大。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>6. 英国</strong></span>
+                    <span class="score-medium">4.306</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 61%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>整体GDP增长乏力; 国内通胀控制较弱,以及外债率远高于同类发达国家,拖累整体信用表现。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>7. 欧盟</strong></span>
+                    <span class="score-low">3.881</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 55%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>GDP增速0.3%,及1.03%的十年GDP复合增长率在参评经济体中垫底,凸显了欧盟区德法意三大经济引擎同步失速的严峻现实;较高的外债水平及汇聚多国经济体结构性矛盾,拖低整体宏观得分。</p>
+                </div>
+            </div>
+            
+            <div class="chart-container" style="margin-top: 20px;">
+                <canvas id="macroChart"></canvas>
+            </div>
+            
+            <div class="key-point"><ul>2025年,从宏观经济维度来看, 新加坡、阿联酋、澳大利亚的表现最为优异,经济增长动力充足、信用水平高、债务风险低,人均财富优势明显。沙特阿拉伯改革红利释放,信用表现进步显著;美国则受制于通胀与债务压力,欧盟、英国结构性瓶颈突出,得分提升有限。各项指标年度对比,多数经济体通胀控制措施卓有成效,整体经济表现有所改善,并突显了资源型经济体(如澳大利亚及中东海湾国家),与亚太发达经济体,相较于欧美传统发达国家,的经济复苏弹性。</ul></div>
+        </div>
+
+        <!-- 幻灯片 8: 贸易往来维度排名 -->
+        <div class="slide">
+            <h1>贸易往来维度排名</h1>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>1. 新加坡</strong></span>
+                    <span class="score-high">10.0</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 100%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>新加坡以满分表现稳居榜首,2025年净FDI流入881亿美元,贸易顺差高达1500亿美元,展现强劲资本吸引力和外贸竞争优势。中国持续为其最大出口伙伴,巩固其全球贸易与投资枢纽地位。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>2. 澳大利亚</strong></span>
+                    <span class="score-high">8.203</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 82%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>2025年,该国净FDI翻倍至400亿美元,凸显其投资环境的显著改善; 作为资源出口导向型经济体,澳大利亚长期维持较高水平的贸易顺差,中国长期以来稳居其最大出口市场,凸显双边贸易的紧密联系。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>3. 阿联酋</strong></span>
+                    <span class="score-high">7.695</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 77%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>该国主要出口产品包括原油、成品油及黄金等;阿联酋贸易顺差达529亿美元,净FDI流入222亿美元同比激增160%,展现强劲投资吸引力。中国已跃升为其首要出口伙伴,区域资本流动枢纽地位持续强化,外贸结构稳健均衡。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>4. 沙特</strong></span>
+                    <span class="score-medium">6.915</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 69%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>贸易顺差高达902亿美元,中国为其第一大出口伙伴,外贸基础坚实。但2025年净FDI由正转负,主因公共投资基金海外投资扩张、国内战略项目资本需求及地缘风险抑制外资流入。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>5. 欧盟</strong></span>
+                    <span class="score-medium">5.695</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 57%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>欧盟虽受益于德国等核心经济体贸易顺差,但持续净资本流出反映投资吸引力疲软。地缘政治冲突推高能源成本,美欧贸易摩擦及德法经济增长放缓共同削弱出口表现和贸易弹性。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>6. 英国</strong></span>
+                    <span class="score-low">3.281</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 33%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>贸易逆差高达2090亿美元,严重制约其外贸表现。中国为其首要进口国,进口集中于汽车和能源产品。净FDI涸化至653亿美元净流出,凸显资本账户压力和流动性风险,整体外贸环境面临挑战。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>7. 美国</strong></span>
+                    <span class="score-low">3.192</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 32%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>排名垫底,贸易逆差从1.057万亿美元扩大至创纪录的1.215万亿美元,严重拖累贸易表现。但净FDI由流出转为流入,得益于美联储2024年9月启动降息周期降低融资成本,及资本市场强劲表现吸引海外资金,部分缓解外部资金压力。</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="tradeChart"></canvas>
+            </div>
+            
+            <div class="key-point"><ul>2025年,各参评经济体贸易表现呈现显著分化格局。新加坡和澳大利亚凭借千亿级贸易顺差和强劲FDI流入稳居前列,展现卓越外贸竞争力。阿联酋和沙特等资源出口型经济体维持可观贸易盈余,但沙特因战略性对外投资扩张导致资本净流出。欧盟受地缘政治冲突和贸易摩擦影响,出口增长受限且持续面临资本外流压力。英美两国则深陷巨额贸易逆差困境,英国净FDI流出加剧外部失衡,美国虽因降息周期和资本市场吸引力改善实现资本回流,但超万亿美元贸易赤字仍构成长期挑战。整体而言,亚太经济体外贸韧性明显强于欧美发达市场。</ul></div>
+        </div>
+
+        <!-- 幻灯片 9: 资本市场维度排名 -->
+        <div class="slide">
+            <h1>资本市场维度排名</h1>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>1. 美国</strong></span>
+                    <span class="score-high">31.05</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 78%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>凭借超万家上市公司、67万亿美元总市值和24万亿美元银行资产规模, 展现全球最庞大资本市场深度。 但15%的资本充足率垫底且储蓄率反低,虽拥有8133吨黄金储备部分抵消风险, 整体稳定性仍存隐忧。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>2. 英国</strong></span>
+                    <span class="score-high">20.14</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 50%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>资本市场规模仅次于美国, 银行业展现卓越稳健性,NPL不足1%、资本充足率高达21.20%均居首位, 信贷资产质量和抗风险能力突出。 2025年贷款增长由负转正, 信贷环境趋于宽松, 为经济复苏奠定基础。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>3. 沙特</strong></span>
+                    <span class="score-medium">17.71</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 44%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>受益于政府主导的大型发展项目,该国贷款增速13.48%领跑参评经济体。 19.20%资本充足率和29.60%储蓄率构建坚实缓冲, 但市场规模与欧美仍存较大差距。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>4. 澳大利亚</strong></span>
+                    <span class="score-medium">16.72</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 42%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>金融体系高度稳定, 资本充足率居于前列, 不良贷款率维持1%的极低水平, 信贷资产质量优异。贷款增速虽放缓但保持2.3%温和增长。然而市场规模较小, 储蓄率和黄金储备均靠后, 抗系统性风险缓冲能力相对薄弱,依靠强监管抵消风险。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>5. 欧盟</strong></span>
+                    <span class="score-medium">16.33</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 41%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>黄金储备全球第二,仅次于美国。19.35%资本充足率和较高储蓄率构建稳健防御体系。但地缘政治导致经济增长乏力, 德法等核心成员国贷款增长持续为负, 1.8%不良贷款率,上升至中游水平, 多国联盟协调管理面临结构性挑战。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>6. 新加坡</strong></span>
+                    <span class="score-medium">13.90</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 35%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>市场规模有限, 但金融韧性突出。 40%国民储蓄率仅次于阿联酋,黄金储备与澳大利亚相当, 彰显深厚资本池和稳健银行体系。依托严谨治理和资本基础构建差异化发展模式,但规模限制未能转化为更高综合竞争力。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>7. 阿联酋</strong></span>
+                    <span class="score-medium">13.45</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 34%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>展现新兴市场特征, 42%国民储蓄率最高,为金融体系提供坚实基础。6.86%贷款增长率(仅次于沙特)显示强劲信贷需求, 但NPL比率高达4.8%,反映风险监管压力攀升。 市场规模较小限制整体成熟度和竞争力提升。</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="capitalChart"></canvas>
+            </div>
+            
+            <div class="key-point"><ul>2025年,全球资本市场格局相对稳定, 美欧凭借庞大规模保持领先但不良贷款率持续上升削弱优势, 亚太地区稳健增长信贷质量改善, 中东经济体信贷扩张强劲, 但需密切关注资产质量。各国普遍增持黄金储备以应对全球经济不确定性。</ul></div>
+        </div>
+
+        <!-- 幻灯片 10: 人口结构维度排名 -->
+        <div class="slide">
+            <h1>人口结构维度排名</h1>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>1. 阿联酋</strong></span>
+                    <span class="score-high">9.489</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 95%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>连续两年展现卓越人口活力, 3.7%人口增长率和2.13%极低失业率领跑所有经济体。 82.2%适龄工作人口比例和77.7%劳动力参与率凸显市场活力, 但高等教育普及率垫底, 优化人力资本结构是长期发展关键。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>2. 沙特</strong></span>
+                    <span class="score-high">7.502</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 75%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>延续人口红利优势, 2.4%人口增速和73.3%适龄工作人口比例体现劳动力市场持续扩张; 但外籍劳工占比高导致平均受教育年限及人均预期寿命表现均垫底。 深化教育改革和提升医疗保障是优化其人力资本质量的关键任务。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>3. 新加坡</strong></span>
+                    <span class="score-medium">7.358</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 74%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>人口竞争力源于质量而非规模, 83.7年人均预期寿命居全球前列, 3.18%低失业率和接近100%高等教育普及率展现高技能人力资本。然而该国人口增长水平受结构性老龄化的负面影响。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>4. 澳大利亚</strong></span>
+                    <span class="score-medium">7.144</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 71%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>展现均衡稳定人口格局, 83.9年人均预期寿命居首凸显卓越公共福利体系。 失业率小幅升至4.07%,主要受疫情后政策调整影响。维持0.98%温和人口增长和领先的高等教育普及率,折射高素质劳动力基础,人口结构性风险处于低位。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>5. 英国</strong></span>
+                    <span class="score-medium">6.643</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 66%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>人力资本质量具备优势, 高等教育普及率位列第三,81.3年人均预期寿命处中游偏上。但人口增长率不足1%, 劳动年龄人口比例偏低, 失业率今年升至4.11%,明显的老龄化趋势制约经济潜力。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>6. 美国</strong></span>
+                    <span class="score-medium">6.57</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 66%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>人口结构整体稳定, 13.9年平均受教育年限居首彰显深厚人才储备。 但4.11%失业率偏高, 人口增长率仅略高于欧盟, 显示该国移民驱动放缓; 79.3年人均预期寿命显著低于澳新等高收入经济体, 社会健康水平仅处发达经济体中游水平。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>7. 欧盟</strong></span>
+                    <span class="score-low">6.034</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 60%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>连续第二年垫底, 虽然较高的人均预期寿命体现完善社会福利体系, 但其人口活力和劳动力结构明显劣势。近年来, 区域内失业率高达5.39%,为参评经济体最差水平; 0.26%人口增长率最低, 劳动年龄人口比例和劳动力参与率均居末位, 凸显人口停滞与劳动力萎缩双重压力。</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="populationChart"></canvas>
+            </div>
+            
+            <div class="key-point"><ul>2025年,人口评估揭示经济体显著分化: 阿联酋和沙特凭借强劲人口扩张和充满活力的年轻劳动力位居前列, 蕴藏巨大内需潜力, 但教育水平和预期寿命短板凸显人力资本质量转化挑战。 澳新英美欧盟等成熟经济体拥有优质人力资本和稳健制度,却普遍面临人口老龄化、增速停滞及劳动力萎缩压力, 财政负担加重。高增长经济体能否实现人力资本质的提升, 成熟经济体能否通过政策创新应对老龄化, 将共同塑造全球长期信用格局。</ul></div>
+        </div>
+
+        <!-- 幻灯片 11: 政府治理维度排名 -->
+        <div class="slide">
+            <h1>政府治理维度排名</h1>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>1. 澳大利亚</strong></span>
+                    <span class="score-high">8.404</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 84%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>凭借卓越财政状况成为政府治理表现最佳经济体。 政府负债率维持50%左右, 为发达经济体最低且保持稳定。 监管质量、腐败控制和法治程度均位列前茅, 展现高度稳定透明的治理环境和完善制度架构。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>2. 新加坡</strong></span>
+                    <span class="score-high">8.375</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 84%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>各项政府治理指标均居首位, 但175%政府债务占GDP比例拖累整体表现。 然而其高债务具有特殊性, 即政府通过法定机制将债务资金通过主权基金等渠道配置于优质资产, 因此与传统意义上的高负债国家存在本质区别。 国际评级机构持续给予AAA评级, 强大治理能力有效对冲高债务风险。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>3. 英国</strong></span>
+                    <span class="score-medium">6.829</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 68%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>凭借成熟养老金体系在Mercer CFA指数中位居前列, 法治程度展现稳定治理基础。 但腐败控制指数、监管质量同比均有下降, 反映治理效能逐步衰减, 部分源于持续低迷经济表现。政府债务超100%亦制约评分提升。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>4. 阿联酋</strong></span>
+                    <span class="score-medium">6.608</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 66%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>展现强劲改善态势。 阿联酋核心优势在于健康财政状况, 政府债务占GDP仅33%, 极大地增强了财政弹性并提供政策空间; 养老金指数同比微升反映体系改革进展。 但政府治理和制度建设与欧美发达国家仍存较大差距, 制度框架完善度有待加强。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>5. 欧盟</strong></span>
+                    <span class="score-medium">6.527</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 65%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>欧盟的养老金社会体系表现出色, 法治与腐败控制等核心治理领域亦保持稳健。 但监管质量同比略有下降,政府债务占GDP比例约为90%,虽较英美稍好,但仍对财政可持续性构成压力,限制未来政策灵活性和经济抗风险能力。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>6. 美国</strong></span>
+                    <span class="score-low">5.894</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 59%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>监管环境与法律框架虽仍居较高水平,但均呈下滑趋势,体现治理与制度竞争力减弱。2025年,美国失去全AAA评级,政府债务占GDP攀升至122.50%的高位,削弱财政韧性和政策回旋空间; Mercer CFA养老金指数持续涸化,反映社会保障财政压力加剧,长期财政可持续性面临严峻考验。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>7. 沙特</strong></span>
+                    <span class="score-low">4.869</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 49%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>核心优势在于雄厚财政实力, 政府债务占GDP仅34.80%。 2025年最新数据显示其法治程度、腐败控制和养老金指数等关键治理指标均有大幅提升, 反映治理体系现代化与制度优化持续推进; 但仍旧垫底, 凸显治理质量与制度与其他参评国家仍有深度差距。</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="governanceChart"></canvas>
+            </div>
+            
+            <div class="key-point"><ul>2025年,政府治理评估凸显主权信用分化: 澳新凭借世界一流制度框架和稳健财政领先, 高监管质量、腐败控制和法治为财政脆弱性提供缓冲。美英等西方经济体面临高债务负担且制度质量下滑挑战。沙特阿联酋虽拥有强劲财政,但受制度因素制约,持续建设稳健透明的治理框架对塑造投资者认知并确保长期稳定至关重要。</ul></div>
+        </div>
+
+        <!-- 幻灯片 12: 营商环境维度排名 -->
+        <div class="slide">
+            <h1>营商环境维度排名</h1>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>1. 新加坡</strong></span>
+                    <span class="score-high">8.260</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 83%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>得益于极低的企业税率(17%)、高居全球竞争力排名第2以及接近扩张区间的PMI, 新加坡以其优质营商制度与开放市场在亚太范围内持续领先, 整体优势显著超越其他经济体。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>2. 阿联酋</strong></span>
+                    <span class="score-high">7.466</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 75%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>表现亮眼,企业税率仅9%位列全球最低,且PMI高达53.3%,显示产业景气强劲。 全球竞争力排名较上年提升2名至第5名, 得分快速逼近世界前列, 是中东及北非(MENA)地区营商环境提升最快的经济体之一。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>3. 沙特</strong></span>
+                    <span class="score-medium">4.821</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 48%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>PMI达到55.8%,为参评经济体中最高,企业税率(20%)和全球竞争力(第17)显示该国营商环境具备较强竞争力。 受益于结构性改革和政府大规模公共投资, 沙特营商氛围实现跨越式提升,与头部经济体差距迅速缩小。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>4. 美国</strong></span>
+                    <span class="score-medium">4.697</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 47%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>美国仍是各项指标最具综合性的主要经济体,体现在其企业税较低(21%)、制造业活力充沛(PMI 52.0%)、全球竞争力高(第13位)。 然而,近年来头部新兴经济体动态改革使得美国被部分超越。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>5. 澳大利亚</strong></span>
+                    <span class="score-medium">4.086</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 41%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>较高的企业税率(30%)对外资吸引力形成约束; 但制造业PMI(51.0%)表现稳健, 及全球竞争力排名(第18)中规中矩。 整体表现稳定,但较新兴对手弹性略显不足。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>6. 欧盟</strong></span>
+                    <span class="score-low">3.933</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 39%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>核心国家德国及法国的全球竞争力排名分别为19及32; 制造业PMI接近中性, 反映产业预期仍存不确定性, 增长潜力有限, 整体竞争力中等。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>7. 英国</strong></span>
+                    <span class="score-low">3.850</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 39%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>制造业PMI表现垫底,并显著低于荣枯线, 表明英国产业复苏乏力; 全球竞争力排名仅29, 显示后脱欧时期经济景气水平持续承压。</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="businessChart"></canvas>
+            </div>
+            
+            <div class="key-point"><ul>2025年,营商环境呈现分化格局: 阿联酋、沙特等新兴市场凭借体制改革和多元化驱动加速追赶; 新加坡、美国维持全球前列; 澳大利亚"稳中有进"; 但欧洲核心国家及英国受政策创新不足与产业调整缓慢制约, 高税率与PMI低迷成为主要掣肘。 全球产业与监管分化加剧, 凸显各国需因地制宜推动结构性改革。</ul></div>
+        </div>
+
+        <!-- 幻灯片 13: 资源禀赋维度排名 -->
+        <div class="slide">
+            <h1>资源禀赋维度排名</h1>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>1. 美国</strong></span>
+                    <span class="score-high">5.0</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 100%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>美国以102.8 quadrillion Btu原始能源产量和2483.9亿美元农业年产值遥遥领先, 彰显庞大多元化资源基础。 能源与农业双重霸主地位赋予经济卓越韧性和抗风险能力,强大国内能源生产缓冲外部波动,农业产值保障粮食安全和财政稳定,共同构筑强有力信贷优势。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>2. 沙特</strong></span>
+                    <span class="score-medium">1.059</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 21%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>高度依赖油气资源, 原始能源生产居全球前列仅次于美国。 作为最大原油出口国,沙特阿美油气巨头稳定供应国际市场, 持续提升能源话语权。 但农业年产值水平较低,主要受地理气候限制。沙特的资源结构高度集中,在能源转型和油价波动环境下面临收入和信用风险。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>3. 澳大利亚</strong></span>
+                    <span class="score-medium">0.815</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 16%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>展现强劲均衡的资源型经济特征,原始能源产出和农业年产值均处较高水平。 澳大利亚作为主要煤炭、液化天然气和多样化农业产品出口国地位突出,虽绝对产量低于美国,但资源多样性和均衡分布提供多条稳健收入渠道,为经济韧性和主权信用稳健性提供有力保障。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>4. 阿联酋</strong></span>
+                    <span class="score-low">0.607</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 12%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>资源禀赋高度依赖丰富油气资源, 为经济提供坚实支撑。 虽处干旱沙漠地带农业受限,但凭借科技农业突破和粮食安全技术投入,农业产值表现优于沙特并推进战略多元化。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>5. 欧盟</strong></span>
+                    <span class="score-low">0.436</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 9%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>资源状况表现不均衡,其主要优势集中在农业领域。受益于欧盟共同农业政策,法德等核心成员国农产品产出突出;但受地理限制,能源自给能力不足,原始能源生产偏低导致对外部进口依赖度高。俄乌冲突引发能源价格飙升造成通胀压力和增长瓶颈,能源安全是信用风险管理重点。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>6. 英国</strong></span>
+                    <span class="score-low">0.274</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 5%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>国内自然资源基础相对有限,能源生产和农业产值均呈低位,能源粮食均长期严重依赖进口。在全球能源价格波动和供应链压力下,英国在资源禀赋方面的局限性,将决定经济面临外部冲击时缺乏自给缓冲空间。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>7. 新加坡</strong></span>
+                    <span class="score-low">0.002</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 0.04%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>新加坡国土面积极小且极度缺乏自然资源, 完全依赖外部供应。</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="resourceChart"></canvas>
+            </div>
+            
+            <div class="key-point"><ul>2025年,资源禀赋评估显示: 美国凭借能源农业强大产出,形成信用韧性双重支撑; 澳大利亚与中东海湾国家(沙特及阿联酋)位列第二梯队,前者兼具均衡发展,后两者则主要依托能源优势; 欧盟英国则呈现能源依赖脆弱性,对其构成信用压力; 新加坡资源近乎为零,但依托服务贸易及金融枢纽优势弥补不足。 资源禀赋作为抵御外部冲击缓冲器和财政可持续性基础,在主权信用评估中发挥不可替代辅助作用。</ul></div>
+        </div>
+
+        <!-- 幻灯片 14: ESG环境维度排名 -->
+        <div class="slide">
+            <h1>ESG环境维度排名(新增)</h1>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>1. 英国</strong></span>
+                    <span class="score-high">4.868</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 97%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>展现卓越环境社会治理实践:人均温室气体排放和化石燃料消费量均为最低获满分;电力生产碳强度仅次于欧盟居全球领先。清洁能源占比高达65.9%其中风电贡献30%,海上风电装机容量居世界第二。政府通过"绿色工业革命"计划和碳定价机制等制度创新,推动能源体系深度脱碳,成为发达经济体可持续转型典范。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>2. 欧盟</strong></span>
+                    <span class="score-high">4.662</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 93%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>欧盟作为绿色协议领导者,拥有稳健全面ESG环境举措。 "欧洲绿色协议"确立2050年气候中和目标,要求2030年温室气体排放较1990年减少55%; 电力生产碳强度和人均排放效率表现出色; 协议推动银行减少高碳产业融资,预计2021至2030年每年新增3.7%,累计超万亿欧元绿色投资;并强化ESG信息披露和碳边际调节机制, 为成员国提供制度韧性和清晰低碳转型路径。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>3. 新加坡</strong></span>
+                    <span class="score-medium">2.127</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 43%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>高度城市化和可再生资源有限,导致新加坡能源结构依赖进口天然气(占比达95%),限制整体碳减排水平。该国政府采取"双轨并行"策略,强化本地太阳能部署和区域跨境绿色电力进口; 持续完善可持续金融监管吸引投资用于能源转型,追求成为亚洲城市型经济体典范。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>4. 美国</strong></span>
+                    <span class="score-medium">2.080</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 42%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>美国能源碳强度维持在较低水平,仅次于英国与欧盟,主要得益于煤炭向天然气大规模转型及《通胀削减法案》驱动太阳能风能装机容量创新高;2025年,其清洁能源发电首次超过煤炭。 然而,当前特朗普政府宣布退出《巴黎协定》,并通过"大而美法案",放宽化石能源监管。未来美国能源政策或将面临方向性波动,清洁能源发展前景存在不确定性。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>5. 澳大利亚</strong></span>
+                    <span class="score-low">1.670</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 33%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>在发达经济体中排名较低,主要由于其长期依赖煤炭发电,导致电力生产碳强度水平较高。 近年政府加强可再生能源政策支持,2025年低碳能源占比升至41%,太阳能风能贡献显著。 2022年明确2050年净零目标,但能源转型仍处早期,需持续深化绿色金融支持和国际合作。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>6. 阿联酋</strong></span>
+                    <span class="score-low">1.454</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 29%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>阿联酋邻于沙特均作为主要产油国,ESG表现垫底, 经济结构高度依赖油气资源;但2024年9月,阿联酋能够供应全国高达25%电力的巴拉卡(Barakah)核电站历时9年开发建设,已全面投入运营,推动阿联酋的清洁能源发电占比突破性的跨越了25%的评估基准。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>7. 沙特</strong></span>
+                    <span class="score-low">1.256</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 25%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>沙特作为主要产油国ESG表现垫底,经济结构高度依赖油气资源生产消费, 清洁能源占比不足5%, 导致人均化石燃料消费和温室气体排放指标得分垫底。</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="esgChart"></canvas>
+            </div>
+            
+            <div class="key-point"><ul>ESG环境风险评估为洞察主权信用提供新视角。全球能源转型步伐缓慢且不均衡,英国欧盟凭借稳健气候政策和高效脱碳领跑全球,展现低环境风险和强劲可持续增长能力。 新加坡/美国/澳大利亚受化石燃料结构性依赖拖累进展迟缓。阿联酋沙特作为油气生产大国排名垫底,经济与传统能源深度绑定转型路径艰巨,需在多元化和绿色金融持续发力缓解转型风险。</ul></div>
+        </div>
+
+        <!-- 幻灯片 15: 定性分析 - 宏观经济稳定性 -->
+        <div class="slide">
+            <h1>定性分析</h1>
+            <h2>宏观经济稳定性</h2>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第一梯队: 美国</strong></span>
+                    <span class="score-high">15/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 75%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>凭借均衡多元经济、高附加值产业主导和多样化贸易伙伴与产品，展现结构性优势；科技创新和金融服务持续突破推动生产率提升。但基尼系数仍高于0.5，凸显财富分配不均，加剧社会分化，削弱消费驱动增长动能。内部不平等问题将构成潜在约束和长期稳定性隐性风险。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第二梯队: 英国/欧盟</strong></span>
+                    <span class="score-high">14/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 70%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>英国欧盟在高附加值产业、出口多元化和财富分配均衡方面表现突出；凭借成熟服务业经济模式、健全社会保障体系和完善制度架构展现高韧性可持续性。但产业结构过度集中服务业，缺乏制造业支撑，对外部工业制品进口依赖度高。在当前贸易摩擦或供应链紧张环境下可能放大脆弱性。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第三梯队: 澳大利亚/新加坡</strong></span>
+                    <span class="score-medium">5/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 25%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p><strong>新加坡</strong>得分完全依赖高附加值的制造业和服务业突出地位，凸显其金融、航运及科技创新中心的角色；但在经济多元化出口伙伴分布和财富分配均未得分，作为小型开放经济体内生脆弱性明显。<br><br>
+                    <strong>澳大利亚</strong>则恰好相反，其得分则主要来自均衡的财富分配；然而其长期依赖资源与大宗商品出口的单一模式，对全球周期性波动高度敏感，服务业转型和数字化产业发展进展缓慢。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第四梯队: 阿联酋/沙特</strong></span>
+                    <span class="score-low">0/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 0%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>阿联酋沙特在该项定性评估维度中均未得分。其经济依旧高度依赖油气产业，虽推出转型战略但非油气产业规模和附加值不足，出口结构单一，暴露于油价波动重大风险；社会基尼系数均超0.5，沙特更高达0.6，说明缺乏有效再分配机制，经济增长未转化为包容性发展；主权财富基金投入，科技，旅游，可再生能源的发展皆处早期阶段。</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="macroStabilityChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 幻灯片 16: 定性分析 - 环境可持续性 -->
+        <div class="slide">
+            <h1>定性分析</h1>
+            <h2>环境发展可持续性</h2>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第一梯队: 澳大利亚/英国/欧盟</strong></span>
+                    <span class="score-high">20/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 100%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>全面满分。作为《巴黎协定》的积极参与方，均明确公开可再生能源目标与碳减排承诺，推出完善环境法规，并确保监管执行有效性；展现强大灾害管理能力与环境韧性，较低环境风险敞口和空气污染水平为经济运行提供稳固基础；在政策承诺，制度健全性和危机应对能力方面，均建立成熟均衡环境治理体系。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第二梯队: 新加坡/阿联酋/沙特</strong></span>
+                    <span class="score-medium">16/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 80%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>三国在公开气候承诺、完善环境法规和有效灾害管理等制度性指标表现优异，体现与国际标准接轨的环境政策导向。但物理环境风险敞口与基础条件得分较低：<br><br>
+                    <strong>新加坡</strong>受高人口密度和城市化特征制约环境承载力和灾害恢复存在结构性风险。<br>
+                    <strong>阿联酋/沙特</strong>则因处于干旱高温区域，依赖碳密集油气产业，而面临水资源匮乏，空气污染和温室气体排放压力。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第三梯队: 美国</strong></span>
+                    <span class="score-low">9/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 45%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>美国在本次评估中显著落后。虽具备健全环保法规框架和较低的物理环境风险敞口，但在可再生能源目标公共承诺及灾害管理能力完全失分。2025年，特朗普政府宣布退出《巴黎气候协定》并通过"大而美法案"弱化高碳行业监管，背离全球绿色转型，增加政策不确定性。同时，频繁洪水野火飓风灾害亦暴露联邦州政府在预警协调和灾后修复能力明显缺陷，削弱了其环境风险适应能力和社会韧性。</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="envSustainChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 幻灯片 17: 定性分析 - 社保福利健全性 -->
+        <div class="slide">
+            <h1>定性分析</h1>
+            <h2>社保福利健全性</h2>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第一名: 澳大利亚</strong></span>
+                    <span class="score-high">20/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 100%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>澳大利亚以满分稳居首位，在全民医疗覆盖、社会安全网全面性公平性、社会秩序稳定性和全国性住房可负担计划均获最高分。成熟的社会契约框架和健全福利分配机制提供覆盖面广且高质量公共服务；完善的社会治理模式进一步提升居民消费信心和社会凝聚力，增强其经济面对外部冲击韧性。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第二梯队: 新加坡/英国/阿联酋/沙特</strong></span>
+                    <span class="score-medium">15/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 75%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>位列第二梯队，虽总分相同，但得分结构却反映迥然不同的制度优势与潜在隐忧。<br><br>
+                    <strong>英国</strong>在NHS医疗体系、社会安全网和住房保障优势显著，但社会稳定性表现不理想。2020年末恐怖威胁等级曾升至"严重"，虽当前回调至"高"，但社会安全性波动性对中长期稳定前景构成不确定性。<br><br>
+                    <strong>新加坡</strong>公积金制度、社会稳定性和公共住房体现高效治理；但未实现全民免费医疗削弱普惠性。制度效率优先以牺牲覆盖面为代价。<br><br>
+                    <strong>阿联酋沙特</strong>，为公民提供全民医保和住房保障,借助资源红利强化福利体系；但未覆盖外来劳工群体，社会福利保障存在结构性缺口，影响社会稳定和可持续发展。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第三梯队: 美国/欧盟</strong></span>
+                    <span class="score-low">5/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 25%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>美国与欧盟并列末位，反映出深刻的结构性挑战与制度短板。<br><br>
+                    <strong>美国</strong>虽提供部分可负担住房计划，但全民医疗保障缺失、高发枪击事件和恐怖袭击威胁严重削弱社会稳定性，社会福利体系覆盖率和公平性长期不足，亦制约内需增长。<br><br>
+                    <strong>欧盟</strong>内部成员国福利政策实施差异显著，整体社会保障体系综合效能受限；面对俄乌地缘政治冲突，亦缺乏一致应对机制，削弱了整体经济韧性和社会稳定性。</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="socialWelfareChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 幻灯片 18: 定性分析 - 金融系统韧性 -->
+        <div class="slide">
+            <h1>定性分析</h1>
+            <h2>金融系统韧性</h2>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第一梯队: 新加坡/阿联酋</strong></span>
+                    <span class="score-high">20/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 100%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>新加坡阿联酋连续两年获满分展现全面稳健金融韧性策略。淡马锡和阿布扎比投资局等主权基金通过全球多元化投资积累资本构筑强大风险缓冲；两国自21世纪以来未现重大系统性危机且维持稳定主权评级。经济体复杂程度方面，阿联酋ECI指数从2000年-0.56升至2023年0.61，成功减轻油气依赖；而新加坡则长期保持ECI领先水平和AAA评级，体现卓越基本面实力。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第二梯队: 澳大利亚</strong></span>
+                    <span class="score-high">15/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 75%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>长期稳居AAA最高主权评级；APRA主导的金融监管体系良好，2000年以来从未发生系统性金融危机。主权基金"未来基金"资产规模达2520亿澳元，25财年实现12.2%回报率，有效提升财政韧性。但经济复杂性指数从2000年-0.25降至2023年-0.82位列末位。大宗商品出口挤出效应导致制造业萎缩，产业单一化成长期结构性风险制约因素。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第三梯队: 欧盟/英国/沙特</strong></span>
+                    <span class="score-medium">9-10/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 48%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p><strong>欧盟</strong>优势体现在经济高度复杂性与金融市场一体化，但缺乏中央集权式主权财富基金，削弱财政抗风险能力；内部各国主权评级落差与财政储备不足，亦制约整体信用表现。<br><br>
+                    <strong>英国</strong>金融韧性则源自经济高度多元化。2024年首次成立国家财富基金，致力于投资绿色能源基础设施和创新制造业推动转型。脱欧不确定性，高通胀高利率和财政赤字扩大亦限制财政空间。<br><br>
+                    <strong>沙特</strong>主权基金，公共投资基金(PIF)资产规模达1.15万亿美元，是国家推动"愿景2030"的重要支柱，但2025年加大发债规模可能构成财政压力。同时，该国高度依赖油气资源，经济结构单一，削弱抗风险能力。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第四梯队: 美国</strong></span>
+                    <span class="score-low">5/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 25%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>唯一优势来自其作为全球最大经济体的高度复杂多元化结构，但金融稳定性不足严重拖累表现。21世纪以来，美国经历互联网泡沫、金融危机、新冠衰退和2023年硅谷银行倒闭等多次系统性危机；且至今无传统主权财富基金；国家债务赤字长期高企；2023年惠誉从AAA降至AA+,2025年穆迪从Aaa降至Aa1,已失去全部三大评级机构的最高评级，反映逐步放大的财政及治理风险。</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="finResilienceChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 幻灯片 19: 定性分析 - 自然资源依赖性 -->
+        <div class="slide">
+            <h1>定性分析</h1>
+            <h2>自然资源依赖性</h2>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第一梯队: 澳大利亚/美国</strong></span>
+                    <span class="score-high">20/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 100%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p><strong>澳大利亚</strong>凭借得天独厚自然资源禀赋，是全球液化天然气煤炭及关键农产品主要生产国。其出口导向型经济带来稳定贸易顺差和抵御外部冲击坚实基础。<br><br>
+                    <strong>美国</strong>在传统能源页岩油气革命和农业生产具备高度自给能力；2025年清洁能源发电占比跨越25%门槛，主要得益于《通胀削减法案》财政补贴和税收抵免激发私人资本投资风能太阳能储能产业链。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第二梯队: 欧盟</strong></span>
+                    <span class="score-medium">14/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 70%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>展现结构性二元特征。一方面凭借"欧洲绿色协议"和可再生能源投资在清洁能源得分较高，成熟"共同农业政策"确保食品供应链稳定韧性；但另一方面，对化石能源尤其天然气进口高度依赖仍是经济"阿喀琉斯之踵"，易受外部能源价格波动冲击转化为输入性通胀压力削弱战略自主性。REPowerEU等计划推动能源独立，但转型渐进充满挑战。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第三梯队: 阿联酋</strong></span>
+                    <span class="score-medium">12/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 60%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>表现明显提升，凸显其传统能源自给优势确立，以及清洁能源取得非凡进展。2024年9月，巴拉卡核电站全面运营，供应全国25%电力，配合世界级大型太阳能项目推动清洁能源发电占比跨越25%基准，在"2050净零排放"战略下取得实质成果。大力发展清洁能源降低财政收入对油气价格波动依赖,为"后石油时代"经济可持续性奠定基础,部分抵消干旱气候农业粮食安全结构性短板。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第四梯队: 英国/沙特</strong></span>
+                    <span class="score-low">6/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 30%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p><strong>英国</strong>唯一资源优势来自清洁能源战略布局,大规模海上风电项目使清洁能源发电占比远超25%基准对冲能源安全长期风险。但作为传统化石燃料和关键粮食净进口国,经济易受全球大宗商品价格波动影响引发输入性通胀压力对贸易账户构成挑战。<br><br>
+                    <strong>沙特</strong>是传统能源生产全球领导者,但清洁能源发展滞后占比低于5%且粮食安全完全依赖进口,是多元化转型亟待解决核心短板。</p>
+                </div>
+            </div>
+            
+            <div class="ranking-bar" onclick="toggleDetails(this)">
+                <div class="ranking-label">
+                    <span><strong>第五梯队: 新加坡</strong></span>
+                    <span class="score-low">0/20</span>
+                </div>
+                <div class="ranking-progress">
+                    <div class="ranking-fill" style="--progress: 0%"></div>
+                </div>
+                <div class="ranking-details">
+                    <p>作为地域狭小高度城市化城邦经济体缺乏自然资源战略纵深,能源和粮食需求完全依赖外部供应。但其韧性体现在顶级全球供应链管理能力、多元化进口来源网络及对农业能源科技如垂直农业废物转化能源的前瞻性投资。</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="resourceDepChart"></canvas>
+            </div>
+        </div>
+
+       <!-- 幻灯片 20: 美国SWOT分析 -->
+        <div class="slide">
+            <h1>美国SWOT分析</h1>
+            <div class="swot-grid">
+                <div class="strengths">
+                    <h3>优势与核心竞争力</h3>
+                    <ul>
+                        <li>全球最大资本市场与金融深度</li>
+                        <li>经济高度复杂多元化科技创新领先</li>
+                        <li>出口伙伴多样化与产业结构优势</li>
+                        <li>能源独立与清洁能源转型成效</li>
+                    </ul>
+                </div>
+                <div class="weaknesses">
+                    <h3>劣势与结构性短板</h3>
+                    <ul>
+                        <li>政府债务高企财政可持续性承压</li>
+                        <li>金融系统稳定性不足危机频发</li>
+                        <li>财富分配严重不均社会保障缺失</li>
+                        <li>气候政策反复环境治理表现垫底</li>
+                    </ul>
+                </div>
+                <div class="opportunities">
+                    <h3>潜在机遇与发展空间</h3>
+                    <ul>
+                        <li>科技创新突破与资本市场吸引力</li>
+                        <li>通胀削减法案推动清洁能源</li>
+                        <li>美元储备货币地位提供政策空间</li>
+                        <li>产业政策推动高端制造业复兴</li>
+                    </ul>
+                </div>
+                <div class="threats">
+                    <h3>当前威胁与风险因素</h3>
+                    <ul>
+                        <li>政策不确定性上升</li>
+                        <li>贸易逆差持续扩大</li>
+                        <li>失业率飙升宏观经济韧性承压</li>
+                        <li>政治极化债务上限谈判困境</li>
+                        <li>全球贸易保护主义地缘政治紧张</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="metric-box">
+                <h3>对招商银行战略意义</h3>
+                <p><strong>投资建议:中性偏谨慎</strong></p>
+                <ul>
+                    <li>业务重点:科技创新,清洁能源</li>
+                    <li>风险管理:密切监控债务上限危机</li>
+                    <li>关注:标普500科技板块,绿色基建</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 幻灯片 21: 澳大利亚SWOT分析 -->
+        <div class="slide">
+            <h1>澳大利亚SWOT分析</h1>
+            <div class="swot-grid">
+                <div class="strengths">
+                    <h3>优势与核心竞争力</h3>
+                    <ul>
+                        <li>AAA主权评级与低政府债务</li>
+                        <li>完善治理框架与社会保障体系</li>
+                        <li>多元化自然资源禀赋与出口优势</li>
+                        <li>稳定贸易顺差与抗周期产业组合</li>
+                    </ul>
+                </div>
+                <div class="weaknesses">
+                    <h3>劣势与结构性短板</h3>
+                    <ul>
+                        <li>"资源诅咒":经济复杂性指数持续恶化垫底</li>
+                        <li>产业集中度过高依赖资源出口</li>
+                        <li>金融市场规模小储备缓冲不足</li>
+                        <li>清洁能源转型滞后,能源碳强度偏高</li>
+                    </ul>
+                </div>
+                <div class="opportunities">
+                    <h3>潜在机遇与发展空间</h3>
+                    <ul>
+                        <li>亚太增长区战略位置,关键矿物需求激增</li>
+                        <li>清洁能源占比提升绿色转型加速</li>
+                        <li>移民驱动人口增长与教育优势</li>
+                        <li>主权财富基金运营提升财政韧性</li>
+                    </ul>
+                </div>
+                <div class="threats">
+                    <h3>当前威胁与风险因素</h3>
+                    <ul>
+                        <li>对中国市场高度依赖贸易集中</li>
+                        <li>全球大宗商品周期波动敏感性高</li>
+                        <li>传统能源(如煤炭)出口面临转型压力</li>
+                        <li>气候变化极端天气增加财政负担</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="metric-box">
+                <h3>对招商银行战略意义</h3>
+                <p><strong>投资建议:适宜</strong></p>
+                <ul>
+                    <li>信用环境特点:高稳定性、适宜增长</li>
+                    <li>战略定位:南半球避险天堂,核心支点</li>
+                    <li>业务重点:资源及国际贸易相关融资业务、基础设施投资以及服务于其高净值人口的财富管理</li>
+                    <li>业务风险:关注经济多元化与气候结构性风险</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 幻灯片 22: 英国SWOT分析 -->
+        <div class="slide">
+            <h1>英国SWOT分析</h1>
+            <div class="swot-grid">
+                <div class="strengths">
+                    <h3>优势与核心竞争力</h3>
+                    <ul>
+                        <li>全球领先金融中心与资本市场规模</li>
+                        <li>银行业审慎管理资本充足率居首</li>
+                        <li>ESG环境治理全球第一绿色转型领先,海上风电全球第二</li>
+                        <li>成熟养老金体系与稳定法治基础</li>
+                    </ul>
+                </div>
+                <div class="weaknesses">
+                    <h3>劣势与结构性短板</h3>
+                    <ul>
+                        <li>GDP增长乏力通胀控制较弱</li>
+                        <li>庞大贸易逆差与净资本持续流出</li>
+                        <li>政府债务高企财政空间受限</li>
+                        <li>产业结构过度集中服务业依赖高</li>
+                    </ul>
+                </div>
+                <div class="opportunities">
+                    <h3>潜在机遇与发展空间</h3>
+                    <ul>
+                        <li>绿色金融与清洁能源领域全球领先</li>
+                        <li>NWF国家财富基金设立,投资绿色基础设施</li>
+                        <li>高等教育普及率与人力资本优势</li>
+                        <li>可再生能源对冲传统能源风险</li>
+                    </ul>
+                </div>
+                <div class="threats">
+                    <h3>当前威胁与风险因素</h3>
+                    <ul>
+                        <li>脱欧后结构性调整压力与评级下调</li>
+                        <li>产业空心化,制造业受贸易摩擦冲击</li>
+                        <li>能源粮食高度依赖进口</li>
+                        <li>地缘政治冲突推高能源成本,社会稳定性下降</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="metric-box">
+                <h3>对招商银行战略意义</h3>
+                <p><strong>投资建议:中性</strong></p>
+                <ul>
+                    <li>战略定位:全球金融中心,ESG桥头堡</li>
+                    <li>业务重点:绿色能源项目融资,金融市场交易</li>
+                    <li>优势领域:海上风电,绿色债券,碳交易</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 幻灯片 23: 欧盟SWOT分析 -->
+        <div class="slide">
+            <h1>欧盟SWOT分析</h1>
+            <div class="swot-grid">
+                <div class="strengths">
+                    <h3>优势与核心竞争力</h3>
+                    <ul>
+                        <li>ESG第二,欧洲绿色协议引领全球气候治理</li>
+                        <li>庞大黄金储备与稳健金融防御体系</li>
+                        <li>高度一体化单一市场与经济复杂性</li>
+                        <li>共同农业政策保障食品供应链韧性</li>
+                    </ul>
+                </div>
+                <div class="weaknesses">
+                    <h3>劣势与结构性短板</h3>
+                    <ul>
+                        <li>经济增长动力不足德法意引擎失速</li>
+                        <li>人口老龄化严重劳动力市场僵化</li>
+                        <li>高度依赖能源进口战略自主性弱</li>
+                        <li>内部主权评级分化核心成员国下调</li>
+                    </ul>
+                </div>
+                <div class="opportunities">
+                    <h3>潜在机遇与发展空间</h3>
+                    <ul>
+                        <li>绿色协议万亿欧元投资</li>
+                        <li>REPowerEU推动能源独立与多元化</li>
+                        <li>绿色债券市场领先</li>
+                        <li>数字欧洲计划</li>
+                    </ul>
+                </div>
+                <div class="threats">
+                    <h3>当前威胁与风险因素</h3>
+                    <ul>
+                        <li>地缘政治冲突推高能源成本抑制增长</li>
+                        <li>美欧贸易摩擦高关税限制出口弹性</li>
+                        <li>人口凝滞与劳动力萎缩加大财政负担</li>
+                        <li>内部政治碎片化疑欧情绪阻碍改革</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="metric-box">
+                <h3>对招商银行战略意义</h3>
+                <p><strong>投资建议:中性偏谨慎</strong></p>
+                <ul>
+                    <li>战略定位:欧洲统一市场门户,ESG实践场</li>
+                    <li>业务重点:绿色金融,可持续基建,数字化转型</li>
+                    <li>优先市场:德国,法国,卢森堡</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 幻灯片 24: 新加坡SWOT分析 -->
+        <div class="slide">
+            <h1>新加坡SWOT分析</h1>
+            <div class="swot-grid">
+                <div class="strengths">
+                    <h3>优势与核心竞争力</h3>
+                    <ul>
+                        <li>全球最佳政府治理与法治水平</li>
+                        <li>AAA主权评级与高人均GDP领先</li>
+                        <li>贸易投资枢纽地位与巨额顺差</li>
+                        <li>主权财富基金与高储蓄率构建韧性</li>
+                    </ul>
+                </div>
+                <div class="weaknesses">
+                    <h3>劣势与结构性短板</h3>
+                    <ul>
+                        <li>自然资源极度匮乏完全依赖进口</li>
+                        <li>人口老龄化加剧</li>
+                        <li>资本市场规模有限</li>
+                        <li>高度依赖外部供应链易受冲击</li>
+                    </ul>
+                </div>
+                <div class="opportunities">
+                    <h3>潜在机遇与发展空间</h3>
+                    <ul>
+                        <li>亚太绿色金融中心与净零排放战略</li>
+                        <li>数字经济与金融科技全球领先</li>
+                        <li>高质量人力资本与财富管理潜力</li>
+                        <li>供应链重构提升枢纽战略价值</li>
+                    </ul>
+                </div>
+                <div class="threats">
+                    <h3>当前威胁与风险因素</h3>
+                    <ul>
+                        <li>区域金融中心竞争压力加大</li>
+                        <li>中美战略竞争迫使平衡选边压力</li>
+                        <li>气候变化海平面上升结构性风险</li>
+                        <li>全球贸易摩擦与关税政策冲击</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="metric-box">
+                <h3>对招商银行战略意义</h3>
+                <p><strong>投资建议:适宜</strong></p>
+                <ul>
+                    <li>战略定位:亚太枢纽,避险港湾,东南亚基地</li>
+                    <li>业务重点:财富管理,数字金融,绿色金融,跨境融资</li>
+                    <li>优势领域:家族办公室,金融科技,ESG产品,RCEP业务</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 幻灯片 25: 阿联酋SWOT分析 -->
+        <div class="slide">
+            <h1>阿联酋SWOT分析</h1>
+            <div class="swot-grid">
+                <div class="strengths">
+                    <h3>优势与核心竞争力</h3>
+                    <ul>
+                        <li>GDP强劲增长与极低通胀率</li>
+                        <li>主权财富基金构建强大风险缓冲</li>
+                        <li>全球最低企业税率(9%)与优异营商环境(第二)</li>
+                        <li>贸易顺差与净FDI流入激增160%</li>
+                    </ul>
+                </div>
+                <div class="weaknesses">
+                    <h3>劣势与结构性短板</h3>
+                    <ul>
+                        <li>经济高度依赖油气产业多元化有限</li>
+                        <li>ESG环境表现倒数碳排放居高不下</li>
+                        <li>信贷快速扩张但不良贷款率持续攀升</li>
+                        <li>社保外劳覆盖不足</li>
+                    </ul>
+                </div>
+                <div class="opportunities">
+                    <h3>潜在机遇与发展空间</h3>
+                    <ul>
+                        <li>清洁能源占比突破25%核电全面运营</li>
+                        <li>经济复杂性指数大幅提升</li>
+                        <li>与中国贸易深化跃升首要出口伙伴</li>
+                        <li>迪拜/阿布扎比金融旅游科技集群,建设非油气经济潜力</li>
+                    </ul>
+                </div>
+                <div class="threats">
+                    <h3>当前威胁与风险因素</h3>
+                    <ul>
+                        <li>全球能源转型削弱传统油气需求</li>
+                        <li>中东地缘政治冲突与区域争端影响稳定</li>
+                        <li>全球贸易保护主义威胁枢纽地位</li>
+                        <li>干旱高温水资源匮乏气候风险加剧</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="metric-box">
+                <h3>对招商银行战略意义</h3>
+                <p><strong>投资建议:适宜(精选赛道)</strong></p>
+                <ul>
+                    <li>战略定位:中东门户,区域金融枢纽</li>
+                    <li>业务重点:基建项目融资,房地产,金融服务,科技</li>
+                    <li>优势领域:数字经济,绿色科技,先进物流,主权实体</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 幻灯片 26: 沙特SWOT分析 -->
+        <div class="slide">
+            <h1>沙特SWOT分析</h1>
+            <div class="swot-grid">
+                <div class="strengths">
+                    <h3>优势与核心竞争力</h3>
+                    <ul>
+                        <li>极低外债占比与强劲财政实力</li>
+                        <li>GDP增速3%领先"2030愿景"见成效</li>
+                        <li>全球最大主权财富基金PIF资产1.15万亿</li>
+                        <li>主权评级上调至A+治理体系持续优化</li>
+                    </ul>
+                </div>
+                <div class="weaknesses">
+                    <h3>劣势与结构性短板</h3>
+                    <ul>
+                        <li>经济高度依赖油气非油产业不足</li>
+                        <li>平均受教育年限与预期寿命垫底</li>
+                        <li>清洁能源占比低于5%粮食完全依赖进口</li>
+                        <li>政府治理指标同比提升但依旧垫底</li>
+                        <li>基尼系数0.6财富再分配机制缺失</li>
+                    </ul>
+                </div>
+                <div class="opportunities">
+                    <h3>潜在机遇与发展空间</h3>
+                    <ul>
+                        <li>"2030愿景"与NEOM新城培育未来产业</li>
+                        <li>人口增速2.4%劳动力充沛支撑转型</li>
+                        <li>总贷款增长率13.48%领跑参评经济体</li>
+                        <li>高资本充足率与储蓄率构建金融缓冲</li>
+                    </ul>
+                </div>
+                <div class="threats">
+                    <h3>当前威胁与风险因素</h3>
+                    <ul>
+                        <li>全球能源转型威胁长期石油需求</li>
+                        <li>收入分配不均社会结构调整压力大</li>
+                        <li>伊朗核问题,也门冲突,地缘政治冲突与区域争端影响稳定</li>
+                        <li>净FDI由正转负资本流出约63亿美元</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="metric-box">
+                <h3>对招商银行战略意义</h3>
+                <p><strong>投资建议:中性(策略性参与)</strong></p>
+                <ul>
+                    <li>战略定位:中东最大经济体,G20成员,转型市场</li>
+                    <li>业务重点:主权信用挂钩的大型基建项目</li>
+                    <li>优势领域:NEOM项目融资,能源转型,PIF业务,贸易融资</li>
+                </ul>
+            </div>
+        </div>
+
+<!-- Insert this slide after the Saudi Arabia SWOT slide (after line ~1450 in Test 3) -->
+
+<div class="slide">
+    <h1>核心发现:全球信用格局透视</h1>
+    
+    <!-- Interactive Navigation Tabs -->
+    <div style="display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid #667eea;">
+        <button class="finding-tab active" data-finding="1" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px 8px 0 0; cursor: pointer; font-size: 0.95em; transition: all 0.3s; font-family: 'Microsoft YaHei';">
+            <strong>发现一</strong><br/>信用格局分化
+        </button>
+        <button class="finding-tab" data-finding="2" style="flex: 1; padding: 12px; background: #f0f0f0; color: #333; border: none; border-radius: 8px 8px 0 0; cursor: pointer; font-size: 0.95em; transition: all 0.3s; font-family: 'Microsoft YaHei';">
+            <strong>发现二</strong><br/>关键变量崛起
+        </button>
+        <button class="finding-tab" data-finding="3" style="flex: 1; padding: 12px; background: #f0f0f0; color: #333; border: none; border-radius: 8px 8px 0 0; cursor: pointer; font-size: 0.95em; transition: all 0.3s; font-family: 'Microsoft YaHei';">
+            <strong>发现三</strong><br/>制度质量决定性
+        </button>
+    </div>
+
+    <!-- Finding 1: Credit Hierarchy -->
+    <div class="finding-content" id="finding-1" style="display: block;">
+        <h2 style="color: #667eea; margin-bottom: 20px;">全球信用格局三级分化</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 25px;">
+            <!-- Tier 1 -->
+            <div style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); padding: 25px; border-radius: 15px; color: white; box-shadow: 0 8px 20px rgba(40,167,69,0.3); cursor: pointer; transition: transform 0.3s;" class="tier-card" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="font-size: 3em; margin-bottom: 10px;">🏆</div>
+                <h3 style="color: white; margin-bottom: 15px;">第一梯队</h3>
+                <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="font-size: 1.1em; font-weight: bold; margin-bottom: 8px;">澳大利亚 | 新加坡</div>
+                    <div style="font-size: 0.9em; opacity: 0.95;">AAA评级 • 卓越治理 • 低信用风险</div>
+                </div>
+                <div style="font-size: 0.85em; margin-top: 12px; opacity: 0.9;"><strong>✓ 适宜作为核心支点</strong></div>
+            </div>
+
+            <!-- Tier 2 -->
+            <div style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); padding: 25px; border-radius: 15px; color: white; box-shadow: 0 8px 20px rgba(255,193,7,0.3); cursor: pointer; transition: transform 0.3s;" class="tier-card" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="font-size: 3em; margin-bottom: 10px;">⚖️</div>
+                <h3 style="color: white; margin-bottom: 15px;">第二梯队</h3>
+                <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="font-size: 1.1em; font-weight: bold; margin-bottom: 8px;">美国 | 英国 | 欧盟</div>
+                    <div style="font-size: 0.9em; opacity: 0.95;">规模优势 • 风险上升 • 政策波动</div>
+                </div>
+                <div style="font-size: 0.85em; margin-top: 12px; opacity: 0.9;"><strong>⚠ 机遇与挑战并存</strong></div>
+            </div>
+
+            <!-- Tier 3 -->
+            <div style="background: linear-gradient(135deg, #17a2b8 0%, #138496 100%); padding: 25px; border-radius: 15px; color: white; box-shadow: 0 8px 20px rgba(23,162,184,0.3); cursor: pointer; transition: transform 0.3s;" class="tier-card" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="font-size: 3em; margin-bottom: 10px;">🚀</div>
+                <h3 style="color: white; margin-bottom: 15px;">第三梯队</h3>
+                <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="font-size: 1.1em; font-weight: bold; margin-bottom: 8px;">阿联酋 | 沙特</div>
+                    <div style="font-size: 0.9em; opacity: 0.95;">改革红利 • 高增长 • 转型期</div>
+                </div>
+                <div style="font-size: 0.85em; margin-top: 12px; opacity: 0.9;"><strong>📈 高发展潜力但需审慎</strong></div>
+            </div>
+        </div>
+
+        <!-- Visual Comparison Chart -->
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-top: 20px;">
+            <h4 style="color: #667eea; margin-bottom: 15px;">关键指标对比雷达</h4>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; text-align: center;">
+                <div>
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 8px;"><strong>信用评级</strong></div>
+                    <div style="height: 80px; display: flex; align-items: flex-end; justify-content: center;">
+                        <div style="width: 100%; background: linear-gradient(180deg, #28a745 0%, #20c997 100%); height: 100%; border-radius: 8px 8px 0 0; position: relative;">
+                            <span style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold;">AAA</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.8em; margin-top: 5px; color: #28a745; font-weight: bold;">澳大利亚/新西兰</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 8px;"><strong>市场规模</strong></div>
+                    <div style="height: 80px; display: flex; align-items: flex-end; justify-content: center;">
+                        <div style="width: 100%; background: linear-gradient(180deg, #ffc107 0%, #ff9800 100%); height: 95%; border-radius: 8px 8px 0 0; position: relative;">
+                            <span style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold;">最大</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.8em; margin-top: 5px; color: #ffc107; font-weight: bold;">美国/欧盟</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 8px;"><strong>增长潜力</strong></div>
+                    <div style="height: 80px; display: flex; align-items: flex-end; justify-content: center;">
+                        <div style="width: 100%; background: linear-gradient(180deg, #17a2b8 0%, #138496 100%); height: 90%; border-radius: 8px 8px 0 0; position: relative;">
+                            <span style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold;">3%+</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.8em; margin-top: 5px; color: #17a2b8; font-weight: bold;">阿联酋/沙特</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 8px;"><strong>ESG表现</strong></div>
+                    <div style="height: 80px; display: flex; align-items: flex-end; justify-content: center;">
+                        <div style="width: 100%; background: linear-gradient(180deg, #28a745 0%, #20c997 100%); height: 85%; border-radius: 8px 8px 0 0; position: relative;">
+                            <span style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold;">领先</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.8em; margin-top: 5px; color: #28a745; font-weight: bold;">英国/欧盟</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Finding 2: Key Variables -->
+    <div class="finding-content" id="finding-2" style="display: none;">
+        <h2 style="color: #667eea; margin-bottom: 20px;">关键变量重要性显著上升</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <!-- ESG Factor -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 15px; color: white; box-shadow: 0 8px 20px rgba(102,126,234,0.3);">
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div style="font-size: 3em; margin-right: 15px;">🌱</div>
+                    <h3 style="color: white; margin: 0;">ESG环境因素</h3>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                    <div style="font-weight: bold; margin-bottom: 10px; font-size: 1.1em;">表现分化明显</div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>🏆 欧洲领跑</span>
+                        <span style="background: rgba(255,255,255,0.3); padding: 3px 10px; border-radius: 12px;">英国65.9% | 欧盟55%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>📊 美澳进展</span>
+                        <span style="background: rgba(255,255,255,0.3); padding: 3px 10px; border-radius: 12px;">清洁能源占比>25%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>⚠️ 中东挑战</span>
+                        <span style="background: rgba(255,255,255,0.3); padding: 3px 10px; border-radius: 12px;">沙特<5%</span>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; font-size: 0.9em;">
+                    <strong>亮点:</strong>阿联酋第一座核电站全面运营，突破25%清洁能源基准
+                </div>
+            </div>
+
+            <!-- Population Structure -->
+            <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); padding: 25px; border-radius: 15px; color: white; box-shadow: 0 8px 20px rgba(255,107,107,0.3);">
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div style="font-size: 3em; margin-right: 15px;">👥</div>
+                    <h3 style="color: white; margin: 0;">人口结构影响</h3>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                    <div style="font-weight: bold; margin-bottom: 10px; font-size: 1.1em;">两极分化格局</div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>🚀 中东红利</span>
+                        <span style="background: rgba(255,255,255,0.3); padding: 3px 10px; border-radius: 12px;">阿联酋+3.7% / 沙特+2.4%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>📉 欧洲停滞</span>
+                        <span style="background: rgba(255,255,255,0.3); padding: 3px 10px; border-radius: 12px;">欧盟仅+0.26%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>💎 质量优势</span>
+                        <span style="background: rgba(255,255,255,0.3); padding: 3px 10px; border-radius: 12px;">澳洲人均预期寿命83.9岁</span>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; font-size: 0.9em;">
+                    <strong>挑战:</strong>发达国家需应对人口老龄化, 新兴市场需提升人力资本
+                </div>
+            </div>
+
+            <!-- Capital Market Resilience -->
+            <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 25px; border-radius: 15px; color: white; box-shadow: 0 8px 20px rgba(240,147,251,0.3); grid-column: 1 / -1;">
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div style="font-size: 3em; margin-right: 15px;">💰</div>
+                    <h3 style="color: white; margin: 0;">资本市场韧性考验</h3>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px;">
+                        <div style="font-weight: bold; margin-bottom: 8px;">美国:规模vs稳定</div>
+                        <div style="font-size: 0.9em; opacity: 0.95;">67万亿市值，但银行资本充足率垫底15%</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px;">
+                        <div style="font-weight: bold; margin-bottom: 8px;">英国/澳大利亚:稳健强监管</div>
+                        <div style="font-size: 0.9em; opacity: 0.95;"><ul>英国：NPL<1% | 资本充足率21.2%居首</ul><ul>澳大利亚：NPL=1.1% | 资本充足率20%，紧随其后</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px;">
+                        <div style="font-weight: bold; margin-bottom: 8px;">中东:快速扩张vs风险管控</div>
+                        <div style="font-size: 0.9em; opacity: 0.95;">沙特+13.48% | 阿联酋NPL= 4.8%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Finding 3: Institutional Quality -->
+    <div class="finding-content" id="finding-3" style="display: none;">
+        <h2 style="color: #667eea; margin-bottom: 20px;">制度质量决定长期信用</h2>
+        
+        <!-- Governance vs Resources -->
+        <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 25px; border-radius: 15px; color: white; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(79,172,254,0.3);">
+            <h3 style="color: white; margin-bottom: 20px; display: flex; align-items: center;">
+                <span style="font-size: 2em; margin-right: 15px;">⚖️</span>
+                制度 vs 财力:谁主沉浮?
+            </h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 12px;">
+                    <div style="font-size: 1.3em; font-weight: bold; margin-bottom: 15px;">✅ 制度型领导者</div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong>澳大利亚 | 新加坡</strong>
+                        <div style="margin-top: 8px; font-size: 0.9em;">• AAA评级稳定<br/>• 政府治理指标全球前列<br/>• 政策经济长期稳健</div>
+                    </div>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 12px;">
+                    <div style="font-size: 1.3em; font-weight: bold; margin-bottom: 15px;">⚠️ 财力型挑战者</div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong>阿联酋 | 沙特</strong>
+                        <div style="margin-top: 8px; font-size: 0.9em;">• 低债务负担(阿33% | 沙35%)<br/>• 治理指标垫底<br/>• 制度（政治&社会）建设是长期挑战</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- US Institutional Weakening -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; border-radius: 8px;">
+                <h4 style="color: #856404; margin-bottom: 12px;">🇺🇸 美国制度优势逐步弱化</h4>
+                <ul style="color: #856404; margin: 0; padding-left: 20px; font-size: 0.9em;">
+                    <li>2025失去全AAA评级(穆迪降至Aa1)</li>
+                    <li>法治指数:参评的发达国家中最低</li>
+                    <li>养老金指数持续恶化</li>
+                    <li>对外债务率攀升至122.5%</li>
+                </ul>
+            </div>
+
+            <div style="background: #d4edda; border-left: 4px solid #28a745; padding: 20px; border-radius: 8px;">
+                <h4 style="color: #155724; margin-bottom: 12px;">📊 ECI经济多元化成为发展关键</h4>
+                <ul style="color: #155724; margin: 0; padding-left: 20px; font-size: 0.9em;">
+                    <li>澳大利亚:ECI指数 = -0.82(资源国诅咒)</li>
+                    <li>阿联酋:ECI指数 = +0.61(多元化进步)</li>
+                    <li>新加坡:长期处于全球领先水平</li>
+                    <li>经济复杂指数的影响:产业多元化，降低系统性风险</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Social Welfare Divide -->
+        <div style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); padding: 25px; border-radius: 15px; color: white; box-shadow: 0 8px 20px rgba(250,112,154,0.3);">
+            <h3 style="color: white; margin-bottom: 20px; display: flex; align-items: center;">
+                <span style="font-size: 2em; margin-right: 15px;">🏥</span>
+                社保稳定性及福利健全性分化明显
+            </h3>
+            <div style="display: flex; justify-content: space-around; align-items: center;">
+                <div style="text-align: center; background: rgba(255,255,255,0.2); padding: 20px; border-radius: 12px; flex: 1; margin: 0 10px;">
+                    <div style="font-size: 3em; margin-bottom: 10px;">20/20</div>
+                    <div style="font-weight: bold; font-size: 1.2em;">澳大利亚</div>
+                    <div style="font-size: 0.85em; margin-top: 8px; opacity: 0.9;">全民医保+住房保障+社会稳定</div>
+                </div>
+                <div style="font-size: 2em; opacity: 0.5;">→</div>
+                <div style="text-align: center; background: rgba(255,255,255,0.2); padding: 20px; border-radius: 12px; flex: 1; margin: 0 10px;">
+                    <div style="font-size: 3em; margin-bottom: 10px;">15/20</div>
+                    <div style="font-weight: bold; font-size: 1.2em;">新加坡/英国/阿联酋/沙特</div>
+                    <div style="font-size: 0.85em; margin-top: 8px; opacity: 0.9;">部分覆盖+结构缺口</div>
+                </div>
+                <div style="font-size: 2em; opacity: 0.5;">→</div>
+                <div style="text-align: center; background: rgba(255,255,255,0.2); padding: 20px; border-radius: 12px; flex: 1; margin: 0 10px;">
+                    <div style="font-size: 3em; margin-bottom: 10px;">5/20</div>
+                    <div style="font-weight: bold; font-size: 1.2em;">美国/欧盟</div>
+                    <div style="font-size: 0.85em; margin-top: 8px; opacity: 0.9;">覆盖率不足+内部分化</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.finding-tab');
+            const contents = document.querySelectorAll('.finding-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const findingNum = this.getAttribute('data-finding');
+                    
+                    // Update active tab
+                    tabs.forEach(t => {
+                        t.style.background = '#f0f0f0';
+                        t.style.color = '#333';
+                    });
+                    this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                    this.style.color = 'white';
+                    
+                    // Update visible content
+                    contents.forEach(c => c.style.display = 'none');
+                    document.getElementById('finding-' + findingNum).style.display = 'block';
+                });
+            });
+        });
+    </script>
+</div>
+        
+        <!-- 幻灯片 27: 对招商银行战略建议 -->
+<div class="slide">
+    <h1>对招商银行战略建议</h1>
+    <h2>市场分层与资源配置</h2>
+    
+    <div class="swot-grid">
+        <div class="strengths">
+            <h3>核心市场(适宜)</h3>
+            <p><strong>澳大利亚,新加坡</strong></p>
+            <ul>
+                <li>主权评级优异,政经环境稳健</li>
+                <li>巩固核心优势，深耕本地市场</li>
+                <li>打造亚太区域战略枢纽</li>
+            </ul>
+        </div>
+        <div class="opportunities">
+            <h3>战略市场(中性)</h3>
+            <p><strong>美国,英国,欧盟</strong></p>
+            <ul>
+                <li>布局ESG与创新领域机遇</li>
+                <li>动态审慎应对多元风险挑战</li>
+                <li>跨市场分散化资产配置</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="swot-grid">
+        <div class="opportunities">
+            <h3>增长市场(适宜-精选标的)</h3>
+            <p><strong>阿联酋</strong></p>
+            <ul>
+                <li>中东金融贸易中心地位</li>
+                <li>经济转型改革红利加速释放</li>
+                <li>高增长投资潜力</li>
+            </ul>
+        </div>
+        <div class="threats">
+            <h3>新兴市场(中性-策略)</h3>
+            <p><strong>沙特</strong></p>
+            <ul>
+                <li>紧密跟踪主权信用变化</li>
+                <li>渐采取循序渐进进入策略</li>
+                <li>建立全面风险管控体系</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="chart-container">
+        <canvas id="strategyAllocationChart"></canvas>
+    </div>
+</div>
+
+        <!-- 幻灯片 28: 重点业务领域建议 -->
+<div class="slide">
+    <h1>重点业务领域建议</h1>
+    
+    <div class="swot-grid">
+        <div class="strengths">
+            <h3>绿色金融与ESG投资</h3>
+            <p><strong>重点市场:英国、欧盟、澳大利亚</strong></p>
+            <ul>
+                <li><strong>深耕海上风电融资领域</strong>：英国作为全球第二大海上风电市场,拥有成熟的项目开发体系和政策支持框架。建议参与大型海上风电场融资、设备租赁及绿色资产证券化业务,把握英国2030年清洁能源目标带来的融资需求。</li>
+                <li><strong>拓展绿色债券与碳市场</strong>：欧盟绿色债券市场规模全球领先,碳交易机制最为完善。建议积极参与绿色债券承销、碳配额交易、碳金融衍生品开发等业务,助力企业低碳转型,捕捉碳中和政策红利。</li>
+                <li><strong>投资可持续基建项目</strong>:澳大利亚在可再生能源基建、绿色交通、循环经济设施等领域投资需求旺盛。建议通过银团融资、项目融资、基础设施基金等方式,参与符合ESG标准的优质基建项目,获取长期稳定回报。</li>
+            </ul>
+        </div>
+        <div class="opportunities">
+            <h3>财富管理业务</h3>
+            <p><strong>重点市场:新加坡、澳大利亚、阿联酋</strong></p>
+            <ul>
+                <li><strong>建立家族办公室服务平台</strong>：新加坡凭借税收优惠、法律健全、地理位置优越等优势,已成为亚太家族办公室首选地。建议建立综合财富管理平台,提供资产配置、税务筹划、家族传承、慈善规划等一站式服务,吸引超高净值家族客户。</li>
+                <li><strong>服务高净值客户财富增值</strong>：澳大利亚拥有成熟的财富管理市场和庞大的高净值人群。建议针对本地富裕阶层提供差异化投资方案,涵盖股票、房地产、私募股权、另类投资等多元资产类别,满足财富保值增值需求。</li>
+                <li><strong>开发伊斯兰特色金融产品</strong>：中东地区对符合伊斯兰教法的金融产品需求巨大。建议开发伊斯兰债券(Sukuk)、伊斯兰基金、符合Shariah标准的财富管理方案等产品,服务穆斯林高净值客户群体,拓展差异化竞争优势。</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="swot-grid">
+        <div class="opportunities">
+            <h3>项目与贸易融资</h3>
+            <p><strong>重点市场:阿联酋、沙特、澳大利亚</strong></p>
+            <ul>
+                <li><strong>融资大型基建项目</strong>：沙特NEOM新城等2030愿景旗舰项目投资规模超5000亿美元,涵盖智慧城市、清洁能源、旅游等领域。建议通过银团贷款、项目融资、国际贸易融资等方式参与融资,分享基建投资增长红利。</li>
+                <li><strong>嵌入资源贸易链条</strong>：澳大利亚作为全球主要油气出口国,资源贸易规模庞大。建议提供大宗商品贸易融资、仓单质押、出口保理、供应链金融等服务,深度嵌入铁矿石、液化天然气LNG、农产品等贸易链条。 </li>
+                <li><strong>服务RCEP区域贸易</strong>:新加坡作为RCEP核心枢纽,区域贸易便利化显著提升。建议依托新加坡平台,为区域内企业提供跨境贸易融资、信用证、贸易结算等综合金融服务,助力亚太供应链整合。</li>
+            </ul>
+        </div>
+        <div class="threats">
+            <h3>金融科技创新</h3>
+            <p><strong>重点市场:新加坡、美国、英国</strong></p>
+            <ul>
+                <li><strong>央行数字货币合作</strong>：新加坡金管局、美联储、英格兰银行在CBDC研发领域处于前沿。建议参与数字货币基础设施建设、跨境支付测试、智能合约应用等项目,抢占数字金融时代制高点。</li>
+                <li><strong>跨境支付创新解决方案</strong>：三国在即时支付系统、区块链应用、开放银行等领域创新活跃。建议利用招商银行优越的金融科技能力，研发低成本、高效率的跨境支付产品,优化跨境清算结算流程,降低汇款成本,提升客户体验,增强竞争力。</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="chart-container">
+        <canvas id="businessFocusChart"></canvas>
+    </div>
+</div>
+
+        
+        <!-- 幻灯片 33: 结束页 -->
+        <div class="slide">
+            <div style="text-align:center;margin-top:150px;">
+                <h1 style="font-size:3em;border:none;">感谢阅读!</h1>
+                <p style="font-size:1.4em;color:#666;margin-top:40px;">招商银行悉尼分行 风险管理部</p>
+                <p style="font-size:1.1em;color:#999;margin-top:20px;">2024-2025年度信用环境研究</p>
+                <div class="metric-box" style="margin-top:60px;text-align:left;max-width:600px;margin-left:auto;margin-right:auto;">
+                    <h3>联系方式</h3>
+                    <p>电话:0061-27909557</p>
+                    <p>邮箱:risk_compliance_syd@cmbchina.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn">◀ 上一页</button>
+        <span class="slide-number" id="slideNumber">1/33</span>
+        <button class="nav-btn" id="nextBtn">下一页 ▶</button>
+    </div>
+    
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let charts = {};
+
+    // 数字计数动画
+    function animateCounter(element) {
+        const target = parseInt(element.getAttribute('data-target'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                element.textContent = target;
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(current);
+            }
+        }, 16);
+    }
+
+    function showSlide(n) {
+        slides.forEach(s => s.classList.remove('active'));
+        if (n >= totalSlides) currentSlide = totalSlides - 1;
+        else if (n < 0) currentSlide = 0;
+        else currentSlide = n;
+        
+        slides[currentSlide].classList.add('active');
+        
+        // 更新页码
+        const sn = document.getElementById('slideNumber');
+        if (sn) sn.textContent = (currentSlide + 1) + "/" + totalSlides;
+        
+        // 更新进度条
+        const progressBar = document.getElementById('progressBar');
+        if (progressBar) {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = progress + '%';
+        }
+        
+        // 更新快速导航
+        updateQuickNav();
+        
+        // 更新按钮状态
+        const prev = document.getElementById('prevBtn');
+        const next = document.getElementById('nextBtn');
+        if (prev) prev.disabled = currentSlide === 0;
+        if (next) next.disabled = currentSlide === totalSlides - 1;
+        
+        // 触发计数动画
+        if (currentSlide === 0) {
+            setTimeout(() => {
+                document.querySelectorAll('.counter').forEach(counter => {
+                    animateCounter(counter);
+                });
+            }, 500);
+        }
+        
+        // 初始化当前页的图表
+        initCurrentSlideCharts();
+    }
+
+    // 展开/折叠详情
+    function toggleDetails(element) {
+        const details = element.querySelector('.ranking-details');
+        if (details) {
+            if (details.style.display === 'none' || !details.style.display) {
+                details.style.display = 'block';
+            } else {
+                details.style.display = 'none';
+            }
+        }
+    }
+
+    // 初始化快速导航
+    function initQuickNav() {
+        const quickNav = document.getElementById('quickNav');
+        if (!quickNav) return;
+        
+        const maxDots = Math.min(totalSlides, 20);
+        for (let i = 0; i < maxDots; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'quick-nav-item';
+            dot.onclick = () => showSlide(i);
+            dot.title = `幻灯片 ${i + 1}`;
+            quickNav.appendChild(dot);
+        }
+    }
+
+    // 更新快速导航状态
+    function updateQuickNav() {
+        const dots = document.querySelectorAll('.quick-nav-item');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+    }
+
+    // 全屏切换
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    }
+
+    // 销毁图表
+    function destroyChart(chartId) {
+        if (charts[chartId]) {
+            charts[chartId].destroy();
+            delete charts[chartId];
+        }
+    }
+
+    // 初始化图表
+    function initCurrentSlideCharts() {
+        // 销毁所有现有图表
+        Object.keys(charts).forEach(key => destroyChart(key));
+        
+        // 幻灯片2 - 覆盖经济体分布
+        if (currentSlide === 1) {
+            const canvas = document.getElementById('coverageChart');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                charts['coverageChart'] = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['发达经济体', '新兴市场'],
+                        datasets: [{
+                            data: [5, 2],
+                            backgroundColor: [
+                                'rgba(102, 126, 234, 0.8)',
+                                'rgba(118, 75, 162, 0.8)'
+                            ],
+                            borderWidth: 2,
+                            borderColor: '#fff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { size: 14, family: "'Microsoft YaHei'" },
+                                    padding: 15
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: '研究覆盖经济体分布',
+                                font: { size: 16, family: "'Microsoft YaHei'" }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+// 幻灯片7 - 宏观经济对比 (macroChart)
+if (currentSlide === 6) {
+    const canvas = document.getElementById('macroChart');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        charts['macroChart'] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['新加坡', '阿联酋', '澳大利亚', '沙特', '美国', '英国', '欧盟'],
+                datasets: [
+                    {
+                        label: '债务可持续性',
+                        data: [1.915, 1.976, 1.955, 1.880, 1.620, 1.110, 1.423],
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)'
+                    },
+                    {
+                        label: '经济增长活力',
+                        data: [1.833, 2.000, 1.315, 1.486, 1.571, 0.593, 0.258],
+                        backgroundColor: 'rgba(40, 167, 69, 0.8)'
+                    },
+                    {
+                        label: '结构韧性',
+                        data: [2.915, 2.526, 3.113, 2.705, 1.838, 2.603, 2.200],
+                        backgroundColor: 'rgba(255, 193, 7, 0.8)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { 
+                        stacked: true,
+                        ticks: { font: { size: 11, family: "'Microsoft YaHei'" } }
+                    },
+                    y: { 
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 8,
+                        title: {
+                            display: true,
+                            text: '综合得分',
+                            font: { size: 14, family: "'Microsoft YaHei'" }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 12, family: "'Microsoft YaHei'" },
+                            padding: 10
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '2025年宏观经济综合得分对比',
+                        font: { size: 16, family: "'Microsoft YaHei'" }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            footer: function(tooltipItems) {
+                                let sum = 0;
+                                tooltipItems.forEach(function(tooltipItem) {
+                                    sum += tooltipItem.parsed.y;
+                                });
+                                return '总分: ' + sum.toFixed(3);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
+
+        
+// 幻灯片8 - 贸易往来对比 (tradeChart)
+if (currentSlide === 7) {
+    const canvas = document.getElementById('tradeChart');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        charts['tradeChart'] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['新加坡', '澳大利亚', '阿联酋', '沙特', '欧盟', '英国', '美国'],
+                datasets: [
+                    {
+                        label: '贸易收支水平',
+                        data: [4, 3.71, 3.73, 3.84, 3.86, 2.78, 0.2],
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)'
+                    },
+                    {
+                        label: '净FDI流入',
+                        data: [5, 3.49, 2.96, 2.08, 1.65, 0.25, 2.66],
+                        backgroundColor: 'rgba(40, 167, 69, 0.8)'
+                    },
+                    {
+                        label: '第一大出口伙伴',
+                        data: [1, 1, 1, 1, 2.222, 0.25, 0.33],
+                        backgroundColor: 'rgba(255, 193, 7, 0.8)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { 
+                        stacked: true,
+                        ticks: { font: { size: 11, family: "'Microsoft YaHei'" } }
+                    },
+                    y: { 
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 11,
+                        title: {
+                            display: true,
+                            text: '综合得分',
+                            font: { size: 14, family: "'Microsoft YaHei'" }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 12, family: "'Microsoft YaHei'" },
+                            padding: 10
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '2025年贸易往来维度得分对比',
+                        font: { size: 16, family: "'Microsoft YaHei'" }
+                    }
+                }
+            }
+        });
+    }
+}
+        
+// 幻灯片9 - 资本市场对比 (capitalChart)
+if (currentSlide === 8) {
+    const canvas = document.getElementById('capitalChart');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        charts['capitalChart'] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['美国', '英国', '沙特', '澳大利亚', '欧盟', '新加坡', '阿联酋'],
+                datasets: [
+                    {
+                        label: '金融市场规模与活力',
+                        data: [17, 5.55, 0.76, 2.27, 4.75, 1.03, 0.5],
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)'
+                    },
+                    {
+                        label: '金融银行系统稳定性',
+                        data: [9.33, 13.01, 14.01, 12.22, 8.19, 8.95, 8.92],
+                        backgroundColor: 'rgba(40, 167, 69, 0.8)'
+                    },
+                    {
+                        label: '金融市场韧性',
+                        data: [4.72, 1.58, 2.94, 2.23, 3.39, 3.92, 4.03],
+                        backgroundColor: 'rgba(255, 193, 7, 0.8)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { 
+                        stacked: true,
+                        ticks: { font: { size: 10, family: "'Microsoft YaHei'" } }
+                    },
+                    y: { 
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 35,
+                        title: {
+                            display: true,
+                            text: '综合得分',
+                            font: { size: 14, family: "'Microsoft YaHei'" }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 11, family: "'Microsoft YaHei'" },
+                            padding: 8
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '2025年资本市场维度得分对比',
+                        font: { size: 16, family: "'Microsoft YaHei'" }
+                    }
+                }
+            }
+        });
+    }
+}
+
+        // 幻灯片10 - 人口结构对比
+        if (currentSlide === 9) {
+            const canvas = document.getElementById('populationChart');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                charts['populationChart'] = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['阿联酋', '沙特', '新加坡', '澳大利亚', '英国', '美国', '欧盟'],
+                        datasets: [
+                            {
+                                label: '人口增长率 (%)',
+                                data: [3.7, 2.4, 0.81, 0.98, 0.7, 0.58, 0.26],
+                                borderColor: 'rgba(102, 126, 234, 1)',
+                                backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                                yAxisID: 'y',
+                                tension: 0.4
+                            },
+                            {
+                                label: '失业率 (%)',
+                                data: [2.13, 3.9, 3.18, 4.07, 4.11, 4.11, 5.39],
+                                borderColor: 'rgba(220, 53, 69, 1)',
+                                backgroundColor: 'rgba(220, 53, 69, 0.2)',
+                                yAxisID: 'y1',
+                                tension: 0.4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: '人口增长率与失业率对比',
+                                font: { size: 16, family: "'Microsoft YaHei'" }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                type: 'linear',
+                                display: true,
+                                position: 'left',
+                                title: {
+                                    display: true,
+                                    text: '人口增长率 (%)'
+                                }
+                            },
+                            y1: {
+                                type: 'linear',
+                                display: true,
+                                position: 'right',
+                                title: {
+                                    display: true,
+                                    text: '失业率 (%)'
+                                },
+                                grid: {
+                                    drawOnChartArea: false,
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+// 幻灯片11 - 政府治理对比 (governanceChart)
+if (currentSlide === 10) {
+    const canvas = document.getElementById('governanceChart');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        charts['governanceChart'] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['澳大利亚', '新加坡', '英国', '阿联酋', '欧盟', '美国', '沙特'],
+                datasets: [
+                    {
+                        label: '财政健康度',
+                        data: [1.29, 0.38, 0.63, 2, 0.72, 0.54, 1.89],
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)'
+                    },
+                    {
+                        label: '政府治理指标',
+                        data: [5.17, 6, 4.38, 2.96, 4.09, 3.82, 1.45],
+                        backgroundColor: 'rgba(40, 167, 69, 0.8)'
+                    },
+                    {
+                        label: '社会养老金保障',
+                        data: [1.95, 2, 1.82, 1.65, 1.72, 1.53, 1.54],
+                        backgroundColor: 'rgba(255, 193, 7, 0.8)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { 
+                        stacked: true,
+                        ticks: { font: { size: 10, family: "'Microsoft YaHei'" } }
+                    },
+                    y: { 
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 9,
+                        title: {
+                            display: true,
+                            text: '综合得分',
+                            font: { size: 14, family: "'Microsoft YaHei'" }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 11, family: "'Microsoft YaHei'" },
+                            padding: 10
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '2025年政府治理维度得分对比',
+                        font: { size: 16, family: "'Microsoft YaHei'" }
+                    }
+                }
+            }
+        });
+    }
+}
+        
+        // 幻灯片12 - 营商环境对比
+        if (currentSlide === 11) {
+            const canvas = document.getElementById('businessChart');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                charts['businessChart'] = new Chart(ctx, {
+                    type: 'polarArea',
+                    data: {
+                        labels: ['新加坡', '阿联酋', '沙特', '美国', '澳大利亚', '欧盟', '英国'],
+                        datasets: [{
+                            data: [8.260, 7.466, 4.821, 4.697, 4.086, 3.933, 3.850],
+                            backgroundColor: [
+                                'rgba(102, 126, 234, 0.6)',
+                                'rgba(118, 75, 162, 0.6)',
+                                'rgba(255, 193, 7, 0.6)',
+                                'rgba(23, 162, 184, 0.6)',
+                                'rgba(40, 167, 69, 0.6)',
+                                'rgba(108, 117, 125, 0.6)',
+                                'rgba(220, 53, 69, 0.6)'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right'
+                            },
+                            title: {
+                                display: true,
+                                text: '2025年营商环境维度综合评分分布',
+                                font: { size: 16, family: "'Microsoft YaHei'" }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+// 幻灯片13 - 资源禀赋对比 (resourceChart)
+if (currentSlide === 12) {
+    const canvas = document.getElementById('resourceChart');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        charts['resourceChart'] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['美国', '沙特', '澳大利亚', '阿联酋', '欧盟', '英国', '新加坡'],
+                datasets: [
+                    {
+                        label: '能源资源',
+                        data: [3.0, 0.81, 0.5, 0.32, 0.1, 0.11, 0],
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)'
+                    },
+                    {
+                        label: '农业资源',
+                        data: [3, 0.25, 0.31, 0.29, 0.34, 0.16, 0],
+                        backgroundColor: 'rgba(40, 167, 69, 0.8)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { 
+                        stacked: true,
+                        ticks: { font: { size: 11, family: "'Microsoft YaHei'" } }
+                    },
+                    y: { 
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 6,
+                        title: {
+                            display: true,
+                            text: '综合得分',
+                            font: { size: 14, family: "'Microsoft YaHei'" }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 11, family: "'Microsoft YaHei'" },
+                            padding: 10
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '2025年资源禀赋维度得分对比 (能源 + 农业)',
+                        font: { size: 16, family: "'Microsoft YaHei'" }
+                    }
+                }
+            }
+        });
+    }
+}
+        
+// 幻灯片14 - ESG环境对比 (esgChart)
+if (currentSlide === 13) {
+    const canvas = document.getElementById('esgChart');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        charts['esgChart'] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['英国', '欧盟', '新加坡', '美国', '澳大利亚', '阿联酋', '沙特'],
+                datasets: [
+                    {
+                        label: '人均化石燃料消费量',
+                        data: [1, 0.89, 0.11, 0.33, 0.39, 0.16, 0.21],
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)'
+                    },
+                    {
+                        label: '人均碳足迹',
+                        data: [2, 1.77, 1.16, 0.66, 0.52, 0.43, 0.43],
+                        backgroundColor: 'rgba(40, 167, 69, 0.8)'
+                    },
+                    {
+                        label: '清洁电力能源转型',
+                        data: [1.87, 2.0, 0.85, 1.08, 0.77, 0.86, 0.61],
+                        backgroundColor: 'rgba(255, 193, 7, 0.8)'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { 
+                        stacked: true,
+                        ticks: { font: { size: 10, family: "'Microsoft YaHei'" } }
+                    },
+                    y: { 
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 6,
+                        title: {
+                            display: true,
+                            text: '综合得分',
+                            font: { size: 14, family: "'Microsoft YaHei'" }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 11, family: "'Microsoft YaHei'" },
+                            padding: 10
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '2025年ESG环境维度得分对比',
+                        font: { size: 16, family: "'Microsoft YaHei'" }
+                    }
+                }
+            }
+        });
+    }
+}
+        
+// 幻灯片15 - 宏观经济稳定性堆叠柱状图
+if (currentSlide === 14) {
+    const canvas = document.getElementById('macroStabilityChart');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        charts['macroStabilityChart'] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['美国', '英国/欧盟', '新加坡', '澳大利亚', '阿联酋/沙特'],
+                datasets: [
+                    {
+                        label: '经济多元化',
+                        data: [5, 5, 0, 0, 0],
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                    },
+                    {
+                        label: '高附加值产业',
+                        data: [5, 5, 5, 0, 0],
+                        backgroundColor: 'rgba(40, 167, 69, 0.8)',
+                    },
+                    {
+                        label: '出口伙伴多样化',
+                        data: [5, 0, 0, 0, 0],
+                        backgroundColor: 'rgba(255, 193, 7, 0.8)',
+                    },
+                    {
+                        label: '财富分配均衡',
+                        data: [0, 5, 0, 5, 0],
+                        backgroundColor: 'rgba(23, 162, 184, 0.8)',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { 
+                        stacked: true,
+                        ticks: {
+                            font: { size: 11, family: "'Microsoft YaHei'" }
+                        }
+                    },
+                    y: { 
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 20,
+                        title: {
+                            display: true,
+                            text: '得分',
+                            font: { size: 14, family: "'Microsoft YaHei'" }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 12, family: "'Microsoft YaHei'" },
+                            padding: 10
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '宏观经济稳定性评分对比',
+                        font: { size: 16, family: "'Microsoft YaHei'" }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            footer: function(tooltipItems) {
+                                let sum = 0;
+                                tooltipItems.forEach(function(tooltipItem) {
+                                    sum += tooltipItem.parsed.y;
+                                });
+                                return '总分: ' + sum;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
+        
+        // 幻灯片16 - 环境可持续性堆叠柱状图
+if (currentSlide === 15) {
+    const canvas = document.getElementById('envSustainChart');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        charts['envSustainChart'] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['澳大利亚/英国/欧盟', '新加坡/阿联酋/沙特', '美国'],
+                datasets: [
+                    {
+                        label: '气候承诺与目标',
+                        data: [5, 5, 0],
+                        backgroundColor: 'rgba(40, 167, 69, 0.8)',
+                    },
+                    {
+                        label: '环境法规完善性',
+                        data: [5, 5, 5],
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                    },
+                    {
+                        label: '环境风险敞口',
+                        data: [5, 0, 5],
+                        backgroundColor: 'rgba(255, 193, 7, 0.8)',
+                    },
+                    {
+                        label: '灾害管理能力',
+                        data: [5, 5, 0],
+                        backgroundColor: 'rgba(23, 162, 184, 0.8)',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { 
+                        stacked: true,
+                        ticks: {
+                            font: { size: 12, family: "'Microsoft YaHei'" }
+                        }
+                    },
+                    y: { 
+                        stacked: true, 
+                        beginAtZero: true, 
+                        max: 20,
+                        title: {
+                            display: true,
+                            text: '得分',
+                            font: { size: 14, family: "'Microsoft YaHei'" }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 12, family: "'Microsoft YaHei'" },
+                            padding: 10
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '环境可持续性评分对比',
+                        font: { size: 16, family: "'Microsoft YaHei'" }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            footer: function(tooltipItems) {
+                                let sum = 0;
+                                tooltipItems.forEach(function(tooltipItem) {
+                                    sum += tooltipItem.parsed.y;
+                                });
+                                return '总分: ' + sum;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
+
+        
+        // 幻灯片17 - 社保福利堆叠柱状图
+        if (currentSlide === 16) {
+            const canvas = document.getElementById('socialWelfareChart');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                charts['socialWelfareChart'] = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['澳大利亚', '美国', '英国', '新加坡', '欧盟', '阿联酋', '沙特'],
+                        datasets: [
+                            {
+                                label: '医疗覆盖',
+                                data: [5, 0, 5, 0, 0, 5, 5],
+                                backgroundColor: 'rgba(102, 126, 234, 0.8)'
+                            },
+                            {
+                                label: '社会安全网',
+                                data: [5, 0, 5, 5, 0, 0, 0],
+                                backgroundColor: 'rgba(40, 167, 69, 0.8)'
+                            },
+                            {
+                                label: '社会稳定',
+                                data: [5, 0, 0, 5, 0, 5, 5],
+                                backgroundColor: 'rgba(255, 193, 7, 0.8)'
+                            },
+                            {
+                                label: '住房保障',
+                                data: [5, 5, 5, 5, 5, 5, 5],
+                                backgroundColor: 'rgba(23, 162, 184, 0.8)'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: { stacked: true },
+                            y: { stacked: true, beginAtZero: true, max: 20 }
+                        }
+                    }
+                });
+            }
+        }
+        
+        // 幻灯片18 - 金融系统韧性堆叠对比
+if (currentSlide === 17) {
+    const canvas = document.getElementById('finResilienceChart');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        charts['finResilienceChart'] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['新加坡/阿联酋', '澳大利亚', '欧盟/英国/沙特', '美国'],
+                datasets: [
+                    {
+                        label: '主权财富基金',
+                        data: [5, 5, 0, 0],
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                    },
+                    {
+                        label: '历史金融稳定性',
+                        data: [5, 5, 5, 0],
+                        backgroundColor: 'rgba(40, 167, 69, 0.8)',
+                    },
+                    {
+                        label: '经济复杂度',
+                        data: [5, 0, 0, 5],
+                        backgroundColor: 'rgba(255, 193, 7, 0.8)',
+                    },
+                    {
+                        label: '主权评级稳定',
+                        data: [5, 5, 5, 0],
+                        backgroundColor: 'rgba(23, 162, 184, 0.8)',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { 
+                        stacked: true,
+                        ticks: {
+                            font: { size: 12, family: "'Microsoft YaHei'" }
+                        }
+                    },
+                    y: { 
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 20,
+                        title: {
+                            display: true,
+                            text: '得分',
+                            font: { size: 14, family: "'Microsoft YaHei'" }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 12, family: "'Microsoft YaHei'" },
+                            padding: 10
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '金融系统韧性评分对比',
+                        font: { size: 16, family: "'Microsoft YaHei'" }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            footer: function(tooltipItems) {
+                                let sum = 0;
+                                tooltipItems.forEach(function(tooltipItem) {
+                                    sum += tooltipItem.parsed.y;
+                                });
+                                return '总分: ' + sum;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
+        
+        // 幻灯片19 - 自然资源依赖性堆叠柱状图
+if (currentSlide === 18) {
+    const canvas = document.getElementById('resourceDepChart');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        charts['resourceDepChart'] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['澳大利亚/美国', '欧盟', '阿联酋', '英国', '沙特', '新加坡'],
+                datasets: [
+                    {
+                        label: '传统能源自给',
+                        data: [5, 0, 5, 0, 5, 0],
+                        backgroundColor: 'rgba(255, 193, 7, 0.8)',
+                    },
+                    {
+                        label: '清洁能源转型',
+                        data: [5, 5, 2, 5, 0, 0],
+                        backgroundColor: 'rgba(40, 167, 69, 0.8)',
+                    },
+                    {
+                        label: '粮食自给',
+                        data: [5, 4, 0, 0, 0, 0],
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                    },
+                    {
+                        label: '可耕地面积',
+                        data: [5, 5, 0, 0, 0, 0],
+                        backgroundColor: 'rgba(23, 162, 184, 0.8)',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { 
+                        stacked: true,
+                        ticks: {
+                            font: { size: 11, family: "'Microsoft YaHei'" }
+                        }
+                    },
+                    y: { 
+                        stacked: true,
+                        beginAtZero: true,
+                        max: 20,
+                        title: {
+                            display: true,
+                            text: '得分',
+                            font: { size: 14, family: "'Microsoft YaHei'" }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { size: 12, family: "'Microsoft YaHei'" },
+                            padding: 10
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '自然资源依赖性评分对比',
+                        font: { size: 16, family: "'Microsoft YaHei'" }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            footer: function(tooltipItems) {
+                                let sum = 0;
+                                tooltipItems.forEach(function(tooltipItem) {
+                                    sum += tooltipItem.parsed.y;
+                                });
+                                return '总分: ' + sum;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
+        
+        // 幻灯片30 - 三级分化对比
+        if (currentSlide === 29) {
+            const canvas = document.getElementById('tierComparisonChart');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                charts['tierComparisonChart'] = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['稳健型领导者', '规模优势风险上升', '转型新兴力量'],
+                        datasets: [{
+                            data: [2, 3, 2],
+                            backgroundColor: [
+                                'rgba(40, 167, 69, 0.8)',
+                                'rgba(255, 193, 7, 0.8)',
+                                'rgba(220, 53, 69, 0.8)'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom' },
+                            title: {
+                                display: true,
+                                text: '全球信用格局三级分化',
+                                font: { size: 16, family: "'Microsoft YaHei'" }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        // 幻灯片27 - 战略配置图表
+        if (currentSlide === 26) {
+            const canvas = document.getElementById('strategyAllocationChart');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                charts['strategyAllocationChart'] = new Chart(ctx, {
+                    type: 'bubble',
+                    data: {
+                        datasets: [
+                            {
+                                label: '核心市场',
+                                data: [{x: 85, y: 95, r: 20}],
+                                backgroundColor: 'rgba(40, 167, 69, 0.6)'
+                            },
+                            {
+                                label: '战略市场',
+                                data: [{x: 70, y: 70, r: 25}],
+                                backgroundColor: 'rgba(255, 193, 7, 0.6)'
+                            },
+                            {
+                                label: '增长市场',
+                                data: [{x: 65, y: 60, r: 15}],
+                                backgroundColor: 'rgba(23, 162, 184, 0.6)'
+                            },
+                            {
+                                label: '新兴市场',
+                                data: [{x: 50, y: 55, r: 15}],
+                                backgroundColor: 'rgba(220, 53, 69, 0.6)'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                title: { display: true, text: '信用质量得分' },
+                                min: 40,
+                                max: 100
+                            },
+                            y: {
+                                title: { display: true, text: '战略重要性' },
+                                min: 40,
+                                max: 100
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: '市场分层战略配置矩阵',
+                                font: { size: 16, family: "'Microsoft YaHei'" }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': 质量' + context.parsed.x + ', 重要性' + context.parsed.y;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        // 幻灯片28 - 业务重点图表
+        if (currentSlide === 27) {
+            const canvas = document.getElementById('businessFocusChart');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                charts['businessFocusChart'] = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['绿色金融', '财富管理', '项目融资', '贸易融资', '金融科技', '传统银行'],
+                        datasets: [
+                            {
+                                label: '当前业务分布',
+                                data: [30, 40, 50, 60, 20, 70],
+                                backgroundColor: 'rgba(108, 117, 125, 0.2)',
+                                borderColor: 'rgba(108, 117, 125, 1)',
+                                borderWidth: 2
+                            },
+                            {
+                                label: '建议业务配置',
+                                data: [60, 55, 65, 50, 45, 50],
+                                backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                                borderColor: 'rgba(102, 126, 234, 1)',
+                                borderWidth: 2
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: '业务重点配置对比',
+                                font: { size: 16, family: "'Microsoft YaHei'" }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        // 幻灯片29 - 风险热力图
+        if (currentSlide === 28) {
+            const canvas = document.getElementById('riskHeatmapChart');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                charts['riskHeatmapChart'] = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['澳/新', '英/欧', '美国', '阿联酋', '沙特'],
+                        datasets: [
+                            {
+                                label: '主权信用风险',
+                                data: [10, 30, 50, 40, 45],
+                                backgroundColor: 'rgba(220, 53, 69, 0.7)'
+                            },
+                            {
+                                label: '宏观经济风险',
+                                data: [15, 45, 35, 30, 35],
+                                backgroundColor: 'rgba(255, 193, 7, 0.7)'
+                            },
+                            {
+                                label: '地缘政治风险',
+                                data: [20, 35, 25, 55, 60],
+                                backgroundColor: 'rgba(255, 152, 0, 0.7)'
+                            },
+                            {
+                                label: '行业集中风险',
+                                data: [40, 25, 20, 45, 55],
+                                backgroundColor: 'rgba(102, 126, 234, 0.7)'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: { stacked: true },
+                            y: { 
+                                stacked: true,
+                                beginAtZero: true,
+                                max: 200,
+                                title: {
+                                    display: true,
+                                    text: '风险得分'
+                                }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: '综合风险评估热力图',
+                                font: { size: 16, family: "'Microsoft YaHei'" }
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        // 幻灯片30 - ESG转型阶段图
+        if (currentSlide === 29) {
+            const canvas = document.getElementById('esgTransitionChart');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                charts['esgTransitionChart'] = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['当前', '2026', '2028', '2030', '2035', '2040', '2050'],
+                        datasets: [
+                            {
+                                label: '英/欧',
+                                data: [65, 70, 75, 82, 90, 95, 100],
+                                borderColor: 'rgba(40, 167, 69, 1)',
+                                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                                tension: 0.4,
+                                fill: true
+                            },
+                            {
+                                label: '美/澳',
+                                data: [40, 48, 58, 68, 80, 88, 95],
+                                borderColor: 'rgba(102, 126, 234, 1)',
+                                backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                                tension: 0.4,
+                                fill: true
+                            },
+                            {
+                                label: '阿联酋',
+                                data: [25, 32, 42, 55, 70, 82, 90],
+                                borderColor: 'rgba(23, 162, 184, 1)',
+                                backgroundColor: 'rgba(23, 162, 184, 0.1)',
+                                tension: 0.4,
+                                fill: true
+                            },
+                            {
+                                label: '沙特',
+                                data: [5, 10, 18, 28, 45, 62, 80],
+                                borderColor: 'rgba(255, 193, 7, 1)',
+                                backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                                tension: 0.4,
+                                fill: true
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                title: {
+                                    display: true,
+                                    text: '清洁能源占比 (%)'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: '年份'
+                                }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'ESG转型路径预测',
+                                font: { size: 16, family: "'Microsoft YaHei'" }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // 幻灯片31 - 制度质量对比
+        if (currentSlide === 31) {
+            const canvas = document.getElementById('institutionQualityChart');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                charts['institutionQualityChart'] = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['治理质量', '法治程度', '财政健康', '经济复杂度', '社保完善度'],
+                        datasets: [
+                            {
+                                label: '澳/新',
+                                data: [95, 95, 90, 70, 95],
+                                backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                                borderColor: 'rgba(40, 167, 69, 1)',
+                                borderWidth: 2
+                            },
+                            {
+                                label: '美/英/欧',
+                                data: [75, 80, 60, 85, 50],
+                                backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                                borderColor: 'rgba(102, 126, 234, 1)',
+                                borderWidth: 2
+                            },
+                            {
+                                label: '阿/沙',
+                                data: [60, 50, 95, 45, 60],
+                                backgroundColor: 'rgba(255, 193, 7, 0.2)',
+                                borderColor: 'rgba(255, 193, 7, 1)',
+                                borderWidth: 2
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: { r: { beginAtZero: true, max: 100 } }
+                    }
+                });
+            }
+        }
+    }
+
+    // 键盘导航
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+            e.preventDefault();
+            showSlide(currentSlide + 1);
+        }
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            showSlide(currentSlide - 1);
+        }
+        if (e.key === 'Home') {
+            e.preventDefault();
+            showSlide(0);
+        }
+        if (e.key === 'End') {
+            e.preventDefault();
+            showSlide(totalSlides - 1);
+        }
+        if (e.key === 'Escape' && document.fullscreenElement) {
+            document.exitFullscreen();
+        }
+    });
+
+    // 触摸滑动支持
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        if (touchEndX < touchStartX - swipeThreshold) showSlide(currentSlide + 1);
+        if (touchEndX > touchStartX + swipeThreshold) showSlide(currentSlide - 1);
+    }
+
+    // 页面加载完成后初始化
+    document.addEventListener('DOMContentLoaded', function() {
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        if (prevBtn) prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+        if (nextBtn) nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+        
+        // 初始化快速导航
+        initQuickNav();
+        
+        // 显示第一页
+        showSlide(0);
+        
+        // 预加载图表库后初始化图表
+        setTimeout(initCurrentSlideCharts, 100);
+    });
+    
+    // 窗口大小改变时重绘图表
+    window.addEventListener('resize', () => {
+        Object.values(charts).forEach(chart => {
+            if (chart) chart.resize();
+        });
+    });
+</script>
+</body>
+</html>
