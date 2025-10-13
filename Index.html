@@ -1,0 +1,2167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>境外主要经济体信用环境比较研究报告 2024-2025 | 精简版</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Microsoft YaHei', 'Segoe UI', Arial, sans-serif; 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%); 
+            min-height: 100vh; 
+            padding: 20px 20px 100px; 
+        }
+        
+        .presentation { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            background: white; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); 
+            padding: 50px; 
+            min-height: 600px; 
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .slide { 
+            display: none; 
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        .slide.active { display: block; }
+        
+        @keyframes slideIn { 
+            from { opacity: 0; transform: translateX(30px); } 
+            to { opacity: 1; transform: translateX(0); } 
+        }
+        
+        h1 { 
+            color: #1e3c72; 
+            font-size: 2.2em; 
+            margin-bottom: 20px; 
+            border-bottom: 3px solid #667eea; 
+            padding-bottom: 12px;
+            position: relative;
+        }
+        
+        h1::before {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #764ba2;
+        }
+        
+        h2 { color: #2a5298; font-size: 1.6em; margin: 20px 0 12px 0; }
+        h3 { color: #667eea; font-size: 1.2em; margin: 12px 0 8px 0; }
+        
+        .subtitle { 
+            font-size: 1.1em; 
+            color: #666; 
+            margin-bottom: 25px; 
+        }
+        
+        .metric-box { 
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); 
+            border-left: 4px solid #667eea; 
+            padding: 16px; 
+            margin: 12px 0; 
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .metric-box:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 8px 20px rgba(40,167,69,0.3);
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .country-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .country-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+        
+        .country-card.featured {
+            border: 3px solid #28a745;
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        }
+        
+        .score-badge { 
+            display: inline-block; 
+            padding: 8px 16px; 
+            border-radius: 20px; 
+            font-weight: bold; 
+            margin: 5px; 
+            font-size: 1.1em;
+            transition: transform 0.2s ease;
+        }
+        
+        .score-badge:hover { transform: scale(1.1); }
+        
+        .score-high { 
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%); 
+            color: white; 
+        }
+        
+        .score-medium { 
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%); 
+            color: #333; 
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 350px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .navigation { 
+            position: fixed; 
+            bottom: 20px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            display: flex; 
+            gap: 12px; 
+            background: white; 
+            padding: 12px 25px; 
+            border-radius: 40px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3); 
+            z-index: 1000; 
+        }
+        
+        .nav-btn { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            font-size: 15px; 
+            transition: all 0.3s; 
+            font-family: 'Microsoft YaHei';
+        }
+        
+        .nav-btn:hover:not(:disabled) { 
+            transform: scale(1.05); 
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .nav-btn:disabled { 
+            background: #ccc; 
+            cursor: not-allowed; 
+        }
+        
+        .slide-number { 
+            color: #333; 
+            font-size: 15px; 
+            padding: 10px 18px; 
+            font-weight: bold; 
+        }
+        
+        .key-insight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            font-size: 1.05em;
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .recommendation-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+    @media (max-width: 768px) {
+        .presentation { padding: 30px 20px; }
+        .comparison-grid { grid-template-columns: 1fr; }
+        h1 { font-size: 1.8em; }
+    }
+
+.dimension-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 4px solid #667eea;
+            color: #333;
+            padding: 18px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeInUp 0.5s ease forwards;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .dimension-card:nth-child(1) { animation-delay: 0.1s; }
+        .dimension-card:nth-child(2) { animation-delay: 0.2s; }
+        .dimension-card:nth-child(3) { animation-delay: 0.3s; }
+        .dimension-card:nth-child(4) { animation-delay: 0.4s; }
+        .dimension-card:nth-child(5) { animation-delay: 0.5s; }
+        .dimension-card:nth-child(6) { animation-delay: 0.6s; }
+        .dimension-card:nth-child(7) { animation-delay: 0.7s; }
+        .dimension-card:nth-child(8) { animation-delay: 0.8s; }
+
+        .dimension-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.25);
+            border-left-width: 6px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        .dimension-card-qual {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 4px solid #2a5298;
+            color: #333;
+            padding: 18px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeInUp 0.5s ease forwards;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .dimension-card-qual:nth-child(1) { animation-delay: 0.1s; }
+        .dimension-card-qual:nth-child(2) { animation-delay: 0.2s; }
+        .dimension-card-qual:nth-child(3) { animation-delay: 0.3s; }
+        .dimension-card-qual:nth-child(4) { animation-delay: 0.4s; }
+        .dimension-card-qual:nth-child(5) { animation-delay: 0.5s; }
+
+        .dimension-card-qual:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(42, 82, 152, 0.25);
+            border-left-width: 6px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+.data-source {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    font-size: 0.95em;
+    color: #856404;
+    font-weight: 500;
+}
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <div class="progress-bar" id="progressBar"></div>
+        
+<!-- 幻灯片 1: 封面 -->
+<div class="slide active">
+    <h1 style="text-align: center; font-size: 2.8em; margin-top: 80px;">境外主要经济体信用环境比较研究报告</h1>
+    <div class="subtitle" style="text-align: center; font-size: 1.4em; margin-top: 30px;">2024-2025年度</div>
+
+<!-- 研究目的和研究对象 - 新增部分 -->
+<div style="margin-top: 50px; margin-bottom: 40px;">
+    <div class="metric-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #2196F3; margin-bottom: 20px;">
+        <h3 style="color: #1976D2; display: flex; align-items: center; margin-bottom: 12px;">
+            <span style="font-size: 1.8em; margin-right: 12px;">🎯</span>
+            研究目的
+        </h3>
+        <p style="line-height: 1.8; color: #333; font-size: 0.95em;">
+            为深入掌握境外主要经济体,尤其是招商银行现有及规划设立机构所在国家和地区的<strong style="color: #388e3c; font-size: 1.05em;">信用环境状况</strong>, 招商银行悉尼分行连续第二年开展针对境外主要经济体的核心经济变量、监管制度框架及金融资本市场动态的系统性独立研究,旨在为招商银行国际业务战略规划、跨境信贷政策指定和风险管控实践提供前瞻性视角。
+        </p>
+    </div>
+    
+    <div class="metric-box" style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left: 4px solid #9C27B0;">
+        <h3 style="color: #7B1FA2; display: flex; align-items: center; margin-bottom: 15px;">
+            <span style="font-size: 1.8em; margin-right: 12px;">🌐</span>
+            研究对象
+        </h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 12px;">
+            <div style="padding: 15px; background: white; border-radius: 8px; border-left: 3px solid #2196F3; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                <strong style="color: #1976D2; font-size: 1.05em;">📊 发达经济体</strong>
+                <p style="margin-top: 10px; color: #555; line-height: 1.7; font-size: 0.9em;">美国、澳大利亚、英国、卢森堡/欧盟、新加坡</p>
+            </div>
+            <div style="padding: 15px; background: white; border-radius: 8px; border-left: 3px solid #FF9800; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                <strong style="color: #F57C00; font-size: 1.05em;">🚀 新兴市场</strong>
+                <p style="margin-top: 10px; color: #555; line-height: 1.7; font-size: 0.9em;">阿联酋、沙特阿拉伯</p>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    <div style="display: flex; justify-content: space-around; margin-top: 60px; flex-wrap: wrap;">
+        <div class="stat-card" style="flex: 1; margin: 10px; min-width: 150px; text-align: center; padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; transition: all 0.3s ease;">
+            <div class="stat-number" style="color: #667eea;"><span class="counter" data-target="7">0</span></div>
+            <div class="stat-label" style="color: #666; font-size: 0.95em;">覆盖经济体</div>
+        </div>
+        <div class="stat-card" style="flex: 1; margin: 10px; min-width: 150px; text-align: center; padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; transition: all 0.3s ease;">
+            <div class="stat-number" style="color: #28a745;"><span class="counter" data-target="8">0</span></div>
+            <div class="stat-label" style="color: #666; font-size: 0.95em;">定量评估维度</div>
+        </div>
+        <div class="stat-card" style="flex: 1; margin: 10px; min-width: 150px; text-align: center; padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; transition: all 0.3s ease;">
+            <div class="stat-number" style="color: #764ba2;"><span class="counter" data-target="39">0</span></div>
+            <div class="stat-label" style="color: #666; font-size: 0.95em;">定量评估指标</div>
+        </div>
+        <div class="stat-card" style="flex: 1; margin: 10px; min-width: 150px; text-align: center; padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; transition: all 0.3s ease;">
+            <div class="stat-number" style="color: #28a745;"><span class="counter" data-target="5">0</span></div>
+            <div class="stat-label" style="color: #666; font-size: 0.95em;">定性评估维度</div>
+        </div>
+        <div class="stat-card" style="flex: 1; margin: 10px; min-width: 150px; text-align: center; padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; transition: all 0.3s ease;">
+            <div class="stat-number" style="color: #764ba2;"><span class="counter" data-target="20">0</span></div>
+            <div class="stat-label" style="color: #666; font-size: 0.95em;">定性评估指标</div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 60px; color: #666;">
+        <p style="font-size: 1.15em;">招商银行悉尼分行 风险管理部</p>
+    </div>
+</div>
+<!-- 幻灯片 2: 核心发现 - 全球信用格局透视 -->
+<div class="slide">
+    <h1>核心发现:全球信用格局透视</h1>
+    <div class="subtitle"><strong style="color: #333; font-size: 1.05em;">三大核心洞见塑造当前及未来全球信用环境</strong></div>
+    
+    <!-- Interactive Navigation Tabs -->
+    <div style="display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid #667eea;">
+        <button class="finding-tab active" data-finding="1" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px 8px 0 0; cursor: pointer; font-size: 0.95em; transition: all 0.3s; font-family: 'Microsoft YaHei';">
+            <strong>发现一</strong><br/>信用格局分化
+        </button>
+        <button class="finding-tab" data-finding="2" style="flex: 1; padding: 12px; background: #f0f0f0; color: #333; border: none; border-radius: 8px 8px 0 0; cursor: pointer; font-size: 0.95em; transition: all 0.3s; font-family: 'Microsoft YaHei';">
+            <strong>发现二</strong><br/>关键变量崛起
+        </button>
+        <button class="finding-tab" data-finding="3" style="flex: 1; padding: 12px; background: #f0f0f0; color: #333; border: none; border-radius: 8px 8px 0 0; cursor: pointer; font-size: 0.95em; transition: all 0.3s; font-family: 'Microsoft YaHei';">
+            <strong>发现三</strong><br/>制度质量决定性
+        </button>
+    </div>
+
+    <!-- Finding 1: Credit Hierarchy -->
+    <div class="finding-content" id="finding-1" style="display: block;">
+        <h2 style="color: #667eea; margin-bottom: 20px;">全球信用格局三级分化</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 25px;">
+            <!-- Tier 1 -->
+            <div style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); padding: 25px; border-radius: 15px; color: white; box-shadow: 0 8px 20px rgba(40,167,69,0.3); cursor: pointer; transition: transform 0.3s;" class="tier-card" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="font-size: 3em; margin-bottom: 10px;">🏆</div>
+                <h3 style="color: white; margin-bottom: 15px;">第一梯队</h3>
+                <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="font-size: 1.1em; font-weight: bold; margin-bottom: 8px;">澳大利亚 | 新加坡</div>
+                    <div style="font-size: 0.9em; opacity: 0.95;">AAA评级 • 卓越治理 • 低信用风险</div>
+                </div>
+                <div style="font-size: 0.85em; margin-top: 12px; opacity: 0.9;"><strong>✓ 适宜作为核心支点</strong></div>
+            </div>
+
+            <!-- Tier 2 -->
+            <div style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); padding: 25px; border-radius: 15px; color: white; box-shadow: 0 8px 20px rgba(255,193,7,0.3); cursor: pointer; transition: transform 0.3s;" class="tier-card" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="font-size: 3em; margin-bottom: 10px;">⚖️</div>
+                <h3 style="color: white; margin-bottom: 15px;">第二梯队</h3>
+                <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="font-size: 1.1em; font-weight: bold; margin-bottom: 8px;">美国 | 英国 | 欧盟</div>
+                    <div style="font-size: 0.9em; opacity: 0.95;">规模优势 • 风险上升 • 政策波动</div>
+                </div>
+                <div style="font-size: 0.85em; margin-top: 12px; opacity: 0.9;"><strong>⚠ 机遇与挑战并存</strong></div>
+            </div>
+
+            <!-- Tier 3 -->
+            <div style="background: linear-gradient(135deg, #17a2b8 0%, #138496 100%); padding: 25px; border-radius: 15px; color: white; box-shadow: 0 8px 20px rgba(23,162,184,0.3); cursor: pointer; transition: transform 0.3s;" class="tier-card" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="font-size: 3em; margin-bottom: 10px;">🚀</div>
+                <h3 style="color: white; margin-bottom: 15px;">第三梯队</h3>
+                <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="font-size: 1.1em; font-weight: bold; margin-bottom: 8px;">阿联酋 | 沙特</div>
+                    <div style="font-size: 0.9em; opacity: 0.95;">改革红利 • 高增长 • 转型期</div>
+                </div>
+                <div style="font-size: 0.85em; margin-top: 12px; opacity: 0.9;"><strong>📈 高发展潜力但需审慎</strong></div>
+            </div>
+        </div>
+
+        <!-- Visual Comparison Chart -->
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-top: 20px;">
+            <h4 style="color: #667eea; margin-bottom: 15px;">关键指标对比雷达</h4>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; text-align: center;">
+                <div>
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 8px;"><strong>信用评级</strong></div>
+                    <div style="height: 80px; display: flex; align-items: flex-end; justify-content: center;">
+                        <div style="width: 100%; background: linear-gradient(180deg, #28a745 0%, #20c997 100%); height: 100%; border-radius: 8px 8px 0 0; position: relative;">
+                            <span style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold;">AAA</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.8em; margin-top: 5px; color: #28a745; font-weight: bold;">澳大利亚/新加坡</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 8px;"><strong>市场规模</strong></div>
+                    <div style="height: 80px; display: flex; align-items: flex-end; justify-content: center;">
+                        <div style="width: 100%; background: linear-gradient(180deg, #ffc107 0%, #ff9800 100%); height: 95%; border-radius: 8px 8px 0 0; position: relative;">
+                            <span style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold;">最大</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.8em; margin-top: 5px; color: #ffc107; font-weight: bold;">美国/欧盟</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 8px;"><strong>增长潜力</strong></div>
+                    <div style="height: 80px; display: flex; align-items: flex-end; justify-content: center;">
+                        <div style="width: 100%; background: linear-gradient(180deg, #17a2b8 0%, #138496 100%); height: 90%; border-radius: 8px 8px 0 0; position: relative;">
+                            <span style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold;">3%+</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.8em; margin-top: 5px; color: #17a2b8; font-weight: bold;">阿联酋/沙特</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 8px;"><strong>ESG表现</strong></div>
+                    <div style="height: 80px; display: flex; align-items: flex-end; justify-content: center;">
+                        <div style="width: 100%; background: linear-gradient(180deg, #28a745 0%, #20c997 100%); height: 85%; border-radius: 8px 8px 0 0; position: relative;">
+                            <span style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold;">领先</span>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.8em; margin-top: 5px; color: #28a745; font-weight: bold;">英国/欧盟</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Finding 2: Key Variables -->
+    <div class="finding-content" id="finding-2" style="display: none;">
+        <h2 style="color: #667eea; margin-bottom: 20px;">关键变量重要性显著上升</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <!-- ESG Factor -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 15px; color: white; box-shadow: 0 8px 20px rgba(102,126,234,0.3);">
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div style="font-size: 3em; margin-right: 15px;">🌱</div>
+                    <h3 style="color: white; margin: 0;">ESG环境因素</h3>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                    <div style="font-weight: bold; margin-bottom: 10px; font-size: 1.1em;">表现分化明显</div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>🏆 欧洲领跑</span>
+                        <span style="background: rgba(255,255,255,0.3); padding: 3px 10px; border-radius: 12px;">英国65.9% | 欧盟55%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>📊 美澳进展</span>
+                        <span style="background: rgba(255,255,255,0.3); padding: 3px 10px; border-radius: 12px;">清洁能源占比>25%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>⚠️ 中东挑战</span>
+                        <span style="background: rgba(255,255,255,0.3); padding: 3px 10px; border-radius: 12px;">沙特<5%</span>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; font-size: 0.9em;">
+                    <strong>亮点:</strong>阿联酋第一座核电站全面运营,突破25%清洁能源基准
+                </div>
+            </div>
+
+            <!-- Population Structure -->
+            <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%); padding: 25px; border-radius: 15px; color: white; box-shadow: 0 8px 20px rgba(255,107,107,0.3);">
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div style="font-size: 3em; margin-right: 15px;">👥</div>
+                    <h3 style="color: white; margin: 0;">人口结构影响</h3>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                    <div style="font-weight: bold; margin-bottom: 10px; font-size: 1.1em;">两极分化格局</div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>🚀 中东红利</span>
+                        <span style="background: rgba(255,255,255,0.3); padding: 3px 10px; border-radius: 12px;">阿联酋+3.7% / 沙特+2.4%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>📉 欧洲停滞</span>
+                        <span style="background: rgba(255,255,255,0.3); padding: 3px 10px; border-radius: 12px;">欧盟仅+0.26%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>💎 质量优势</span>
+                        <span style="background: rgba(255,255,255,0.3); padding: 3px 10px; border-radius: 12px;">澳洲人均预期寿命83.9岁</span>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; font-size: 0.9em;">
+                    <strong>挑战:</strong>发达国家需应对人口老龄化, 新兴市场需提升人力资本
+                </div>
+            </div>
+
+            <!-- Capital Market Resilience -->
+            <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 25px; border-radius: 15px; color: white; box-shadow: 0 8px 20px rgba(240,147,251,0.3); grid-column: 1 / -1;">
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div style="font-size: 3em; margin-right: 15px;">💰</div>
+                    <h3 style="color: white; margin: 0;">资本市场韧性考验</h3>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px;">
+                        <div style="font-weight: bold; margin-bottom: 8px;">美国:规模vs稳定</div>
+                        <div style="font-size: 0.9em; opacity: 0.95;">67万亿市值,但银行资本充足率垫底15%</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px;">
+                        <div style="font-weight: bold; margin-bottom: 8px;">英国/澳大利亚:稳健强监管</div>
+                        <div style="font-size: 0.9em; opacity: 0.95;">英国:NPL<1% | 资本充足率21.2%居首<br/>澳大利亚:NPL=1.1% | 资本充足率20%,紧随其后</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 10px;">
+                        <div style="font-weight: bold; margin-bottom: 8px;">中东:快速扩张vs风险管控</div>
+                        <div style="font-size: 0.9em; opacity: 0.95;">沙特+13.48% | 阿联酋NPL= 4.8%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Finding 3: Institutional Quality - SIMPLIFIED -->
+    <div class="finding-content" id="finding-3" style="display: none;">
+        <h2 style="color: #667eea; margin-bottom: 20px;">制度质量决定长期信用</h2>
+        
+        <!-- Core Message Box -->
+        <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 30px; border-radius: 15px; color: white; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(79,172,254,0.3);">
+            <h3 style="color: white; margin-bottom: 20px; font-size: 1.4em; text-align: center;">⚖️ 制度 vs 财力:谁主沉浮?</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 12px;">
+                    <div style="font-size: 1.3em; font-weight: bold; margin-bottom: 15px; text-align: center;">✅ 制度型领导者</div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 8px; text-align: center;">
+                        <strong style="font-size: 1.1em;">澳大利亚 | 新加坡</strong>
+                        <div style="margin-top: 12px; font-size: 0.95em; line-height: 1.6;">
+                            • AAA评级稳定<br/>
+                            • 政府治理指标全球前列<br/>
+                            • 政策经济长期稳健
+                        </div>
+                    </div>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 12px;">
+                    <div style="font-size: 1.3em; font-weight: bold; margin-bottom: 15px; text-align: center;">⚠️ 财力型挑战者</div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 8px; text-align: center;">
+                        <strong style="font-size: 1.1em;">阿联酋 | 沙特</strong>
+                        <div style="margin-top: 12px; font-size: 0.95em; line-height: 1.6;">
+                            • 低债务负担(阿33% | 沙35%)<br/>
+                            • 治理指标垫底<br/>
+                            • 制度(政治&社会)建设是长期挑战
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Insights in Compact Grid -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+            <!-- US Weakening -->
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 18px; border-radius: 8px;">
+                <h4 style="color: #856404; margin-bottom: 10px; font-size: 1em;">🇺🇸 美国制度弱化</h4>
+                <ul style="color: #856404; margin: 0; padding-left: 18px; font-size: 0.85em; line-height: 1.5;">
+                    <li>2025失全AAA(穆迪降至Aa1)</li>
+                    <li>法治指数垫底</li>
+                    <li>对外债务率攀升至122.5%</li>
+                </ul>
+            </div>
+
+            <!-- ECI Importance -->
+            <div style="background: #d4edda; border-left: 4px solid #28a745; padding: 18px; border-radius: 8px;">
+                <h4 style="color: #155724; margin-bottom: 10px; font-size: 1em;">📊 ECI多元化关键</h4>
+                <ul style="color: #155724; margin: 0; padding-left: 18px; font-size: 0.85em; line-height: 1.5;">
+                    <li>澳洲: -0.82 (资源诅咒)</li>
+                    <li>阿联酋: +0.61 (进步)</li>
+                    <li>新加坡: 全球领先</li>
+                </ul>
+            </div>
+
+            <!-- Social Welfare -->
+            <div style="background: #f8d7da; border-left: 4px solid #dc3545; padding: 18px; border-radius: 8px;">
+                <h4 style="color: #721c24; margin-bottom: 10px; font-size: 1em;">🏥 社保分化显著</h4>
+                <ul style="color: #721c24; margin: 0; padding-left: 18px; font-size: 0.85em; line-height: 1.5;">
+                    <li>澳洲（20/20 满分）：全民医保+住房保障+社会稳定</li>
+                    <li>新加坡/英国/阿/沙（15/20）：部分覆盖+结构缺口</li>
+                    <li>美国/欧盟（5/20）：覆盖率不足+内部分化</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Summary -->
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 12px; margin-top: 20px; color: white; text-align: center;">
+            <strong style="font-size: 1.2em;">💡 核心结论</strong>
+            <p style="margin: 15px 0 0 0; font-size: 1em; line-height: 1.7;">
+                制度质量是长期信用的基石。澳洲与新加坡凭卓越治理稳居第一梯队,中东国家虽财力雄厚但制度建设仍需时日,美国制度优势正在减弱需警惕
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.finding-tab');
+            const contents = document.querySelectorAll('.finding-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const findingNum = this.getAttribute('data-finding');
+                    
+                    // Update active tab
+                    tabs.forEach(t => {
+                        t.style.background = '#f0f0f0';
+                        t.style.color = '#333';
+                    });
+                    this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                    this.style.color = 'white';
+                    
+                    // Update visible content
+                    contents.forEach(c => c.style.display = 'none');
+                    document.getElementById('finding-' + findingNum).style.display = 'block';
+                });
+            });
+        });
+    </script>
+</div>
+
+<!-- 幻灯片 2: 研究框架 - 替换整个slide -->
+<div class="slide">
+    <h1>研究框架与方法论</h1>
+    
+    <div class="metric-box" style="cursor: pointer; position: relative; margin-top: 20px;" onclick="toggleDimensions('quant')">
+        <h2 style="margin: 0; display: flex; align-items: center; justify-content: space-between;">
+            <span>📊 定量分析框架 (70%权重)</span>
+            <span id="quantToggle" style="font-size: 1.5em; transition: transform 0.3s;">▼</span>
+        </h2>
+    </div>
+    
+    <div id="quantDimensions" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 15px 0; max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, opacity 0.5s ease-out; opacity: 0;">
+        <div class="dimension-card">
+            <div style="font-size: 2em; margin-bottom: 5px;">📈</div>
+            <div style="font-weight: bold; margin-bottom: 5px;">宏观经济</div>
+            <div style="font-size: 0.85em; opacity: 0.8;">10%</div>
+        </div>
+        <div class="dimension-card">
+            <div style="font-size: 2em; margin-bottom: 5px;">🌐</div>
+            <div style="font-weight: bold; margin-bottom: 5px;">贸易往来</div>
+            <div style="font-size: 0.85em; opacity: 0.8;">10%</div>
+        </div>
+        <div class="dimension-card">
+            <div style="font-size: 2em; margin-bottom: 5px;">💰</div>
+            <div style="font-weight: bold; margin-bottom: 5px;">资本市场</div>
+            <div style="font-size: 0.85em; opacity: 0.8;">40%</div>
+        </div>
+        <div class="dimension-card">
+            <div style="font-size: 2em; margin-bottom: 5px;">👥</div>
+            <div style="font-weight: bold; margin-bottom: 5px;">人口结构</div>
+            <div style="font-size: 0.85em; opacity: 0.8;">10%</div>
+        </div>
+        <div class="dimension-card">
+            <div style="font-size: 2em; margin-bottom: 5px;">🏛️</div>
+            <div style="font-weight: bold; margin-bottom: 5px;">政府治理</div>
+            <div style="font-size: 0.85em; opacity: 0.8;">10%</div>
+        </div>
+        <div class="dimension-card">
+            <div style="font-size: 2em; margin-bottom: 5px;">🏢</div>
+            <div style="font-weight: bold; margin-bottom: 5px;">营商环境</div>
+            <div style="font-size: 0.85em; opacity: 0.8;">10%</div>
+        </div>
+        <div class="dimension-card">
+            <div style="font-size: 2em; margin-bottom: 5px;">⛰️</div>
+            <div style="font-weight: bold; margin-bottom: 5px;">资源禀赋</div>
+            <div style="font-size: 0.85em; opacity: 0.8;">5%</div>
+        </div>
+        <div class="dimension-card" style="border: 3px solid #20c997;">
+            <div style="font-size: 2em; margin-bottom: 5px;">🌱</div>
+            <div style="font-weight: bold; margin-bottom: 5px;">ESG环境</div>
+            <div style="font-size: 0.85em; opacity: 0.8;">5% <span style="background: rgba(32,201,151,0.2); padding: 2px 6px; border-radius: 3px; font-size: 0.8em; color: #20c997; font-weight: bold;">新增</span></div>
+        </div>
+    </div>
+    
+    <div class="metric-box" style="cursor: pointer; position: relative; margin-top: 20px;" onclick="toggleDimensions('qual')">
+        <h2 style="margin: 0; display: flex; align-items: center; justify-content: space-between;">
+            <span>📋 定性分析框架 (30%权重)</span>
+            <span id="qualToggle" style="font-size: 1.5em; transition: transform 0.3s;">▼</span>
+        </h2>
+    </div>
+    
+    <div id="qualDimensions" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 15px 0; max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, opacity 0.5s ease-out; opacity: 0;">
+        <div class="dimension-card-qual">
+            <div style="font-size: 2em; margin-bottom: 5px;">📊</div>
+            <div style="font-weight: bold; margin-bottom: 5px; font-size: 0.9em;">宏观经济稳定性</div>
+            <div style="font-size: 0.85em; opacity: 0.8;">20%</div>
+        </div>
+        <div class="dimension-card-qual">
+            <div style="font-size: 2em; margin-bottom: 5px;">🌍</div>
+            <div style="font-weight: bold; margin-bottom: 5px; font-size: 0.9em;">环境可持续性</div>
+            <div style="font-size: 0.85em; opacity: 0.8;">20%</div>
+        </div>
+        <div class="dimension-card-qual">
+            <div style="font-size: 2em; margin-bottom: 5px;">🏥</div>
+            <div style="font-weight: bold; margin-bottom: 5px; font-size: 0.9em;">社保福利健全性</div>
+            <div style="font-size: 0.85em; opacity: 0.8;">20%</div>
+        </div>
+        <div class="dimension-card-qual">
+            <div style="font-size: 2em; margin-bottom: 5px;">🏦</div>
+            <div style="font-weight: bold; margin-bottom: 5px; font-size: 0.9em;">金融系统韧性</div>
+            <div style="font-size: 0.85em; opacity: 0.8;">20%</div>
+        </div>
+        <div class="dimension-card-qual">
+            <div style="font-size: 2em; margin-bottom: 5px;">⛽</div>
+            <div style="font-weight: bold; margin-bottom: 5px; font-size: 0.9em;">自然资源依赖性</div>
+            <div style="font-size: 0.85em; opacity: 0.8;">20%</div>
+        </div>
+    </div>
+    
+<!-- 数据来源说明 -->
+    <div class="data-source">
+        <strong>📚 数据来源：</strong>世界银行、IMF、各国官方统计机构
+    </div>
+
+    <div class="key-insight" style="margin-top: 20px;">
+        <h3 style="color: white; margin-bottom: 12px;">🔬 2025年方法论升级 - 核心创新</h3>
+        <p style="margin-bottom: 12px;">我们的框架经重大升级，以捕捉现代风险维度：</p>
+        <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
+            <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; border-left: 3px solid #20c997;">
+                <strong>✨ 新增量化维度：</strong> 首次引入独立的 <strong>ESG环境维度</strong> (权重5%)，以响应全球可持续发展理念，以及国际金融业对ESG环境风险因素日益增长的重视
+            </div>
+            <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; border-left: 3px solid #ffd700;">
+                <strong>📈 扩展指标体系：</strong> 新增包括：
+                <ul style="margin: 8px 0 0 20px; line-height: 1.7;">
+                    <li><strong>资本市场完善：</strong> 引入"国家黄金储备"指标，应对"去美元化"趋势及全球央行储备资产多元化需求</li>
+                    <li><strong>金融系统韧性：</strong> 引入"哈佛经济复杂性指数 (ECI)"，更精准衡量产业多元化与行业集聚风险</li>
+                    <li><strong>社会经济稳定：</strong> 引入"基尼系数"与"人类发展指数 (HDI)"，评估财富分配均衡性与社会福利质量</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<!-- 幻灯片 3: 澳大利亚表现概览 - 替换整个slide -->
+<div class="slide">
+    <h1>对标分析：澳大利亚的全球定位</h1>
+    <div class="subtitle"><strong style="color: #333; font-size: 1.05em;">通过多维度对比，清晰定位澳大利亚在全球信用格局中的独特优势与结构性短板</strong>
+</div>
+    
+    <!-- 综合表现仪表板 -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 25px;">
+        <div style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); padding: 18px; border-radius: 12px; color: white; text-align: center; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div style="font-size: 2.5em; margin-bottom: 8px;">🏆</div>
+            <div style="font-size: 2em; font-weight: bold;">1st</div>
+            <div style="font-size: 0.9em; margin-top: 5px; opacity: 0.95;">政府治理</div>
+        </div>
+        <div style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); padding: 18px; border-radius: 12px; color: white; text-align: center; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div style="font-size: 2.5em; margin-bottom: 8px;">🏥</div>
+            <div style="font-size: 2em; font-weight: bold;">1st</div>
+            <div style="font-size: 0.9em; margin-top: 5px; opacity: 0.95;">社保福利</div>
+        </div>
+        <div style="background: linear-gradient(135deg, #20c997 0%, #17a2b8 100%); padding: 18px; border-radius: 12px; color: white; text-align: center; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div style="font-size: 2.5em; margin-bottom: 8px;">🌐</div>
+            <div style="font-size: 2em; font-weight: bold;">2nd</div>
+            <div style="font-size: 0.9em; margin-top: 5px; opacity: 0.95;">贸易往来</div>
+        </div>
+        <div style="background: linear-gradient(135deg, #17a2b8 0%, #138496 100%); padding: 18px; border-radius: 12px; color: white; text-align: center; cursor: pointer; transition: transform 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div style="font-size: 2.5em; margin-bottom: 8px;">📈</div>
+            <div style="font-size: 2em; font-weight: bold;">3rd</div>
+            <div style="font-size: 0.9em; margin-top: 5px; opacity: 0.95;">宏观经济</div>
+        </div>
+    </div>
+
+    <!-- SWOT分析容器 -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+        <!-- 核心优势 -->
+        <div class="metric-box" style="cursor: pointer; background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%); border-left: 5px solid #28a745;" onclick="toggleSection('strengths')">
+            <h2 style="color: #28a745; margin: 0; display: flex; align-items: center; justify-content: space-between;">
+                <span>💪 核心优势 (前三维度)</span>
+                <span id="strengthsToggle" style="font-size: 1.3em; transition: transform 0.3s;">▼</span>
+            </h2>
+        </div>
+        
+        <!-- 主要挑战 -->
+        <div class="metric-box" style="cursor: pointer; background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 5px solid #ffc107;" onclick="toggleSection('challenges')">
+            <h2 style="color: #d39e00; margin: 0; display: flex; align-items: center; justify-content: space-between;">
+                <span>⚠️ 主要挑战 (后三维度)</span>
+                <span id="challengesToggle" style="font-size: 1.3em; transition: transform 0.3s;">▼</span>
+            </h2>
+        </div>
+    </div>
+
+    <!-- 核心优势详细内容 -->
+    <div id="strengthsContent" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, opacity 0.5s ease-out; opacity: 0;">
+        <div style="background: linear-gradient(135deg, #f1f8f4 0%, #e8f5e9 100%); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 2px solid #28a745;">
+            <h3 style="color: #28a745; margin-bottom: 15px;">⭐ 澳大利亚核心优势：稳定与治理的"压舱石"</h3>
+            <p style="color: #555; margin-bottom: 15px; line-height: 1.7;">澳大利亚凭借其卓越的制度质量，巩固了其全球顶级、低风险信用环境的地位，成为地缘政治动荡中的"避风港"。</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+                <div class="country-card" style="background: white; border-left: 4px solid #28a745;">
+                    <div style="display: flex; align-items: start; gap: 15px;">
+                        <div style="font-size: 2em; min-width: 50px;">🏛️</div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #28a745; margin: 0 0 8px 0;">政府治理 - 排名第1</h4>
+                            <p style="margin: 0; color: #555; line-height: 1.6;"><strong>核心表现：</strong>财政健康度极高 (负债率约50%)，监管质量与法治水平全球领先</p>
+                            <p style="margin: 8px 0 0 0; color: #666; font-size: 0.95em;"><strong>对比：</strong>显著优于美、英、欧等高负债发达经济体，制度优势明显</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="country-card" style="background: white; border-left: 4px solid #28a745;">
+                    <div style="display: flex; align-items: start; gap: 15px;">
+                        <div style="font-size: 2em; min-width: 50px;">🏥</div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #28a745; margin: 0 0 8px 0;">社保福利健全性 - 排名第1</h4>
+                            <p style="margin: 0; color: #555; line-height: 1.6;"><strong>核心表现：</strong>满分表现，在全民医保、社会稳定性和住房保障方面全面领先</p>
+                            <p style="margin: 8px 0 0 0; color: #666; font-size: 0.95em;"><strong>对比：</strong>远超制度缺失的美国和内部分化的欧盟，社会稳定性极高</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="country-card" style="background: white; border-left: 4px solid #20c997;">
+                    <div style="display: flex; align-items: start; gap: 15px;">
+                        <div style="font-size: 2em; min-width: 50px;">🌐</div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #20c997; margin: 0 0 8px 0;">贸易往来 - 排名第2</h4>
+                            <p style="margin: 0; color: #555; line-height: 1.6;"><strong>核心表现：</strong>贸易顺差巨大，净FDI流入强劲(2025年翻倍至400亿美元)，展现卓越的外贸竞争力</p>
+                            <p style="margin: 8px 0 0 0; color: #666; font-size: 0.95em;"><strong>对比：</strong>表现优于深陷巨额贸易逆差的美国和英国</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- 主要挑战详细内容 -->
+    <div id="challengesContent" style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, opacity 0.5s ease-out; opacity: 0;">
+        <div style="background: linear-gradient(135deg, #fff8f0 0%, #fff3e0 100%); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 2px solid #ff9800;">
+            <h3 style="color: #f57c00; margin-bottom: 15px;">🎯 澳大利亚的结构性挑战：经济多元化与转型之路</h3>
+            <p style="color: #555; margin-bottom: 15px; line-height: 1.7;">尽管优势显著，澳大利亚仍面临需要战略性结构的长期结构性挑战。</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+                <div class="country-card" style="background: white; border-left: 4px solid #dc3545;">
+                    <div style="display: flex; align-items: start; gap: 15px;">
+                        <div style="font-size: 2em; min-width: 50px;">📉</div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #dc3545; margin: 0 0 8px 0;">经济复杂性 (定性) - 排名末位</h4>
+                            <p style="margin: 0; color: #555; line-height: 1.6;"><strong>核心表现：</strong>ECI指数为-0.82，产业结构单一，高度依赖资源出口，"资源诅咒"特征明显</p>
+                            <p style="margin: 8px 0 0 0; color: #666; font-size: 0.95em;"><strong>对比：</strong>远低于美国、英国、新加坡等经济高度复杂和多元化的国家</p>
+                            <div style="margin-top: 10px; padding: 10px; background: #fff5f5; border-radius: 6px;">
+                                <strong style="color: #dc3545;">⚠️ 风险提示：</strong>制造业萎缩，限制未来增长引擎的典型"资源诅咒"症状
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="country-card" style="background: white; border-left: 4px solid #ff9800;">
+                    <div style="display: flex; align-items: start; gap: 15px;">
+                        <div style="font-size: 2em; min-width: 50px;">🌱</div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #ff9800; margin: 0 0 8px 0;">ESG环境 - 排名第5</h4>
+                            <p style="margin: 0; color: #555; line-height: 1.6;"><strong>核心表现：</strong>在发达经济体中排名较低，长期依赖煤炭发电，电力生产碳强度高</p>
+                            <p style="margin: 8px 0 0 0; color: #666; font-size: 0.95em;"><strong>对比：</strong>明显落后于在绿色转型中领跑的英国和欧盟</p>
+                            <div style="margin-top: 10px; padding: 10px; background: #fff8e1; border-radius: 6px;">
+                                <strong style="color: #ff9800;">📊 转型进展：</strong>虽已制定2050年净零目标，但能源转型仍处于早期阶段
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="country-card" style="background: white; border-left: 4px solid #ffc107;">
+                    <div style="display: flex; align-items: start; gap: 15px;">
+                        <div style="font-size: 2em; min-width: 50px;">🏦</div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #ffc107; margin: 0 0 8px 0;">资本市场 - 排名第4</h4>
+                            <p style="margin: 0; color: #555; line-height: 1.6;"><strong>核心表现：</strong>市场规模相对较小，储蓄率和黄金储备靠后，抗系统性风险的缓冲能力相对薄弱</p>
+                            <p style="margin: 8px 0 0 0; color: #666; font-size: 0.95em;"><strong>对比：</strong>规模和深度远不及美国和英国，但强监管环境下带来的银行系统稳定性优于美国</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 雷达图可视化 -->
+    <div class="chart-container" style="height: 380px;">
+        <canvas id="ausOverviewChart"></canvas>
+    </div>
+
+    <div class="highlight-box" style="margin-top: 20px;">
+        <h2 style="color: white; margin-bottom: 15px;">🏆 核心发现：澳大利亚呈现"制度型强国"特征</h2>
+        <div style="font-size: 1.05em; line-height: 1.8;">
+            <p>✓ <strong>强大财政健康度</strong> - 长期保持AAA最高主权信用评级；政府负债水平低，财政弹性极强</p>
+            <p>✓ <strong>顶级政府治理</strong> - 高度稳定透明的治理环境和完善的制度架构</p>
+            <p>✓ <strong>世界一流社保福利</strong> - 满分评价,全面医保、社会安全网及住房保障，提升社会凝聚力</p>
+            <p>✓ <strong>多元化资源优势</strong> - 能源与农业双重优势,贸易韧性强</p>
+            <p>o <strong>经济结构转型挑战</strong> - 需持续推进经济转型，摆脱资源国诅咒；并对标国际ESG标准</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- 幻灯片 4: 新增 - 六国对标分析 -->
+<div class="slide">
+    <h1>参评经济体信用环境综合概览</h1>
+    <div class="subtitle"><strong style="color: #333; font-size: 1.05em;">横向对比——展示其他六个参评经济体在定量与定性维度的全面表现</strong></div>
+    
+    <!-- 导航标签 -->
+    <div style="display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;">
+        <button class="country-tab active" data-country="usa" style="flex: 1; min-width: 120px; padding: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9em; transition: all 0.3s; font-family: 'Microsoft YaHei';">
+            🇺🇸 美国
+        </button>
+        <button class="country-tab" data-country="uk" style="flex: 1; min-width: 120px; padding: 10px; background: #f0f0f0; color: #333; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9em; transition: all 0.3s; font-family: 'Microsoft YaHei';">
+            🇬🇧 英国
+        </button>
+        <button class="country-tab" data-country="eu" style="flex: 1; min-width: 120px; padding: 10px; background: #f0f0f0; color: #333; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9em; transition: all 0.3s; font-family: 'Microsoft YaHei';">
+            🇪🇺 欧盟 
+        </button>
+        <button class="country-tab" data-country="sg" style="flex: 1; min-width: 120px; padding: 10px; background: #f0f0f0; color: #333; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9em; transition: all 0.3s; font-family: 'Microsoft YaHei';">
+            🇸🇬 新加坡
+        </button>
+        <button class="country-tab" data-country="uae" style="flex: 1; min-width: 120px; padding: 10px; background: #f0f0f0; color: #333; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9em; transition: all 0.3s; font-family: 'Microsoft YaHei';">
+            🇦🇪 阿联酋
+        </button>
+        <button class="country-tab" data-country="saudi" style="flex: 1; min-width: 120px; padding: 10px; background: #f0f0f0; color: #333; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9em; transition: all 0.3s; font-family: 'Microsoft YaHei';">
+            🇸🇦 沙特
+        </button>
+    </div>
+
+    <!-- 美国图表 -->
+    <div class="country-content" id="usa-content" style="display: block;">
+        <div class="chart-container" style="height: 380px;">
+            <canvas id="usaChart"></canvas>
+        </div>
+
+   <div class="highlight-box" style="margin-top: 20px;">
+        <h2 style="color: white; margin-bottom: 15px;">🏆 核心发现：美国展现"规模优势型"特征</h2>
+        <div style="font-size: 1.05em; line-height: 1.8;">
+            <p>✓ <strong>资本市场全球最大</strong> - 全球最大资本市场与金融深度优势明显</p>
+            <p>✓ <strong>科技创新引领全球</strong> - 经济高度复杂多元化科技创新领先</p>
+            <p>✓ <strong>能源独立成效显著</strong> - 能源独立与清洁能源转型成效突出</p>
+            <p>✓ <strong>产业结构优化升级</strong> - 出口伙伴多样化与产业结构优势显现</p>
+            <p>o <strong>结构性风险需警惕</strong> - 主权信用弱化、政府债务高企、金融系统稳定性成长期隐患；财富分配及气候政策面临挑战，贸易保护与政治极化构成威胁</p>
+        </div>
+    </div>
+ </div>
+    <!-- 英国图表 -->
+    <div class="country-content" id="uk-content" style="display: none;">
+        <div class="chart-container" style="height: 380px;">
+            <canvas id="ukChart"></canvas>
+        </div>
+
+   <div class="highlight-box" style="margin-top: 20px;">
+        <h2 style="color: white; margin-bottom: 15px;">🏆 核心发现：英国呈现"ESG绿色金融领导型"特征</h2>
+        <div style="font-size: 1.05em; line-height: 1.8;">
+            <p>✓ <strong>ESG治理全球领先</strong> - ESG环境治理全球第一;绿色金融与清洁能源转型全球领先，海上风电全球第二</p>
+            <p>✓ <strong>全球金融中心地位</strong> - 全球领先金融中心与资本市场规模优势</p>
+            <p>✓ <strong>法治体系成熟稳健</strong> - 成熟养老金体系与稳定法治基础支撑信用</p>
+            <p>o <strong>后脱欧期挑战显现</strong> - GDP增长乏力、贸易逆差扩大、政府债务高企、能源及粮食依赖进口；脱欧后结构性调整压力持续</p>
+        </div>
+    </div>
+ </div>
+
+    <!-- 欧盟图表 -->
+    <div class="country-content" id="eu-content" style="display: none;">
+        <div class="chart-container" style="height: 380px;">
+            <canvas id="euChart"></canvas>
+        </div>
+
+   <div class="highlight-box" style="margin-top: 20px;">
+        <h2 style="color: white; margin-bottom: 15px;">🏆 核心发现：欧盟表现"制度与挑战并存"特征</h2>
+        <div style="font-size: 1.05em; line-height: 1.8;">
+            <p>✓ <strong>ESG全球标杆</strong> - 欧洲绿色协议引领全球气候治理；绿色协议万亿欧元投资，REPowerEU推动能源独立</p>
+            <p>✓ <strong>单一市场竞争力强</strong> - 高度一体化单一市场与经济复杂性优势</p>
+            <p>✓ <strong>黄金储备体系完善</strong> - 庞大黄金储备与稳健金融防御体系，强化金融韧性</p>
+            <p>o <strong>经济增长垫底与人口压力</strong> - 经济增长动力不足、人口老龄化严重、高度依赖能源进口，内部政治分化与地缘政治冲突构成挑战</p>
+        </div>
+    </div>
+ </div>
+
+    <!-- 新加坡图表 -->
+    <div class="country-content" id="sg-content" style="display: none;">
+        <div class="chart-container" style="height: 380px;">
+            <canvas id="sgChart"></canvas>
+        </div>
+
+   <div class="highlight-box" style="margin-top: 20px;">
+        <h2 style="color: white; margin-bottom: 15px;">🏆 核心发现：新加坡彰显"区域金融枢纽"特征</h2>
+        <div style="font-size: 1.05em; line-height: 1.8;">
+            <p>✓ <strong>AAA主权评级稳定</strong> - 全球最佳政府治理，宏观经济与贸易往来评估维度双双登顶；AAA顶级主权评级+高人均GDP领跑亚太</p>
+            <p>✓ <strong>亚太金融中心</strong> - 主权财富基金与居民高储蓄率构建强大韧性缓冲；亚太绿色金融中心与净零排放战略定位清晰</p>
+            <p>✓ <strong>数字经济领先</strong> - 数字经济与金融科技全球领先，高质量人力资本优势</p>
+            <p>o <strong>资源与规模制约</strong> - 自然资源极度匮乏完全依赖进口、人口老龄化加剧、资本市场规模有限，面临区域竞争与地缘政治压力；需持续强化供应链管理与金融科技创新以维持竞争优势</p>
+        </div>
+    </div>
+ </div>
+
+
+    <!-- 阿联酋图表 -->
+    <div class="country-content" id="uae-content" style="display: none;">
+        <div class="chart-container" style="height: 380px;">
+            <canvas id="uaeChart"></canvas>
+        </div>
+
+   <div class="highlight-box" style="margin-top: 20px;">
+        <h2 style="color: white; margin-bottom: 15px;">🏆 核心发现：阿联酋展现"改革红利型"动能</h2>
+        <div style="font-size: 1.05em; line-height: 1.8;">
+            <p>✓ <strong>财政实力雄厚</strong> - 主权财富基金构建强大风险缓冲，GDP强劲增长，并保持极低通胀率</p>
+            <p>✓ <strong>营商环境卓越</strong> - 全球最低企业税率(9%)与优异营商环境(第二)，推动净FDI激增160%，经济动能强劲</p>
+            <p>✓ <strong>经济结构改革成效显著</strong> - 核电全面运营，清洁能源占比突破25%；经济复杂性指数大幅提升至0.61展现多元化进步</p>
+            <p>o <strong>资源与转型压力犹存</strong> - 经济高度依赖油气产业多元化有限、ESG环境表现倒数、信贷快速扩张风险上升、面临全球能源转型、中东地缘政治与干旱高温等挑战</p>
+        </div>
+    </div>
+ </div>
+
+    <!-- 沙特图表 -->
+    <div class="country-content" id="saudi-content" style="display: none;">
+        <div class="chart-container" style="height: 380px;">
+            <canvas id="saudiChart"></canvas>
+        </div>
+
+   <div class="highlight-box" style="margin-top: 20px;">
+        <h2 style="color: white; margin-bottom: 15px;">🏆 核心发现：沙特呈现"石油王国战略转型"特征</h2>
+        <div style="font-size: 1.05em; line-height: 1.8;">
+            <p>✓ <strong>主权财富规模庞大</strong> - 主权财富基金PIF管理资产近1万亿美元，极低外债占比优势明显</p>
+            <p>✓ <strong>财政状况持续改善</strong> - GDP增速3%领先，2030愿景见成效，标普主权评级上调至A+，治理体系持续优化</p>
+            <p>✓ <strong>新经济布局加速</strong> - 2030愿景与NEOM新城培育未来产业</p>
+            <p>o <strong>油气依赖待破局</strong> - 经济高度依赖油气非油产业不足、清洁能源占比低、政府治理指标较差且基尼系数高，面临全球能源转型长期压力、伊朗核问题等地缘风险及净FDI资本外流挑战</p>
+        </div>
+    </div>
+ </div>
+
+</div>
+
+<!-- 幻灯片 6: 全球战略布局与业务矩阵 -->
+        <div class="slide">
+            <h1>全球战略布局与业务矩阵</h1>
+            <div class="subtitle"><strong style="color: #333; font-size: 1.05em;">基于信用环境评估，精准匹配市场策略与业务机遇</strong></div>
+
+            <!-- 战略矩阵容器 -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 15px; margin-top: 20px; min-height: 520px; border: 1px solid #e0e0e0; padding: 10px; border-radius: 15px; position: relative;">
+
+                <!-- 核心深耕区 (左上) -->
+                <div class="metric-box" style="grid-column: 1; grid-row: 1; display: flex; flex-direction: column; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left-color: #388e3c; padding: 15px;">
+                    <h3 style="color: #1b5e20; margin-bottom: 12px;">🏆 核心深耕区 (适宜)</h3>
+                    <p style="font-weight: bold; color: #333; margin-bottom: 10px;">澳大利亚 | 新加坡</p>
+                    <div style="background: rgba(255,255,255,0.6); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong style="color: #1b5e20;">市场DNA:</strong>
+                        <ul style="font-size: 0.85em; margin: 5px 0 0 18px;">
+                            <li>✅ AAA主权评级，信用风险极低</li>
+                            <li>✅ 政治经济环境高度稳定</li>
+                            <li>✅ 制度框架成熟，监管透明</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.6); padding: 10px; border-radius: 8px;">
+                        <strong style="color: #1b5e20;">业务蓝图:</strong>
+                        <ul style="font-size: 0.85em; margin: 5px 0 0 18px;">
+                            <li><strong>财富管理:</strong> 服务高净值客户，打造亚太家族办公室服务枢纽</li>
+                            <li><strong>绿色金融:</strong> 投资可再生能源基建项目</li>
+                            <li><strong>贸易融资:</strong> 深度嵌入大宗商品资源链条与RCEP区域供应链</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: auto; padding-top: 10px; text-align: center; font-weight: bold; color: #1b5e20; font-size: 0.9em; border-top: 1px solid rgba(27, 94, 32, 0.2);">
+                        战略指令：巩固核心，扩大优势
+                    </div>
+                </div>
+
+                <!-- 战略优化区 (右上) -->
+                <div class="metric-box" style="grid-column: 2; grid-row: 1; display: flex; flex-direction: column; background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); border-left-color: #ffb300; padding: 15px;">
+                    <h3 style="color: #856404; margin-bottom: 12px;">⚖️ 战略优化区 (中性)</h3>
+                    <p style="font-weight: bold; color: #333; margin-bottom: 10px;">美国 | 英国 | 欧盟</p>
+                    <div style="background: rgba(255,255,255,0.6); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong style="color: #856404;">市场DNA:</strong>
+                        <ul style="font-size: 0.85em; margin: 5px 0 0 18px;">
+                            <li>⚠️ 经济规模巨大但增长放缓</li>
+                            <li>⚠️ 主权信用承压，政策不确定性高</li>
+                            <li>✅ ESG与金融科技领域处于前沿</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.6); padding: 10px; border-radius: 8px;">
+                        <strong style="color: #856404;">业务蓝图:</strong>
+                        <ul style="font-size: 0.85em; margin: 5px 0 0 18px;">
+                            <li><strong>金融科技:</strong> 聚焦跨境支付与央行数字货币创新</li>
+                            <li><strong>ESG业务:</strong> 深耕绿色金融与碳交易市场</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: auto; padding-top: 10px; text-align: center; font-weight: bold; color: #856404; font-size: 0.9em; border-top: 1px solid rgba(133, 100, 4, 0.2);">
+                        战略指令：审慎布局，精选赛道
+                    </div>
+                </div>
+
+                <!-- 增长机遇区 (左下) -->
+                <div class="metric-box" style="grid-column: 1; grid-row: 2; display: flex; flex-direction: column; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left-color: #1976d2; padding: 15px;">
+                    <h3 style="color: #0d47a1; margin-bottom: 12px;">🚀 增长机遇区 (适宜-精选)</h3>
+                    <p style="font-weight: bold; color: #333; margin-bottom: 10px;">阿联酋</p>
+                    <div style="background: rgba(255,255,255,0.6); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong style="color: #0d47a1;">市场DNA:</strong>
+                        <ul style="font-size: 0.85em; margin: 5px 0 0 18px;">
+                            <li>✅ 改革红利释放，营商环境优化</li>
+                            <li>✅ 非油气经济增长强劲</li>
+                            <li>⚠️ 区域地缘政治风险尚存</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.6); padding: 10px; border-radius: 8px;">
+                        <strong style="color: #0d47a1;">业务蓝图:</strong>
+                        <ul style="font-size: 0.85em; margin: 5px 0 0 18px;">
+                            <li><strong>基建融资:</strong> 精选与主权实体挂钩的大型项目</li>
+                            <li><strong>行业机会:</strong> 捕捉旅游、物流、科技等多元化机遇</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: auto; padding-top: 10px; text-align: center; font-weight: bold; color: #0d47a1; font-size: 0.9em; border-top: 1px solid rgba(13, 71, 161, 0.2);">
+                        战略指令：把握红利，控制节奏
+                    </div>
+                </div>
+
+                <!-- 新兴探索区 (右下) -->
+
+                <div class="metric-box" style="grid-column: 2; grid-row: 2; display: flex; flex-direction: column; background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border-left-color: #c2185b; padding: 15px;">
+                    <h3 style="color: #880e4f; margin-bottom: 12px;">📈 新兴探索区 (中性-策略)</h3>
+                    <p style="font-weight: bold; color: #333; margin-bottom: 10px;">沙特阿拉伯</p>
+                    <div style="background: rgba(255,255,255,0.6); padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                        <strong style="color: #880e4f;">市场DNA:</strong>
+                        <ul style="font-size: 0.85em; margin: 5px 0 0 18px;">
+                            <li>✅ "2030愿景"驱动，转型潜力巨大</li>
+                            <li>⚠️ 制度建设相对滞后，信用风险较高</li>
+                            <li>⚠️ 经济高度依赖单一资源</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.6); padding: 10px; border-radius: 8px;">
+                        <strong style="color: #880e4f;">业务蓝图:</strong>
+                        <ul style="font-size: 0.85em; margin: 5px 0 0 18px;">
+                            <li><strong>主权业务:</strong> 聚焦PIF及NEOM新城相关国家级基建项目</li>
+                            <li><strong>风险管理:</strong> 业务模式与主权信用和担保强挂钩</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: auto; padding-top: 10px; text-align: center; font-weight: bold; color: #880e4f; font-size: 0.9em; border-top: 1px solid rgba(136, 14, 79, 0.2);">
+                        战略指令：策略参与，严控风险
+                    </div>
+                </div>
+                
+                <!-- Y轴标签 -->
+                <div style="position: absolute; top: 50%; left: -45px; transform: rotate(-90deg); transform-origin: left top; font-weight: bold; color: #1e3c72; display: flex; align-items: center; gap: 8px;">
+                    信用环境吸引力 <span style="font-size: 1.2em;">→</span>
+                </div>
+            </div>
+            
+            <!-- X轴标签 -->
+            <div style="display: flex; justify-content: space-between; padding: 0 5%; margin-top: 8px; font-weight: bold; color: #1e3c72;">
+                <span>← 战略核心 / 深耕</span>
+                <span>机会驱动 / 优化 →</span>
+            </div>
+            <div style="text-align: center; margin-top: -15px; font-weight: bold; color: #1e3c72;">
+                战略重要性
+            </div>
+            
+            <div class="key-insight" style="margin-top: 20px;">
+                <strong>🎯 战略定位核心:</strong>澳大利亚与新加坡构成核心深耕区，凭借AAA评级和卓越治理奠定长期战略支点；美英欧作为战略优化区需审慎布局；阿联酋呈现增长机遇但需精选标的；沙特处于新兴探索期需策略参与并严控风险
+            </div>
+        </div>
+
+
+        <!-- 幻灯片 12: 致谢 -->
+        <div class="slide">
+            <div style="text-align:center; margin-top: 150px;">
+                <h1 style="font-size: 3em; border: none;">感谢阅读!</h1>
+                <p style="font-size: 1.4em; color: #666; margin-top: 40px;">招商银行悉尼分行 风险管理部</p>
+                <p style="font-size: 1.1em; color: #999; margin-top: 20px;">2024-2025年度信用环境研究 | 精简版</p>
+                
+                <div class="highlight-box" style="max-width: 600px; margin: 60px auto;">
+                    <h3 style="color: white;">联系方式</h3>
+                    <p style="margin-top: 15px;">电话: 0061-27909557</p>
+                    <p>邮箱: risk_compliance_syd@cmbchina.com</p>
+                </div>
+
+<a href="https://maxlin0119-star.github.io/2024-2025/" target="_blank" style="display: inline-block; padding: 12px 25px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; border-radius: 25px; text-decoration: none; font-weight: bold; margin: 20px auto; transition: transform 0.2s ease;">
+                    查看完整在线报告
+                </a>
+                
+                <p style="margin-top: 30px; color: #999; font-size: 0.9em;">
+                    本报告基于公开数据与独立研究，仅供内部参考
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn">◀ 上一页</button>
+        <span class="slide-number" id="slideNumber">1/12</span>
+        <button class="nav-btn" id="nextBtn">下一页 ▶</button>
+    </div>
+    
+    <script>
+
+const dimensionsData = {
+    usa: {
+        name: '美国',
+        data: [
+            { name: '宏观\n经济', max: 6.663, score: 5.029, rank: 5, type: '定量' },
+            { name: '贸易\n往来', max: 10.0, score: 3.192, rank: 7, type: '定量' },
+            { name: '资本\n市场', max: 31.05, score: 31.05, rank: 1, type: '定量' },
+            { name: '人口\n结构', max: 9.489, score: 6.57, rank: 6, type: '定量' },
+            { name: '政府\n治理', max: 8.404, score: 5.894, rank: 6, type: '定量' },
+            { name: '营商\n环境', max: 8.260, score: 4.697, rank: 4, type: '定量' },
+            { name: '资源\n禀赋', max: 5.0, score: 5.0, rank: 1, type: '定量' },
+            { name: 'ESG\n环境', max: 4.868, score: 2.080, rank: 4, type: '定量' },
+            { name: '宏观经济\n稳定性', max: 15, score: 15, rank: 1, type: '定性' },
+            { name: '环境\n可持续性', max: 20, score: 9, rank: 3, type: '定性' },
+            { name: '社保福利\n健全性', max: 20, score: 5, rank: 3, type: '定性' },
+            { name: '金融系统\n韧性', max: 20, score: 5, rank: 4, type: '定性' },
+            { name: '自然资源\n依赖性', max: 20, score: 20, rank: 1, type: '定性' }
+        ]
+    },
+    uk: {
+        name: '英国',
+        data: [
+            { name: '宏观\n经济', max: 6.663, score: 4.306, rank: 6, type: '定量' },
+            { name: '贸易\n往来', max: 10.0, score: 3.281, rank: 6, type: '定量' },
+            { name: '资本\n市场', max: 31.05, score: 20.14, rank: 2, type: '定量' },
+            { name: '人口\n结构', max: 9.489, score: 6.643, rank: 5, type: '定量' },
+            { name: '政府\n治理', max: 8.404, score: 6.829, rank: 3, type: '定量' },
+            { name: '营商\n环境', max: 8.260, score: 3.850, rank: 7, type: '定量' },
+            { name: '资源\n禀赋', max: 5.0, score: 0.274, rank: 6, type: '定量' },
+            { name: 'ESG\n环境', max: 4.868, score: 4.868, rank: 1, type: '定量' },
+            { name: '宏观经济\n稳定性', max: 15, score: 14, rank: 2, type: '定性' },
+            { name: '环境\n可持续性', max: 20, score: 20, rank: 1, type: '定性' },
+            { name: '社保福利\n健全性', max: 20, score: 15, rank: 2, type: '定性' },
+            { name: '金融系统\n韧性', max: 20, score: 10, rank: 3, type: '定性' },
+            { name: '自然资源\n依赖性', max: 20, score: 6, rank: 4, type: '定性' }
+        ]
+    },
+    eu: {
+        name: '欧盟',
+        data: [
+            { name: '宏观\n经济', max: 6.663, score: 3.881, rank: 7, type: '定量' },
+            { name: '贸易\n往来', max: 10.0, score: 5.695, rank: 5, type: '定量' },
+            { name: '资本\n市场', max: 31.05, score: 16.33, rank: 5, type: '定量' },
+            { name: '人口\n结构', max: 9.489, score: 6.034, rank: 7, type: '定量' },
+            { name: '政府\n治理', max: 8.404, score: 6.527, rank: 5, type: '定量' },
+            { name: '营商\n环境', max: 8.260, score: 3.933, rank: 6, type: '定量' },
+            { name: '资源\n禀赋', max: 5.0, score: 0.436, rank: 5, type: '定量' },
+            { name: 'ESG\n环境', max: 4.868, score: 4.662, rank: 2, type: '定量' },
+            { name: '宏观经济\n稳定性', max: 15, score: 14, rank: 2, type: '定性' },
+            { name: '环境\n可持续性', max: 20, score: 20, rank: 1, type: '定性' },
+            { name: '社保福利\n健全性', max: 20, score: 5, rank: 3, type: '定性' },
+            { name: '金融系统\n韧性', max: 20, score: 10, rank: 3, type: '定性' },
+            { name: '自然资源\n依赖性', max: 20, score: 14, rank: 2, type: '定性' }
+        ]
+    },
+    sg: {
+        name: '新加坡',
+        data: [
+            { name: '宏观\n经济', max: 6.663, score: 6.663, rank: 1, type: '定量' },
+            { name: '贸易\n往来', max: 10.0, score: 10.0, rank: 1, type: '定量' },
+            { name: '资本\n市场', max: 31.05, score: 13.90, rank: 6, type: '定量' },
+            { name: '人口\n结构', max: 9.489, score: 7.358, rank: 3, type: '定量' },
+            { name: '政府\n治理', max: 8.404, score: 8.375, rank: 2, type: '定量' },
+            { name: '营商\n环境', max: 8.260, score: 8.260, rank: 1, type: '定量' },
+            { name: '资源\n禀赋', max: 5.0, score: 0.002, rank: 7, type: '定量' },
+            { name: 'ESG\n环境', max: 4.868, score: 2.127, rank: 3, type: '定量' },
+            { name: '宏观经济\n稳定性', max: 15, score: 5, rank: 3, type: '定性' },
+            { name: '环境\n可持续性', max: 20, score: 16, rank: 2, type: '定性' },
+            { name: '社保福利\n健全性', max: 20, score: 15, rank: 2, type: '定性' },
+            { name: '金融系统\n韧性', max: 20, score: 20, rank: 1, type: '定性' },
+            { name: '自然资源\n依赖性', max: 20, score: 0, rank: 5, type: '定性' }
+        ]
+    },
+    uae: {
+        name: '阿联酋',
+        data: [
+            { name: '宏观\n经济', max: 6.663, score: 6.502, rank: 2, type: '定量' },
+            { name: '贸易\n往来', max: 10.0, score: 7.695, rank: 3, type: '定量' },
+            { name: '资本\n市场', max: 31.05, score: 13.45, rank: 7, type: '定量' },
+            { name: '人口\n结构', max: 9.489, score: 9.489, rank: 1, type: '定量' },
+            { name: '政府\n治理', max: 8.404, score: 6.608, rank: 4, type: '定量' },
+            { name: '营商\n环境', max: 8.260, score: 7.466, rank: 2, type: '定量' },
+            { name: '资源\n禀赋', max: 5.0, score: 0.607, rank: 4, type: '定量' },
+            { name: 'ESG\n环境', max: 4.868, score: 1.454, rank: 6, type: '定量' },
+            { name: '宏观经济\n稳定性', max: 15, score: 0, rank: 4, type: '定性' },
+            { name: '环境\n可持续性', max: 20, score: 16, rank: 2, type: '定性' },
+            { name: '社保福利\n健全性', max: 20, score: 15, rank: 2, type: '定性' },
+            { name: '金融系统\n韧性', max: 20, score: 20, rank: 1, type: '定性' },
+            { name: '自然资源\n依赖性', max: 20, score: 12, rank: 3, type: '定性' }
+        ]
+    },
+    saudi: {
+        name: '沙特',
+        data: [
+            { name: '宏观\n经济', max: 6.663, score: 6.071, rank: 4, type: '定量' },
+            { name: '贸易\n往来', max: 10.0, score: 6.915, rank: 4, type: '定量' },
+            { name: '资本\n市场', max: 31.05, score: 17.71, rank: 3, type: '定量' },
+            { name: '人口\n结构', max: 9.489, score: 7.502, rank: 2, type: '定量' },
+            { name: '政府\n治理', max: 8.404, score: 4.869, rank: 7, type: '定量' },
+            { name: '营商\n环境', max: 8.260, score: 4.821, rank: 3, type: '定量' },
+            { name: '资源\n禀赋', max: 5.0, score: 1.059, rank: 2, type: '定量' },
+            { name: 'ESG\n环境', max: 4.868, score: 1.256, rank: 7, type: '定量' },
+            { name: '宏观经济\n稳定性', max: 15, score: 0, rank: 4, type: '定性' },
+            { name: '环境\n可持续性', max: 20, score: 16, rank: 2, type: '定性' },
+            { name: '社保福利\n健全性', max: 20, score: 15, rank: 2, type: '定性' },
+            { name: '金融系统\n韧性', max: 20, score: 10, rank: 3, type: '定性' },
+            { name: '自然资源\n依赖性', max: 20, score: 6, rank: 4, type: '定性' }
+        ]
+    }
+};
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let charts = {};
+
+function animateCounter(element) {
+    const target = parseInt(element.getAttribute('data-target'));
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+    
+    const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+            element.textContent = target;
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current);
+        }
+    }, 16);
+}
+
+function toggleDimensions(type) {
+    const container = document.getElementById(type + 'Dimensions');
+    const toggle = document.getElementById(type + 'Toggle');
+    
+    if (container.style.maxHeight === '0px' || container.style.maxHeight === '') {
+        // 展开
+        container.style.maxHeight = '300px';
+        container.style.opacity = '1';
+        toggle.style.transform = 'rotate(180deg)';
+    } else {
+        // 收起
+        container.style.maxHeight = '0px';
+        container.style.opacity = '0';
+        toggle.style.transform = 'rotate(0deg)';
+    }
+}
+
+function toggleSection(sectionId) {
+    const content = document.getElementById(sectionId + 'Content');
+    const toggle = document.getElementById(sectionId + 'Toggle');
+    
+    if (content.style.maxHeight === '0px' || content.style.maxHeight === '') {
+        // 展开
+        content.style.maxHeight = '800px';
+        content.style.opacity = '1';
+        toggle.style.transform = 'rotate(180deg)';
+    } else {
+        // 收起
+        content.style.maxHeight = '0px';
+        content.style.opacity = '0';
+        toggle.style.transform = 'rotate(0deg)';
+    }
+}
+
+        function showSlide(n) {
+     
+            slides.forEach(s => s.classList.remove('active'));
+            if (n >= totalSlides) currentSlide = totalSlides - 1;
+            else if (n < 0) currentSlide = 0;
+            else currentSlide = n;
+            
+            slides[currentSlide].classList.add('active');
+       
+            const sn = document.getElementById('slideNumber');
+            if (sn) sn.textContent = (currentSlide + 1) + "/" + totalSlides;
+            
+            const progressBar = document.getElementById('progressBar');
+            if (progressBar) {
+                const progress = ((currentSlide + 1) / totalSlides) * 100;
+                progressBar.style.width = progress + '%';
+
+
+
+            }
+            
+            const prev = document.getElementById('prevBtn');
+            const next = document.getElementById('nextBtn');
+            if (prev) prev.disabled = currentSlide === 0;
+            if (next) next.disabled = currentSlide === totalSlides - 1;
+            
+            initCurrentSlideCharts();
+       if (currentSlide === 0) {
+    setTimeout(() => {
+        document.querySelectorAll('.counter').forEach(counter => {
+            animateCounter(counter);
+        });
+    }, 500);
+}
+
+}
+
+        function destroyChart(chartId) {
+            if (charts[chartId]) {
+                charts[chartId].destroy();
+                delete charts[chartId];
+            }
+        }
+
+        function initCurrentSlideCharts() {
+            Object.keys(charts).forEach(key => destroyChart(key));
+            
+
+// 幻灯片3 - 澳大利亚13维度综合表现(优化版V7 - 白色柱+紫点置顶)
+if (currentSlide === 3) {
+    const canvas = document.getElementById('ausOverviewChart');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        
+        // 13个维度的完整数据
+        const dimensionsRaw = [
+            // 定量维度 (70%权重)
+            { name: '宏观\n经济', max: 6.663, maxCountry: '新加坡', aus: 6.383, rank: 3, type: '定量' },
+            { name: '贸易\n往来', max: 10.0, maxCountry: '新加坡', aus: 8.203, rank: 2, type: '定量' },
+            { name: '资本\n市场', max: 31.05, maxCountry: '美国', aus: 16.72, rank: 4, type: '定量' },
+            { name: '人口\n结构', max: 9.489, maxCountry: '阿联酋', aus: 7.144, rank: 4, type: '定量' },
+            { name: '政府\n治理', max: 8.404, maxCountry: '澳大利亚', aus: 8.404, rank: 1, type: '定量' },
+            { name: '营商\n环境', max: 8.260, maxCountry: '新加坡', aus: 4.086, rank: 5, type: '定量' },
+            { name: '资源\n禀赋', max: 5.0, maxCountry: '美国', aus: 0.815, rank: 3, type: '定量' },
+            { name: 'ESG\n环境', max: 4.868, maxCountry: '英国', aus: 1.670, rank: 5, type: '定量' },
+            
+            // 定性维度 (30%权重)
+            { name: '宏观经济\n稳定性', max: 15, maxCountry: '美国', aus: 5, rank: 3, type: '定性' },
+            { name: '环境\n可持续性', max: 20, maxCountry: '澳/英/欧', aus: 20, rank: 1, type: '定性' },
+            { name: '社保福利\n健全性', max: 20, maxCountry: '澳大利亚', aus: 20, rank: 1, type: '定性' },
+            { name: '金融系统\n韧性', max: 20, maxCountry: '新/阿', aus: 15, rank: 2, type: '定性' },
+            { name: '自然资源\n依赖性', max: 20, maxCountry: '澳/美', aus: 20, rank: 1, type: '定性' }
+        ];
+        
+        // 分离定量和定性维度
+        const quantDims = dimensionsRaw.filter(d => d.type === '定量').sort((a, b) => a.rank - b.rank);
+        const qualDims = dimensionsRaw.filter(d => d.type === '定性').sort((a, b) => a.rank - b.rank);
+        
+        // 合并排序后的维度
+        const dimensions = [...quantDims, ...qualDims];
+        
+ // 根据排名确定颜色 - 排名前三使用渐变绿色
+function getBarColor(rank) {
+    if (rank === 1) return 'rgba(40, 167, 69, 0.85)'; // 深绿色 - 第一名
+    if (rank === 2) return 'rgba(102, 187, 106, 0.65)'; // 中等绿色 - 第二名
+    if (rank === 3) return 'rgba(165, 214, 167, 0.50)'; // 浅绿色 - 第三名
+    return 'rgba(255, 255, 255, 1)'; // 纯白色 - 其他排名
+}
+
+function getBorderColor(rank) {
+    if (rank === 1) return 'rgba(40, 167, 69, 1)'; // 深绿色边框
+    if (rank === 2) return 'rgba(102, 187, 106, 1)'; // 中等绿色边框
+    if (rank === 3) return 'rgba(165, 214, 167, 1)'; // 浅绿色边框
+    return 'rgba(200, 200, 200, 1)'; // 灰色边框
+}
+        
+        const barColors = dimensions.map(d => getBarColor(d.rank));
+        const borderColors = dimensions.map(d => getBorderColor(d.rank));
+        
+        charts['ausOverviewChart'] = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: dimensions.map(d => d.name.split('\n')),
+                datasets: [
+                    {
+                        label: '各维度最高分',
+                        data: dimensions.map(d => d.max),
+                        backgroundColor: barColors,
+                        borderColor: borderColors,
+                        borderWidth: 2,
+                        barThickness: 38,
+                        order: 2  // 柱状图在下层
+                    },
+                    {
+                        label: '澳大利亚得分',
+                        data: dimensions.map(d => d.aus),
+                        type: 'scatter',
+                        backgroundColor: '#9C27B0', // 深紫色
+                        borderColor: 'white',
+                        pointStyle: 'circle',
+                        pointRadius: 8,
+                        pointHoverRadius: 10,
+                        borderWidth: 3,
+                        pointBorderWidth: 3,
+                        order: 1  // 散点图在上层
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        top: 25,
+                        bottom: 30,
+                        left: 10,
+                        right: 10
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: '澳大利亚13维度综合表现对标分析(定量+定性) - 按排名排序',
+                        font: { 
+                            size: 17, 
+                            family: "'Microsoft YaHei'", 
+                            weight: 'bold' 
+                        },
+                        padding: { 
+                            top: 0,
+                            bottom: 18
+                        },
+                        color: '#1e3c72'
+                    },
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        align: 'center',
+                        labels: {
+                            font: { size: 11, family: "'Microsoft YaHei'" },
+                            padding: 12,
+                            boxWidth: 16,
+                            boxHeight: 16,
+                            usePointStyle: true,
+                            generateLabels: function(chart) {
+                                return [
+                                    {
+                                        text: '各维度最高分',
+                                        fillStyle: 'rgba(240, 240, 240, 1)',
+                                        strokeStyle: 'rgba(200, 200, 200, 1)',
+                                        lineWidth: 2
+                                    },
+                                    {
+                                        text: '澳大利亚得分',
+                                        fillStyle: '#9C27B0',
+                                        pointStyle: 'circle'
+                                    },
+{
+    text: '🏆 排名第1 (绿色)',
+    fillStyle: 'rgba(40, 167, 69, 0.85)',
+    strokeStyle: 'rgba(40, 167, 69, 1)',
+    lineWidth: 2
+},
+{
+    text: '🥈 排名第2 (中绿色)',
+    fillStyle: 'rgba(102, 187, 106, 0.65)',
+    strokeStyle: 'rgba(102, 187, 106, 1)',
+    lineWidth: 2
+},
+{
+    text: '🥉 排名第3 (浅绿色)',
+    fillStyle: 'rgba(165, 214, 167, 0.50)',
+    strokeStyle: 'rgba(165, 214, 167, 1)',
+    lineWidth: 2
+},
+{
+    text: '其他排名 (白色)',
+    fillStyle: 'rgba(255, 255, 255, 1)',
+    strokeStyle: 'rgba(200, 200, 200, 1)',
+    lineWidth: 2
+}
+                                ];
+                            }
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: 'rgba(0, 0, 0, 0.88)',
+                        padding: 14,
+                        titleFont: { 
+                            size: 13, 
+                            family: "'Microsoft YaHei'", 
+                            weight: 'bold' 
+                        },
+                        bodyFont: { 
+                            size: 12, 
+                            family: "'Microsoft YaHei'" 
+                        },
+                        bodySpacing: 6,
+                        displayColors: false,
+                        callbacks: {
+                            title: function(context) {
+                                const index = context[0].dataIndex;
+                                const dim = dimensions[index];
+                                return dim.name.replace('\n', '') + ` (${dim.type})`;
+                            },
+                            label: function(context) {
+                                const index = context.dataIndex;
+                                const dim = dimensions[index];
+                                
+                                if (context.datasetIndex === 0) {
+                                    return `最高分: ${dim.max.toFixed(2)} (${dim.maxCountry})`;
+                                } else {
+                                    const percentage = ((dim.aus / dim.max) * 100).toFixed(1);
+                                    let rankIcon = '';
+                                    if (dim.rank === 1) rankIcon = '🏆';
+                                    else if (dim.rank === 2) rankIcon = '🥈';
+                                    else if (dim.rank === 3) rankIcon = '🥉';
+                                    
+                                    return [
+                                        `澳大利亚: ${dim.aus.toFixed(2)}分`,
+                                        `完成度: ${percentage}%`,
+                                        `${rankIcon} 排名第${dim.rank}`
+                                    ];
+                                }
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 35,
+                        title: {
+                            display: true,
+                            text: '得分',
+                            font: { 
+                                size: 13, 
+                                family: "'Microsoft YaHei'", 
+                                weight: 'bold' 
+                            },
+                            color: '#333'
+                        },
+                        ticks: {
+                            font: { size: 11, family: "'Microsoft YaHei'" },
+                            stepSize: 5,
+                            color: '#666'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.06)',
+                            lineWidth: 1
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: { 
+                                size: 10.5, 
+                                family: "'Microsoft YaHei'",
+                                lineHeight: 1.3
+                            },
+                            color: '#333',
+                            autoSkip: false,
+                            maxRotation: 0,
+                            minRotation: 0,
+                            padding: 10
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                animation: {
+                    duration: 1200,
+                    easing: 'easeInOutQuart'
+                }
+            },
+            plugins: [{
+                id: 'customLabelsAndDivider',
+                afterDatasetsDraw: function(chart) {
+                    const ctx = chart.ctx;
+                    const meta = chart.getDatasetMeta(0);
+                    
+                    meta.data.forEach((bar, index) => {
+                        const dim = dimensions[index];
+                        
+                        ctx.save();
+                        
+                        // 标注最高分国家
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+                        ctx.fillStyle = '#555';
+                        ctx.font = 'bold 9px Microsoft YaHei';
+                        
+                        let countryLabel = dim.maxCountry;
+                        if (countryLabel.length > 6) {
+                            countryLabel = countryLabel.substring(0, 5) + '..';
+                        }
+                        ctx.fillText(countryLabel, bar.x, bar.y - 4);
+                        
+                        // 在定量和定性之间添加分隔线和标签 (在第8个维度后)
+                        if (index === 7) {
+                            const nextBar = meta.data[8];
+                            const x = bar.x + (nextBar.x - bar.x) / 2;
+                            
+                            // 绘制虚线分隔
+                            ctx.strokeStyle = 'rgba(156, 39, 176, 0.5)';
+                            ctx.lineWidth = 2.5;
+                            ctx.setLineDash([10, 5]);
+                            ctx.beginPath();
+                            ctx.moveTo(x, chart.chartArea.top);
+                            ctx.lineTo(x, chart.chartArea.bottom + 20);
+                            ctx.stroke();
+                            ctx.setLineDash([]);
+                            
+                            // 定量维度标签
+                            ctx.fillStyle = '#667eea';
+                            ctx.font = 'bold 13px Microsoft YaHei';
+                            ctx.textAlign = 'right';
+                            ctx.textBaseline = 'top';
+                            ctx.fillText('← 定量维度 (70%)', x - 12, chart.chartArea.bottom + 50);
+                            
+                            // 定性维度标签
+                            ctx.fillStyle = '#28a745';
+                            ctx.textAlign = 'left';
+                            ctx.fillText('定性维度 (30%) →', x + 12, chart.chartArea.bottom + 50);
+                        }
+                        
+                        ctx.restore();
+                    });
+                    
+                    // 为第一名的维度添加金色星标 - 绘制在最后确保在最上层
+                    const pointMeta = chart.getDatasetMeta(1);
+                    pointMeta.data.forEach((point, index) => {
+                        const dim = dimensions[index];
+                        if (dim.rank === 1 && dim.aus === dim.max) {
+                            ctx.save();
+                            ctx.fillStyle = '#FFD700';
+                            ctx.font = 'bold 16px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText('★', point.x, point.y);
+                            ctx.restore();
+                        }
+                    });
+                }
+            }]
+        });
+    }
+}
+
+            
+    // Slide 5 - 六国对标分析 (currentSlide === 4)
+    else if (currentSlide === 4) {
+        const newSlide = slides[currentSlide];
+        const tabs = newSlide.querySelectorAll('.country-tab');
+        const contents = newSlide.querySelectorAll('.country-content');
+        let activeCountry = 'usa';
+
+function createCountryChart(chartId, country) {
+    const canvas = document.getElementById(chartId);
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    const data = dimensionsData[country];
+    if (!data) return;
+    
+    // 分离定量和定性维度
+    const dimensions = data.data;
+    const quantDims = dimensions.filter(d => d.type === '定量').sort((a, b) => a.rank - b.rank);
+    const qualDims = dimensions.filter(d => d.type === '定性').sort((a, b) => a.rank - b.rank);
+    const sortedDims = [...quantDims, ...qualDims];
+    
+    function getBarColor(rank) {
+        if (rank === 1) return 'rgba(40, 167, 69, 0.85)';
+        if (rank === 2) return 'rgba(102, 187, 106, 0.65)';
+        if (rank === 3) return 'rgba(165, 214, 167, 0.50)';
+        return 'rgba(255, 255, 255, 1)';
+    }
+
+    function getBorderColor(rank) {
+        if (rank === 1) return 'rgba(40, 167, 69, 1)';
+        if (rank === 2) return 'rgba(102, 187, 106, 1)';
+        if (rank === 3) return 'rgba(165, 214, 167, 1)';
+        return 'rgba(200, 200, 200, 1)';
+    }
+    
+    // ✅ 莫兰迪色系配色方案
+    const countryColors = {
+        'usa': { 
+            bg: '#7B8FA3',      // 莫兰迪蓝灰
+            border: '#FFFFFF',
+            name: '美国'
+        },
+        'uk': { 
+            bg: '#B5838D',      // 莫兰迪玫瑰
+            border: '#FFFFFF',
+            name: '英国'
+        },
+        'eu': { 
+            bg: '#9B8EA4',      // 莫兰迪紫灰
+            border: '#FFFFFF',
+            name: '欧盟'
+        },
+        'sg': { 
+            bg: '#C88E8A',      // 莫兰迪珊瑚粉
+            border: '#FFFFFF',
+            name: '新加坡'
+        },
+        'uae': { 
+            bg: '#8B9D8B',      // 莫兰迪橄榄绿
+            border: '#FFFFFF',
+            name: '阿联酋'
+        },
+        'saudi': { 
+            bg: '#7C9082',      // 莫兰迪松石绿
+            border: '#FFFFFF',
+            name: '沙特'
+        }
+    };
+    
+    const currentColor = countryColors[country] || { bg: '#9C8EA4', border: '#FFFFFF', name: data.name };
+    
+    const barColors = sortedDims.map(d => getBarColor(d.rank));
+    const borderColors = sortedDims.map(d => getBorderColor(d.rank));
+    
+    charts[chartId] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: sortedDims.map(d => d.name.split('\n')),
+            datasets: [
+                {
+                    label: '各维度最高分',
+                    data: sortedDims.map(d => d.max),
+                    backgroundColor: barColors,
+                    borderColor: borderColors,
+                    borderWidth: 2,
+                    barThickness: 38,
+                    order: 2
+                },
+                {
+                    label: data.name + '得分',
+                    data: sortedDims.map(d => d.score),
+                    type: 'scatter',
+                    backgroundColor: currentColor.bg,
+                    borderColor: currentColor.border,
+                    pointStyle: 'circle',
+                    pointRadius: 8,
+                    pointHoverRadius: 10,
+                    borderWidth: 3,
+                    pointBorderWidth: 3,
+                    order: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: {
+                padding: { top: 25, bottom: 30, left: 10, right: 10 }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: data.name + '13维度综合表现对标分析(定量+定性) - 按排名排序',
+                    font: { size: 17, family: "'Microsoft YaHei'", weight: 'bold' },
+                    padding: { top: 0, bottom: 18 },
+                    color: '#1e3c72'
+                },
+                legend: {
+                    display: true,
+                    position: 'top',
+                    align: 'center',
+                    labels: {
+                        font: { size: 11, family: "'Microsoft YaHei'" },
+                        padding: 12,
+                        boxWidth: 16,
+                        boxHeight: 16,
+                        usePointStyle: true,
+                        generateLabels: function(chart) {
+                            return [
+                                {
+                                    text: '各维度最高分',
+                                    fillStyle: 'rgba(240, 240, 240, 1)',
+                                    strokeStyle: 'rgba(200, 200, 200, 1)',
+                                    lineWidth: 2
+                                },
+                                {
+                                    text: data.name + '得分',
+                                    fillStyle: currentColor.bg,
+                                    pointStyle: 'circle'
+                                },
+                                {
+                                    text: '🏆 排名第1 (深绿色)',
+                                    fillStyle: 'rgba(40, 167, 69, 0.85)',
+                                    strokeStyle: 'rgba(40, 167, 69, 1)',
+                                    lineWidth: 2
+                                },
+                                {
+                                    text: '🥈 排名第2 (中绿色)',
+                                    fillStyle: 'rgba(102, 187, 106, 0.65)',
+                                    strokeStyle: 'rgba(102, 187, 106, 1)',
+                                    lineWidth: 2
+                                },
+                                {
+                                    text: '🥉 排名第3 (浅绿色)',
+                                    fillStyle: 'rgba(165, 214, 167, 0.50)',
+                                    strokeStyle: 'rgba(165, 214, 167, 1)',
+                                    lineWidth: 2
+                                },
+                                {
+                                    text: '其他排名 (白色)',
+                                    fillStyle: 'rgba(255, 255, 255, 1)',
+                                    strokeStyle: 'rgba(200, 200, 200, 1)',
+                                    lineWidth: 2
+                                }
+                            ];
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    backgroundColor: 'rgba(0, 0, 0, 0.88)',
+                    padding: 14,
+                    titleFont: { size: 13, family: "'Microsoft YaHei'", weight: 'bold' },
+                    bodyFont: { size: 12, family: "'Microsoft YaHei'" },
+                    bodySpacing: 6,
+                    displayColors: false,
+                    callbacks: {
+                        title: function(context) {
+                            const index = context[0].dataIndex;
+                            const dim = sortedDims[index];
+                            return dim.name.replace('\n', '') + ` (${dim.type})`;
+                        },
+                        label: function(context) {
+                            const index = context.dataIndex;
+                            const dim = sortedDims[index];
+                            
+                            if (context.datasetIndex === 0) {
+                                return `最高分: ${dim.max.toFixed(2)}`;
+                            } else {
+                                const percentage = ((dim.score / dim.max) * 100).toFixed(1);
+                                let rankIcon = '';
+                                if (dim.rank === 1) rankIcon = '🏆';
+                                else if (dim.rank === 2) rankIcon = '🥈';
+                                else if (dim.rank === 3) rankIcon = '🥉';
+                                
+                                return [
+                                    `${data.name}: ${dim.score.toFixed(2)}分`,
+                                    `完成度: ${percentage}%`,
+                                    `${rankIcon} 排名第${dim.rank}`
+                                ];
+                            }
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 35,
+                    title: {
+                        display: true,
+                        text: '得分',
+                        font: { size: 13, family: "'Microsoft YaHei'", weight: 'bold' },
+                        color: '#333'
+                    },
+                    ticks: {
+                        font: { size: 11, family: "'Microsoft YaHei'" },
+                        stepSize: 5,
+                        color: '#666'
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.06)',
+                        lineWidth: 1
+                    }
+                },
+                x: {
+                    ticks: {
+                        font: { size: 10.5, family: "'Microsoft YaHei'", lineHeight: 1.3 },
+                        color: '#333',
+                        autoSkip: false,
+                        maxRotation: 0,
+                        minRotation: 0,
+                        padding: 10
+                    },
+                    grid: { display: false }
+                }
+            },
+            animation: {
+                duration: 1200,
+                easing: 'easeInOutQuart'
+            }
+        },
+        plugins: [{
+            id: 'customDividerAndStars',
+            afterDatasetsDraw: function(chart) {
+                const ctx = chart.ctx;
+                const meta = chart.getDatasetMeta(0);
+                
+                // 绘制定量/定性分隔线
+                if (meta.data.length > 8) {
+                    const bar = meta.data[7];
+                    const nextBar = meta.data[8];
+                    const x = bar.x + (nextBar.x - bar.x) / 2;
+                    
+                    ctx.save();
+                    ctx.strokeStyle = 'rgba(156, 39, 176, 0.5)';
+                    ctx.lineWidth = 2.5;
+                    ctx.setLineDash([10, 5]);
+                    ctx.beginPath();
+                    ctx.moveTo(x, chart.chartArea.top);
+                    ctx.lineTo(x, chart.chartArea.bottom + 20);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                    
+                    ctx.fillStyle = '#667eea';
+                    ctx.font = 'bold 13px Microsoft YaHei';
+                    ctx.textAlign = 'right';
+                    ctx.textBaseline = 'top';
+                    ctx.fillText('← 定量维度 (70%)', x - 12, chart.chartArea.bottom + 50);
+                    
+                    ctx.fillStyle = '#28a745';
+                    ctx.textAlign = 'left';
+                    ctx.fillText('定性维度 (30%) →', x + 12, chart.chartArea.bottom + 50);
+                    ctx.restore();
+                }
+                
+                // ✅ 为第一名的维度添加金色五角星
+                const pointMeta = chart.getDatasetMeta(1);
+                pointMeta.data.forEach((point, index) => {
+                    const dim = sortedDims[index];
+                    // 判断：该国在此维度排名第一 且 得分等于最高分
+                    if (dim.rank === 1 && dim.score === dim.max) {
+                        ctx.save();
+                        ctx.fillStyle = '#FFD700';  // 金色
+                        ctx.font = 'bold 16px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText('★', point.x, point.y);
+                        ctx.restore();
+                    }
+                });
+            }
+        }]
+    });
+}
+
+        function switchTabAndCreateChart(tabElement) {
+            const country = tabElement.getAttribute('data-country');
+            if (country === activeCountry && charts[country + 'Chart']) return;
+            activeCountry = country;
+
+            tabs.forEach(t => {
+                t.style.background = '#f0f0f0';
+                t.style.color = '#333';
+                t.classList.remove('active');
+            });
+            tabElement.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            tabElement.style.color = 'white';
+            tabElement.classList.add('active');
+            
+            contents.forEach(c => c.style.display = 'none');
+            newSlide.querySelector('#' + country + '-content').style.display = 'block';
+
+            // 销毁其他图表
+            Object.keys(dimensionsData).forEach(key => {
+                if (key !== country) destroyChart(key + 'Chart');
+            });
+
+            createCountryChart(country + 'Chart', country);
+        }
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                switchTabAndCreateChart(this);
+            });
+        });
+
+        // 初始创建
+        const initialTab = newSlide.querySelector('.country-tab.active');
+        if (initialTab) {
+            switchTabAndCreateChart(initialTab);
+        }
+    }
+            
+}
+
+        // 键盘导航
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                showSlide(currentSlide + 1);
+            }
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                showSlide(currentSlide - 1);
+            }
+            if (e.key === 'Home') {
+                e.preventDefault();
+                showSlide(0);
+            }
+            if (e.key === 'End') {
+                e.preventDefault();
+                showSlide(totalSlides - 1);
+            }
+        });
+
+        // 触摸滑动支持
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            const swipeThreshold = 50;
+            if (touchEndX < touchStartX - swipeThreshold) showSlide(currentSlide + 1);
+            if (touchEndX > touchStartX + swipeThreshold) showSlide(currentSlide - 1);
+        });
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (prevBtn) prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+            if (nextBtn) nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+            
+            showSlide(0);
+            setTimeout(initCurrentSlideCharts, 100);
+        });
+        
+        // 窗口大小改变时重绘图表
+        window.addEventListener('resize', () => {
+            Object.values(charts).forEach(chart => {
+                if (chart) chart.resize();
+            });
+        });
+    </script>
+</body>
+</html>
